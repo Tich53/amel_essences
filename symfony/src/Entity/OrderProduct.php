@@ -2,10 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\OrderProductRepository;
+use ApiPlatform\Metadata\Get;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use App\Repository\OrderProductRepository;
 
 #[ORM\Entity(repositoryClass: OrderProductRepository::class)]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection()
+    ]
+)]
 class OrderProduct
 {
     #[ORM\Id]
