@@ -23,7 +23,7 @@ class MainOrder
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column]
-    private ?float $total_price = null;
+    private ?float $amount = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $closing_date = null;
@@ -65,14 +65,14 @@ class MainOrder
         return $this;
     }
 
-    public function getTotalPrice(): ?float
+    public function getAmount(): ?float
     {
-        return $this->total_price;
+        return $this->amount;
     }
 
-    public function setTotalPrice(float $total_price): self
+    public function setAmount(float $amount): self
     {
-        $this->total_price = $total_price;
+        $this->amount = $amount;
 
         return $this;
     }

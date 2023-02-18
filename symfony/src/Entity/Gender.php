@@ -15,7 +15,7 @@ class Gender
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 45)]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'gender', targetEntity: Product::class)]

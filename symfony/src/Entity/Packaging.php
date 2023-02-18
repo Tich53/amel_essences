@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PackagingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PackagingRepository::class)]
@@ -21,6 +23,14 @@ class Packaging
 
     #[ORM\Column(length: 10)]
     private ?string $capacity_unit = null;
+
+    #[ORM\OneToMany(mappedBy: 'packaging', targetEntity: ProductPackaging::class)]
+    private Collection $productPackagings;
+
+    public function __construct()
+    {
+        $this->productPackagings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -59,6 +69,36 @@ class Packaging
     public function setCapacityUnit(string $capacity_unit): self
     {
         $this->capacity_unit = $capacity_unit;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductPackaging>
+     */
+    public function getProductPackagings(): Collection
+    {
+        return $this->productPackagings;
+    }
+
+    public function addProductPackaging(ProductPackaging $productPackaging): self
+    {
+        if (!$this->productPackagings->contains($productPackaging)) {
+            $this->productPackagings->add($productPackaging);
+            $productPackaging->setPackaging($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductPackaging(ProductPackaging $productPackaging): self
+    {
+        if ($this->productPackagings->removeElement($productPackaging)) {
+            // set the owning side to null (unless already changed)
+            if ($productPackaging->getPackaging() === $this) {
+                $productPackaging->setPackaging(null);
+            }
+        }
 
         return $this;
     }

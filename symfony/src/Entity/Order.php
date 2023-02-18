@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,14 +17,14 @@ class Order
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 45)]
+    #[ORM\Column(length: 255)]
     private ?string $reference = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
     #[ORM\Column]
-    private ?float $total_price = null;
+    private ?float $amount = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
@@ -30,6 +32,14 @@ class Order
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?MainOrder $main_order = null;
+
+    #[ORM\OneToMany(mappedBy: 'order_number', targetEntity: OrderProduct::class)]
+    private Collection $orderProducts;
+
+    public function __construct()
+    {
+        $this->orderProducts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -60,14 +70,14 @@ class Order
         return $this;
     }
 
-    public function getTotalPrice(): ?float
+    public function getAmount(): ?float
     {
-        return $this->total_price;
+        return $this->amount;
     }
 
-    public function setTotalPrice(float $total_price): self
+    public function setAmount(float $amount): self
     {
-        $this->total_price = $total_price;
+        $this->amount = $amount;
 
         return $this;
     }
@@ -92,6 +102,36 @@ class Order
     public function setMainOrder(?MainOrder $main_order): self
     {
         $this->main_order = $main_order;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderProduct>
+     */
+    public function getOrderProducts(): Collection
+    {
+        return $this->orderProducts;
+    }
+
+    public function addOrderProduct(OrderProduct $orderProduct): self
+    {
+        if (!$this->orderProducts->contains($orderProduct)) {
+            $this->orderProducts->add($orderProduct);
+            $orderProduct->setOrderNumber($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderProduct(OrderProduct $orderProduct): self
+    {
+        if ($this->orderProducts->removeElement($orderProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($orderProduct->getOrderNumber() === $this) {
+                $orderProduct->setOrderNumber(null);
+            }
+        }
 
         return $this;
     }

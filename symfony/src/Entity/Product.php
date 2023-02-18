@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
@@ -23,6 +25,18 @@ class Product
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Gender $gender = null;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderProduct::class)]
+    private Collection $orderProducts;
+
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductPackaging::class)]
+    private Collection $productPackagings;
+
+    public function __construct()
+    {
+        $this->orderProducts = new ArrayCollection();
+        $this->productPackagings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,6 +75,66 @@ class Product
     public function setGender(?Gender $gender): self
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, OrderProduct>
+     */
+    public function getOrderProducts(): Collection
+    {
+        return $this->orderProducts;
+    }
+
+    public function addOrderProduct(OrderProduct $orderProduct): self
+    {
+        if (!$this->orderProducts->contains($orderProduct)) {
+            $this->orderProducts->add($orderProduct);
+            $orderProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderProduct(OrderProduct $orderProduct): self
+    {
+        if ($this->orderProducts->removeElement($orderProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($orderProduct->getProduct() === $this) {
+                $orderProduct->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductPackaging>
+     */
+    public function getProductPackagings(): Collection
+    {
+        return $this->productPackagings;
+    }
+
+    public function addProductPackaging(ProductPackaging $productPackaging): self
+    {
+        if (!$this->productPackagings->contains($productPackaging)) {
+            $this->productPackagings->add($productPackaging);
+            $productPackaging->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductPackaging(ProductPackaging $productPackaging): self
+    {
+        if ($this->productPackagings->removeElement($productPackaging)) {
+            // set the owning side to null (unless already changed)
+            if ($productPackaging->getProduct() === $this) {
+                $productPackaging->setProduct(null);
+            }
+        }
 
         return $this;
     }
