@@ -18,7 +18,7 @@ class ProductPackaging
     private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'productPackagings')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Packaging $packaging = null;
 
     #[ORM\Column]
