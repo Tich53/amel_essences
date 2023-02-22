@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Repository\PackagingRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: PackagingRepository::class)]
 #[ApiResource(
@@ -19,6 +20,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 )]
 class Packaging
 {
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

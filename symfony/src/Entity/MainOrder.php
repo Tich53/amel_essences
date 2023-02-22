@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Repository\MainOrderRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: MainOrderRepository::class)]
 #[ApiResource(
@@ -20,6 +21,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 )]
 class MainOrder
 {
+    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
