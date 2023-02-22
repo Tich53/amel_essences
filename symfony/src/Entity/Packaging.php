@@ -10,6 +10,7 @@ use App\Repository\PackagingRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: PackagingRepository::class)]
 #[ApiResource(
@@ -21,6 +22,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Packaging
 {
     use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

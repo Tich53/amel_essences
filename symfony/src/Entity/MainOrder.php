@@ -11,6 +11,7 @@ use App\Repository\MainOrderRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: MainOrderRepository::class)]
 #[ApiResource(
@@ -22,6 +23,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class MainOrder
 {
     use TimestampableEntity;
+    use SoftDeleteableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
