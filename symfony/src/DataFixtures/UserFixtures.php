@@ -18,7 +18,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         $admin = new User();
         $admin->setEmail("amelie@donkey.school");
-        $admin->setPassword("");
+        $admin->setPlainPassword('0000');
         $admin->setRoles([self::ROLE_ADMIN]);
         $admin->setName("Amélie");
         $admin->setSurName("Legeay");
