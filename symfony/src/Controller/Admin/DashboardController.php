@@ -8,12 +8,23 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use App\Entity\Category;
+use App\Entity\Gender;
+use App\Entity\MainOrder;
+use App\Entity\Order;
+use App\Entity\OrderProduct;
+use App\Entity\Packaging;
+use App\Entity\Product;
+use App\Entity\ProductPackaging;
+use App\Entity\Status;
+use App\Entity\User;
+
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return parent::index();
+        // return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
         //
@@ -29,18 +40,27 @@ class DashboardController extends AbstractDashboardController
         // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
         // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
         //
-        // return $this->render('some/path/my-dashboard.html.twig');
+        return $this->render('/Admin/dashboard.html.twig');
     }
 
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Symfony');
+            ->setTitle('Cosmetic sale');
     }
 
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+        yield MenuItem::linkToCrud('Catégories', 'fas fa-list', Category::class);
+        yield MenuItem::linkToCrud('Genres', 'fas fa-list', Gender::class);
+        yield MenuItem::linkToCrud('Commandes  principales', 'fas fa-list', MainOrder::class);
+        yield MenuItem::linkToCrud('Commandes', 'fas fa-lists', Order::class);
+        yield MenuItem::linkToCrud('Order product', 'fas fa-list', OrderProduct::class);
+        yield MenuItem::linkToCrud('Conditionnements', 'fas fa-list', Packaging::class);
+        yield MenuItem::linkToCrud('Produits', 'fas fa-list', Product::class);
+        yield MenuItem::linkToCrud('Produits et emballages', 'fas fa-list', ProductPackaging::class);
+        yield MenuItem::linkToCrud('Status', 'fas fa-list', Status::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
     }
 }
