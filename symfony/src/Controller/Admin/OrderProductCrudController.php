@@ -4,12 +4,21 @@ namespace App\Controller\Admin;
 
 use App\Entity\OrderProduct;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 
 class OrderProductCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
         return OrderProduct::class;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            /* ->renderSidebarMinimized() */
+            ->setEntityPermission('ROLE_ADMIN');
+            // ->setPaginatorPageSize(20);
     }
 
     /*
