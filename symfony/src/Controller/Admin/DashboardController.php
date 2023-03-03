@@ -53,14 +53,14 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Catégories', 'fas fa-list', Category::class);
-        yield MenuItem::linkToCrud('Genres', 'fas fa-list', Gender::class);
-        yield MenuItem::linkToCrud('Commandes  principales', 'fas fa-list', MainOrder::class);
-        yield MenuItem::linkToCrud('Commandes', 'fas fa-lists', Order::class);
-        yield MenuItem::linkToCrud('Order product', 'fas fa-list', OrderProduct::class);
-        yield MenuItem::linkToCrud('Conditionnements', 'fas fa-list', Packaging::class);
-        yield MenuItem::linkToCrud('Produits', 'fas fa-list', Product::class);
+        yield MenuItem::linkToCrud('Genres', 'fa-solid fa-venus-mars', Gender::class);
+        yield MenuItem::linkToCrud('Commandes  principales', "fa-sharp fa-solid fa-cart-shopping", MainOrder::class);
+        yield MenuItem::linkToCrud('Commandes', "fa-solid fa-bag-shopping", Order::class);
+        yield MenuItem::linkToCrud('Order product', 'fa-brands fa-first-order', OrderProduct::class);
+        yield MenuItem::linkToCrud('Conditionnements', 'fa-solid fa-box-open', Packaging::class);
+        yield MenuItem::linkToCrud('Produits', 'fa-solid fa-bottle-droplet', Product::class);
         yield MenuItem::linkToCrud('Produits et emballages', 'fas fa-list', ProductPackaging::class);
-        yield MenuItem::linkToCrud('Status', 'fas fa-list', Status::class);
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-list', User::class);
+        yield MenuItem::linkToCrud('Status', 'fa-solid fa-check', Status::class);
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-users', User::class);
     }
 }
