@@ -1,9 +1,27 @@
-<div>
-  <label for="email">Email </label>
-  <input id="email" type="text" placeholder="Entrez votre adresse email ici" [formControl]="email">
-
-  <label for="password">Mot de passe </label>
-  <input id="password" type="text" placeholder="Entrez votre mot de passe ici" [formControl]="password">
-
-  <button (click)="click()">Se connecter</button>
-</div>
+<form class="fit-content p-20" action="">
+  <div>
+    <label class="col-form-label mt-4" for="email">Email </label>
+    <input
+      class="form-control"
+      id="email"
+      type="text"
+      placeholder="Entrez votre adresse email ici"
+      [formControl]="email"
+    />
+  </div>
+  <div class="m-t-5">
+    <label class="form-label" for="password">Mot de passe </label>
+    <input
+      class="form-control"
+      id="password"
+      type="text"
+      placeholder="Entrez votre mot de passe ici"
+      [formControl]="password"
+    />
+  </div>
+  <div class="flex-center">
+    <button class="btn btn-primary m-t-20" (click)="click()">
+      Se connecter
+    </button>
+  </div>
+</form>
