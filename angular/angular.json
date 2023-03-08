@@ -31,7 +31,7 @@
               "src/styles.scss",
               "src/assets/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css",
-              "bootswatch/dist/flatly/bootstrap.min.css"
+              "bootswatch/dist/journal/bootstrap.min.css"
             ],
             "scripts": []
           },
