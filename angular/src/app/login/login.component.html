@@ -1,5 +1,9 @@
 <div class="flex-center-center-100vh">
-  <form class="fit-content p-20" action="">
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit()"
+    class="fit-content p-20"
+  >
     <div>
       <label class="col-form-label mt-4" for="email">Email </label>
       <input
@@ -7,7 +11,7 @@
         id="email"
         type="text"
         placeholder="Entrez votre adresse email ici"
-        [formControl]="email"
+        formControlName="email"
       />
     </div>
     <div class="m-t-5">
@@ -15,15 +19,13 @@
       <input
         class="form-control"
         id="password"
-        type="text"
+        type="password"
         placeholder="Entrez votre mot de passe ici"
-        [formControl]="password"
+        formControlName="password"
       />
     </div>
     <div class="flex-center">
-      <button class="btn btn-primary m-t-20" (click)="click()">
-        Se connecter
-      </button>
+      <button class="btn btn-primary m-t-20">Se connecter</button>
     </div>
   </form>
 </div>

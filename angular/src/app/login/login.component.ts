@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,14 +7,17 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  email = new FormControl('');
-  password = new FormControl('');
+  loginForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  click() {
-    console.log('button works !');
+  onSubmit() {
+    // TODO: Use EventEmitter with form value
+    console.warn(this.loginForm.value);
   }
 }
