@@ -1,31 +1,19 @@
-<div class="flex-center-center-100vh">
-  <form
-    [formGroup]="loginForm"
-    (ngSubmit)="onSubmit()"
-    class="fit-content p-20"
-  >
+<app-navbar></app-navbar>
+
+<div class="flex-center-center-60vh">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="fit-content p-20">
     <div>
       <label class="col-form-label mt-4" for="email">Email </label>
-      <input
-        class="form-control"
-        id="email"
-        type="text"
-        placeholder="Entrez votre adresse email ici"
-        formControlName="email"
-      />
+      <input class="form-control" id="email" type="text" placeholder="Entrez votre adresse email ici"
+        formControlName="email" />
     </div>
     <div class="m-t-5">
       <label class="form-label" for="password">Mot de passe </label>
-      <input
-        class="form-control"
-        id="password"
-        type="password"
-        placeholder="Entrez votre mot de passe ici"
-        formControlName="password"
-      />
+      <input class="form-control" id="password" type="password" placeholder="Entrez votre mot de passe ici"
+        formControlName="password" />
     </div>
     <div class="flex-center">
-      <button class="btn btn-primary m-t-20">Se connecter</button>
+      <button type="submit" class="btn btn-primary m-t-20">Se connecter</button>
     </div>
     <div class="m-t-20">
       <a href="">Pas de compte? Inscrivez-vous ici</a>
