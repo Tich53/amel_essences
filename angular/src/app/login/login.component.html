@@ -6,13 +6,11 @@
     (ngSubmit)="onSubmit()"
     class="fit-content p-20"
   >
-    <div *ngIf="loginForm.valueChanges">
-      <div *ngIf="this.loginFailed" class="invalid-feedback d-block">
-        * Email ou mot de passe incorrect
-      </div>
+    <div *ngIf="this.loginFailed" class="invalid-feedback d-block">
+      * Email ou mot de passe incorrect
     </div>
-    <div>
-      <label class="col-form-label" for="email">Email </label>
+    <div class="m-t-5">
+      <label class="form-label" for="email">Email </label>
       <input
         [ngClass]="loginForm.get('email')?.invalid ? 'is-invalid' : undefined"
         class="form-control"
