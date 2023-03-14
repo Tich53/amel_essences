@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../_services/_authentication/auth.service';
@@ -12,11 +12,13 @@ import { StorageService } from '../_services/_authentication/storage.service';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   loginForm = new FormGroup({
-    email: new FormControl<string>(''),
-    password: new FormControl<string>(''),
+    email: new FormControl<string>('', [Validators.required]),
+    password: new FormControl<string>('', [Validators.required]),
   });
+
+  loginFormSubmitted = false;
   loginSubscription?: Subscription;
-  loginError = false;
+  loginFailed = false;
 
   constructor(
     private authService: AuthService,
@@ -27,6 +29,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.storageService.isLoggedIn()) {
       // window.location.href = '/home';
     }
+
+    // Remove the loginFailed error message when the user change the value of one field
+    this.getEmailCtrl()?.valueChanges.subscribe(() => {
+      this.loginFailed = false;
+    });
+    this.getPasswordCtrl()?.valueChanges.subscribe(() => {
+      this.loginFailed = false;
+    });
   }
 
   ngOnDestroy(): void {
@@ -39,6 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * Dans ce cas, redirection vers la page d'accueil
    */
   onSubmit() {
+    this.loginFormSubmitted = true;
     this.loginSubscription = this.authService
       .login(
         this.loginForm.value.email as string,
@@ -50,8 +61,16 @@ export class LoginComponent implements OnInit, OnDestroy {
           // window.location.href = '/home';
         },
         error: () => {
-          this.loginError = true;
+          this.loginFailed = true;
         },
       });
+  }
+
+  getEmailCtrl() {
+    return this.loginForm.get('email');
+  }
+
+  getPasswordCtrl() {
+    return this.loginForm.get('password');
   }
 }
