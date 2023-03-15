@@ -1,0 +1,122 @@
+<app-navbar></app-navbar>
+
+<div class="flex-center-center-80vh">
+  <form
+    [formGroup]="registerForm"
+    (ngSubmit)="onSubmit()"
+    class="fit-content p-20"
+  >
+    <div class="m-t-5">
+      <label class="form-label" for="name">Prénom</label>
+      <input
+        [ngClass]="
+          registerForm.get('name')?.invalid ? 'is-invalid' : 'is-valid'
+        "
+        class="form-control"
+        id="name"
+        type="text"
+        placeholder="Entrez votre Prénom ici"
+        formControlName="name"
+      />
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="password">Nom</label>
+      <input
+        [ngClass]="
+          registerForm.get('surname')?.invalid ? 'is-invalid' : 'is-valid'
+        "
+        class="form-control"
+        id="surname"
+        type="surname"
+        placeholder="Entrez votre Nom ici"
+        formControlName="surname"
+      />
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="password">Adresse</label>
+      <input
+        [ngClass]="
+          registerForm.get('address')?.invalid ? 'is-invalid' : 'is-valid'
+        "
+        class="form-control"
+        id="address"
+        type="address"
+        placeholder="Entrez votre adresse ici"
+        formControlName="address"
+      />
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="postCode">Code postal</label>
+      <input
+        [ngClass]="
+          registerForm.get('postCode')?.invalid ? 'is-invalid' : 'is-valid'
+        "
+        class="form-control"
+        id="postCode"
+        type="postCode"
+        placeholder="Entrez votre code postal ici"
+        formControlName="postCode"
+      />
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="city">Ville</label>
+      <input
+        [ngClass]="
+          registerForm.get('city')?.invalid ? 'is-invalid' : 'is-valid'
+        "
+        class="form-control"
+        id="city"
+        type="city"
+        placeholder="Entrez votre ville ici"
+        formControlName="city"
+      />
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="country">Pays</label>
+      <input
+        [ngClass]="
+          registerForm.get('country')?.invalid ? 'is-invalid' : 'is-valid'
+        "
+        class="form-control"
+        id="country"
+        type="country"
+        formControlName="country"
+      />
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="phone">Téléphone</label>
+      <input
+        [ngClass]="
+          registerForm.get('phone')?.invalid ? 'is-invalid' : 'is-valid'
+        "
+        class="form-control"
+        id="phone"
+        type="phone"
+        placeholder="Entrez votre numéro de téléphone ici"
+        formControlName="phone"
+      />
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="password">Mot de passe</label>
+      <input
+        [ngClass]="
+          registerForm.get('password')?.invalid ? 'is-invalid' : 'is-valid'
+        "
+        class="form-control"
+        id="password"
+        type="password"
+        placeholder="Entrez votre mot de passe ici"
+        formControlName="password"
+      />
+    </div>
+    <div class="flex-center">
+      <button
+        [disabled]="registerForm.invalid"
+        type="submit"
+        class="btn btn-primary m-t-20"
+      >
+        Valider
+      </button>
+    </div>
+  </form>
+</div>
