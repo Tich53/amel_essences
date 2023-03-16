@@ -17,8 +17,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   });
 
   loginFormSubmitted = false;
+  loginError = false;
   loginSubscription?: Subscription;
-  loginFailed = false;
+  emailSubscription?: Subscription;
+  passwordSubscription?: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -30,17 +32,21 @@ export class LoginComponent implements OnInit, OnDestroy {
       // window.location.href = '/home';
     }
 
-    // Remove the loginFailed error message when the user change the value of one field
-    this.getEmailCtrl()?.valueChanges.subscribe(() => {
-      this.loginFailed = false;
+    // Remove the loginError error message when the user change the value of one field
+    this.emailSubscription = this.getEmailCtrl()?.valueChanges.subscribe(() => {
+      this.loginError = false;
     });
-    this.getPasswordCtrl()?.valueChanges.subscribe(() => {
-      this.loginFailed = false;
-    });
+    this.passwordSubscription = this.getPasswordCtrl()?.valueChanges.subscribe(
+      () => {
+        this.loginError = false;
+      }
+    );
   }
 
   ngOnDestroy(): void {
     this.loginSubscription?.unsubscribe();
+    this.emailSubscription?.unsubscribe();
+    this.passwordSubscription?.unsubscribe();
   }
 
   /**
@@ -61,7 +67,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           // window.location.href = '/home';
         },
         error: () => {
-          this.loginFailed = true;
+          this.loginError = true;
         },
       });
   }

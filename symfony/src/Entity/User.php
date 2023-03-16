@@ -53,25 +53,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[NotBlank()]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
     private ?string $surname = null;
 
     #[ORM\Column(length: 255)]
     private ?string $address = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 5)]
     private ?string $post_code = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
     private ?string $city = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 60)]
     private ?string $country = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 10)]
     private ?string $phone = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
