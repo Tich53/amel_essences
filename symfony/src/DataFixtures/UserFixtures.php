@@ -26,7 +26,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $admin->setPostCode("53300");
         $admin->setCity("Oisseau");
         $admin->setCountry(self::FRANCE);
-        $admin->setPhone('02 43 00 95 53');
+        $admin->setPhone('0243009553');
         $admin->setStatus($this->getReference(StatusFixtures::STATUS_VALIDATED));
         $manager->persist($admin);
 
@@ -40,7 +40,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $richard->setPostCode("53100");
         $richard->setCity("Mayenne");
         $richard->setCountry(self::FRANCE);
-        $richard->setPhone('06 95 93 68 12');
+        $richard->setPhone('0695936812');
         $richard->setStatus($this->getReference(StatusFixtures::STATUS_PENDING));
         $manager->persist($richard);
 
@@ -54,7 +54,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $claudine->setPostCode("53100");
         $claudine->setCity("Mayenne");
         $claudine->setCountry(self::FRANCE);
-        $claudine->setPhone('06 95 93 68 13');
+        $claudine->setPhone('0695936813');
         $claudine->setStatus($this->getReference(StatusFixtures::STATUS_VALIDATED));
         $manager->persist($claudine);
 

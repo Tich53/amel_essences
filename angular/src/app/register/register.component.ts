@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ApiService } from '../_services/_api/api.service';
 
 @Component({
   selector: 'app-register',
@@ -76,7 +77,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   passwordSubscription?: Subscription;
   confirmedPasswordSubscription?: Subscription;
 
-  constructor() {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.registerForm.get('country')?.disable();
@@ -185,7 +186,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.registerForm.get('confirmedPassword')?.value
     ) {
       this.isNotSamePassword = true;
-      return;
+    } else {
+      this.apiService
+        .addUser({
+          email: this.registerForm.get('email')?.value as string,
+          plainPassword: this.registerForm.get('password')?.value as string,
+          name: this.registerForm.get('name')?.value as string,
+          surname: this.registerForm.get('surname')?.value as string,
+          address: this.registerForm.get('address')?.value as string,
+          city: this.registerForm.get('city')?.value as string,
+          country: this.registerForm.get('country')?.value as string,
+          phone: this.registerForm.get('phone')?.value as string,
+          postCode: this.registerForm.get('postCode')?.value as string,
+        })
+        .subscribe((result) => console.log(result));
     }
   }
 
