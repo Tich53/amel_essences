@@ -97,10 +97,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->orders = new ArrayCollection();
-
-        if ($this->status === null) {
-            $this->setStatus($this->getStatus(2));
-        }
     }
 
     public function getId(): ?int
