@@ -1,0 +1,20 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dialog-title{
+  font-size: 45px;
+  text-align: center;
+}
+
+.dialog-content{
+  font-size: 25px;
+  text-align: center;
+}
+
+.dialog-button{
+  width: 180px;
+  height: 100px;
+}

@@ -104,7 +104,8 @@
         * Les mots de passes sont différents, veuillez réessayer !
       </div>
       <div class="flex-end">
-        <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary m-t-20 m-r-5">
+        <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary m-t-20 m-r-5"
+          (click)="openDialog('200000ms', '2000ms')">
           Valider
         </button>
         <button type="button" [routerLink]="['/login']" class="btn btn-secondary m-t-20">

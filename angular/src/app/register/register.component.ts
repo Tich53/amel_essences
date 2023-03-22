@@ -1,8 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import { ApiService } from '../_services/_api/api.service';
 
+/**
+ * @title Dialog Animations
+ */
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -76,8 +81,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
   emailSubscription?: Subscription;
   passwordSubscription?: Subscription;
   confirmedPasswordSubscription?: Subscription;
+  addUserSubscription?: Subscription;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.registerForm.get('country')?.disable();
@@ -178,6 +184,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.emailSubscription?.unsubscribe();
     this.passwordSubscription?.unsubscribe();
     this.confirmedPasswordSubscription?.unsubscribe();
+    this.addUserSubscription?.unsubscribe;
   }
 
   onSubmit(): void {
@@ -187,7 +194,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     ) {
       this.isNotSamePassword = true;
     } else {
-      this.apiService
+      this.addUserSubscription = this.apiService
         .addUser({
           email: this.registerForm.get('email')?.value as string,
           plainPassword: this.registerForm.get('password')?.value as string,
@@ -232,5 +239,32 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
   getConfirmedPasswordCtrl() {
     return this.registerForm.get('confirmedPassword');
+  }
+
+  openDialog(
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.height = '300px';
+    dialogConfig.width = '900px';
+    dialogConfig.position = {
+      top: 'calc(50% - 70px - 150px)',
+      left: 'calc(50% - 450px)',
+    };
+    dialogConfig.enterAnimationDuration;
+    dialogConfig.exitAnimationDuration;
+
+    dialogConfig.data = {
+      name: this.registerForm.get('name')?.value,
+    };
+
+    this.dialog.open(RegisterDialogComponent, dialogConfig);
+
+    const dialogRef = this.dialog.open(RegisterDialogComponent, dialogConfig);
   }
 }
