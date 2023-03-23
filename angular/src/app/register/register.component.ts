@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import { ApiService } from '../_services/_api/api.service';
@@ -15,24 +16,24 @@ import { ApiService } from '../_services/_api/api.service';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm = new FormGroup({
-    name: new FormControl<string>('', [
+    name: new FormControl<string>('Amélie', [
       Validators.required,
       Validators.maxLength(60),
     ]),
-    surname: new FormControl<string>('', [
+    surname: new FormControl<string>('Legeay', [
       Validators.required,
       Validators.maxLength(60),
     ]),
-    address: new FormControl<string>('', [
+    address: new FormControl<string>('rue de Chatillon', [
       Validators.required,
       Validators.maxLength(255),
     ]),
-    postCode: new FormControl<string>('', [
+    postCode: new FormControl<string>('53300', [
       Validators.required,
       Validators.minLength(5),
       Validators.maxLength(5),
     ]),
-    city: new FormControl<string>('', [
+    city: new FormControl<string>('Oisseau ', [
       Validators.required,
       Validators.maxLength(60),
     ]),
@@ -40,7 +41,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.maxLength(60),
     ]),
-    phone: new FormControl<string>('', [
+    phone: new FormControl<string>('0243004653', [
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10),
@@ -49,11 +50,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.maxLength(180),
     ]),
-    password: new FormControl<string>('', [
+    password: new FormControl<string>('000000', [
       Validators.required,
       Validators.minLength(6),
     ]),
-    confirmedPassword: new FormControl<string>('', [
+    confirmedPassword: new FormControl<string>('000000', [
       Validators.required,
       Validators.minLength(6),
     ]),
@@ -83,7 +84,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
   confirmedPasswordSubscription?: Subscription;
   addUserSubscription?: Subscription;
 
-  constructor(private apiService: ApiService, public dialog: MatDialog) {}
+  constructor(
+    private apiService: ApiService,
+    public dialog: MatDialog,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.registerForm.get('country')?.disable();
@@ -188,6 +193,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
+    let userAdded = false;
     if (
       this.registerForm.get('password')?.value !==
       this.registerForm.get('confirmedPassword')?.value
@@ -206,8 +212,24 @@ export class RegisterComponent implements OnInit, OnDestroy {
           phone: this.registerForm.get('phone')?.value as string,
           postCode: this.registerForm.get('postCode')?.value as string,
         })
-        .subscribe((result) => console.log(result));
+        .subscribe({
+          next(result) {
+            console.log(result);
+            userAdded = true;
+          },
+          error(err) {
+            console.log(err);
+          },
+        });
     }
+
+    setTimeout(() => {
+      if (userAdded) {
+        this.openDialog();
+      } else {
+        this.openErrorDialog();
+      }
+    }, 1500);
   }
 
   getNameCtrl() {
@@ -240,29 +262,42 @@ export class RegisterComponent implements OnInit, OnDestroy {
   getConfirmedPasswordCtrl() {
     return this.registerForm.get('confirmedPassword');
   }
+  openDialogIfValid() {}
 
-  openDialog(
-    enterAnimationDuration: string,
-    exitAnimationDuration: string
-  ): void {
+  openDialog(): void {
+    if (
+      this.registerForm.get('password')?.value ===
+      this.registerForm.get('confirmedPassword')?.value
+    ) {
+      this.router.navigate(['/login']);
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.hasBackdrop = true;
+      dialogConfig.height = 'fit-content';
+      dialogConfig.width = '90%';
+      dialogConfig.enterAnimationDuration;
+      dialogConfig.exitAnimationDuration;
+      dialogConfig.data = {
+        name: this.registerForm.get('name')?.value,
+        error: false,
+      };
+      this.dialog.open(RegisterDialogComponent, dialogConfig);
+    }
+  }
+  openErrorDialog(): void {
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.hasBackdrop = true;
     dialogConfig.height = 'fit-content';
-    dialogConfig.width = '900px';
-    dialogConfig.position = {
-      top: 'calc(50% - 500px)',
-      left: 'calc(50% - 450px)',
-    };
+    dialogConfig.width = '90%';
     dialogConfig.enterAnimationDuration;
     dialogConfig.exitAnimationDuration;
-
     dialogConfig.data = {
       name: this.registerForm.get('name')?.value,
+      error: true,
     };
-
     this.dialog.open(RegisterDialogComponent, dialogConfig);
   }
 }

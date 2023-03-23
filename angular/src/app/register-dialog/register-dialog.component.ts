@@ -9,20 +9,16 @@ import { Router } from '@angular/router';
 })
 export class RegisterDialogComponent implements OnInit {
   name: string;
-  //  private dialogRef: MatDialogRef<DialogComponent>,
+  error: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<RegisterDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data: { name: string },
+    @Inject(MAT_DIALOG_DATA) data: { name: string; error: boolean },
     private router: Router
   ) {
     this.name = data.name;
-    console.log(this.name);
+    this.error = data.error;
   }
 
   ngOnInit(): void {}
-
-  onClose() {
-    this.router.navigate(['/login']);
-  }
 }
