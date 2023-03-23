@@ -1,117 +1,196 @@
 <app-navbar></app-navbar>
 
-
-<div class="flex-center-center-100 m-t-20">
-  <div>
-    <h1>Profil</h1>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="fit-content p-20">
-      <div class="m-t-5">
-        <label class="form-label" for="name">Prénom</label>
-        <input [ngClass]="
+<div class="flex-column-center-center-100">
+  <h1>Inscription</h1>
+  <mat-divider></mat-divider>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="fit-content">
+    <div>
+      <label class="form-label" for="name">Prénom</label>
+      <input
+        [ngClass]="
           registerForm.get('name')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="name" type="text" placeholder="Exemple: Cosme" formControlName="name" />
-        <div *ngIf="this.nameError" class="invalid-feedback d-block">
-          * Ce champ est obligatoire et accepte au maximum 60 caractères !
-        </div>
+        "
+        class="form-control"
+        id="name"
+        type="text"
+        placeholder="Exemple: Cosme"
+        formControlName="name"
+      />
+      <div *ngIf="this.nameError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 60 caractères !
       </div>
-      <div class="m-t-5">
-        <label class="form-label" for="surname">Nom</label>
-        <input [ngClass]="
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="surname">Nom</label>
+      <input
+        [ngClass]="
           registerForm.get('surname')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="surname" type="text" placeholder="Exemple: Tiques" formControlName="surname" />
-        <div *ngIf="this.surnameError" class="invalid-feedback d-block">
-          * Ce champ est obligatoire et accepte au maximum 60 caractères !
-        </div>
+        "
+        class="form-control"
+        id="surname"
+        type="text"
+        placeholder="Exemple: Tiques"
+        formControlName="surname"
+      />
+      <div *ngIf="this.surnameError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 60 caractères !
       </div>
-      <div class="m-t-5">
-        <label class="form-label" for="address">Adresse</label>
-        <input [ngClass]="
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="address">Adresse</label>
+      <input
+        [ngClass]="
           registerForm.get('address')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="address" type="text" placeholder="Exemple: 1 rue des cosmétiques"
-          formControlName="address" />
-        <div *ngIf="this.addressError" class="invalid-feedback d-block">
-          * Ce champ est obligatoire et accepte au maximum 255 caractères !
-        </div>
+        "
+        class="form-control"
+        id="address"
+        type="text"
+        placeholder="Exemple: 1 rue des cosmétiques"
+        formControlName="address"
+      />
+      <div *ngIf="this.addressError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 255 caractères !
       </div>
-      <div class="m-t-5">
-        <label class="form-label" for="post-code">Code postal</label>
-        <input [ngClass]="
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="post-code">Code postal</label>
+      <input
+        [ngClass]="
           registerForm.get('postCode')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="post-code" type="text" pattern="[0-9]{5}" placeholder="Exemple: 53100"
-          formControlName="postCode" />
-        <div *ngIf="this.postCodeError" class="invalid-feedback d-block">
-          * Ce champ est obligatoire et accepte uniquement 5 chiffres !
-        </div>
+        "
+        class="form-control"
+        id="post-code"
+        type="text"
+        pattern="[0-9]{5}"
+        placeholder="Exemple: 53100"
+        formControlName="postCode"
+      />
+      <div *ngIf="this.postCodeError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte uniquement 5 chiffres !
       </div>
-      <div class="m-t-5">
-        <label class="form-label" for="city">Ville</label>
-        <input [ngClass]="
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="city">Ville</label>
+      <input
+        [ngClass]="
           registerForm.get('city')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="city" type="text" placeholder="Exemple: Mayenne" formControlName="city" />
-        <div *ngIf="this.cityError" class="invalid-feedback d-block">
-          * Ce champ est obligatoire et accepte au maximum 60 caractères !
-        </div>
+        "
+        class="form-control"
+        id="city"
+        type="text"
+        placeholder="Exemple: Mayenne"
+        formControlName="city"
+      />
+      <div *ngIf="this.cityError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 60 caractères !
       </div>
-      <div class="m-t-5">
-        <label class="form-label" for="country">Pays</label>
-        <input [ngClass]="
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="country">Pays</label>
+      <input
+        [ngClass]="
           registerForm.get('country')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="country" type="text" formControlName="country" />
-        <div *ngIf="this.countryError" class="invalid-feedback d-block">
-          * Ce champ est obligatoire et accepte au maximum 60 caractères !
-        </div>
+        "
+        class="form-control"
+        id="country"
+        type="text"
+        formControlName="country"
+      />
+      <div *ngIf="this.countryError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 60 caractères !
       </div>
-      <div class="m-t-5">
-        <label class="form-label" for="phone">Téléphone</label>
-        <input [ngClass]="
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="phone">Téléphone</label>
+      <input
+        [ngClass]="
           registerForm.get('phone')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="phone" type="tel" pattern="[0-9]{10}" placeholder="Exemple: 0611223344"
-          formControlName="phone" />
-        <div *ngIf="this.phoneError" class="invalid-feedback d-block">
-          * Ce champ est obligatoire et accepte uniquement 10 chiffres !
-        </div>
+        "
+        class="form-control"
+        id="phone"
+        type="tel"
+        pattern="[0-9]{10}"
+        placeholder="Exemple: 0611223344"
+        formControlName="phone"
+      />
+      <div *ngIf="this.phoneError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte uniquement 10 chiffres !
       </div>
-      <div class="m-t-5">
-        <label class="form-label" for="email">Email</label>
-        <input [ngClass]="
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="email">Email</label>
+      <input
+        [ngClass]="
           registerForm.get('email')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="email" type="email" pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
-          placeholder="Exemple: cosme.tiques@gmail.com" formControlName="email" />
-        <div *ngIf="this.emailError" class="invalid-feedback d-block">
-          * Ce champ est obligatoire et accepte au maximum 180 caractères !
-        </div>
+        "
+        class="form-control"
+        id="email"
+        type="email"
+        pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
+        placeholder="Exemple: cosme.tiques@gmail.com"
+        formControlName="email"
+      />
+      <div *ngIf="this.emailError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 180 caractères !
       </div>
-      <div class="m-t-5">
-        <label class="form-label" for="password">Mot de passe</label>
-        <input [ngClass]="
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="password">Mot de passe</label>
+      <input
+        [ngClass]="
           registerForm.get('password')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="password" type="password" placeholder="XXXXXX" formControlName="password" />
+        "
+        class="form-control"
+        id="password"
+        type="password"
+        placeholder="XXXXXX"
+        formControlName="password"
+      />
+    </div>
+    <div *ngIf="this.passwordError" class="invalid-feedback d-block">
+      * Ce champ est obligatoire et doit être composé d'au moins 6 caractères !
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="confirmed-password"
+        >Confirmation du mot de passe</label
+      >
+      <input
+        [ngClass]="
+          registerForm.get('confirmedPassword')?.invalid
+            ? 'is-invalid'
+            : 'is-valid'
+        "
+        class="form-control"
+        id="confirmed-password"
+        type="password"
+        placeholder="XXXXXX"
+        formControlName="confirmedPassword"
+      />
+      <div *ngIf="this.confirmedPasswordError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et doit être composé d'au moins 6 caractères
+        !
       </div>
-      <div *ngIf="this.passwordError" class="invalid-feedback d-block">
-        * Ce champ est obligatoire et doit être composé d'au moins 6 caractères !
-      </div>
-      <div class="m-t-5">
-        <label class="form-label" for="confirmed-password">Confirmation du mot de passe</label>
-        <input [ngClass]="
-          registerForm.get('confirmedPassword')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="confirmed-password" type="password" placeholder="XXXXXX"
-          formControlName="confirmedPassword" />
-        <div *ngIf="this.confirmedPasswordError" class="invalid-feedback d-block">
-          * Ce champ est obligatoire et doit être composé d'au moins 6 caractères !
-        </div>
-      </div>
-      <div *ngIf="this.isNotSamePassword" class="invalid-feedback d-block">
-        * Les mots de passes sont différents, veuillez réessayer !
-      </div>
-      <div class="flex-end">
-        <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary m-t-20 m-r-5"
-          (click)="openDialog('200000ms', '2000ms')">
-          Valider
-        </button>
-        <button type="button" [routerLink]="['/login']" class="btn btn-secondary m-t-20">
-          Annuler
-        </button>
-      </div>
-    </form>
-  </div>
+    </div>
+    <div *ngIf="this.isNotSamePassword" class="invalid-feedback d-block">
+      * Les mots de passes sont différents, veuillez réessayer !
+    </div>
+    <div class="flex-end">
+      <button
+        [disabled]="registerForm.invalid"
+        type="submit"
+        class="btn btn-primary m-t-20 m-r-5"
+        (click)="openDialog('200000ms', '2000ms')"
+        [routerLink]="['/login']"
+      >
+        Valider
+      </button>
+      <button
+        type="button"
+        [routerLink]="['/login']"
+        class="btn btn-secondary m-t-20"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>
 </div>

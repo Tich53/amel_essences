@@ -250,10 +250,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.hasBackdrop = true;
-    dialogConfig.height = '300px';
+    dialogConfig.height = 'fit-content';
     dialogConfig.width = '900px';
     dialogConfig.position = {
-      top: 'calc(50% - 70px - 150px)',
+      top: 'calc(50% - 500px)',
       left: 'calc(50% - 450px)',
     };
     dialogConfig.enterAnimationDuration;
@@ -264,7 +264,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
     };
 
     this.dialog.open(RegisterDialogComponent, dialogConfig);
-
-    const dialogRef = this.dialog.open(RegisterDialogComponent, dialogConfig);
   }
 }
