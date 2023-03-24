@@ -16,6 +16,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
@@ -32,6 +33,10 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
         new Post()
     ]
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'email' => 'exact',
+
+])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimestampableEntity;

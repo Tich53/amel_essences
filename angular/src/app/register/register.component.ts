@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import { ApiService } from '../_services/_api/api.service';
 
@@ -82,7 +82,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   emailSubscription?: Subscription;
   passwordSubscription?: Subscription;
   confirmedPasswordSubscription?: Subscription;
-  addUserSubscription?: Subscription;
 
   constructor(
     private apiService: ApiService,
@@ -189,19 +188,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.emailSubscription?.unsubscribe();
     this.passwordSubscription?.unsubscribe();
     this.confirmedPasswordSubscription?.unsubscribe();
-    this.addUserSubscription?.unsubscribe;
   }
 
   onSubmit(): void {
-    let userAdded = false;
     if (
       this.registerForm.get('password')?.value !==
       this.registerForm.get('confirmedPassword')?.value
     ) {
       this.isNotSamePassword = true;
+      // } else if() {
+
+      // }
     } else {
-      this.addUserSubscription = this.apiService
-        .addUser({
+      lastValueFrom(
+        this.apiService.addUser({
           email: this.registerForm.get('email')?.value as string,
           plainPassword: this.registerForm.get('password')?.value as string,
           name: this.registerForm.get('name')?.value as string,
@@ -212,24 +212,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
           phone: this.registerForm.get('phone')?.value as string,
           postCode: this.registerForm.get('postCode')?.value as string,
         })
-        .subscribe({
-          next(result) {
-            console.log(result);
-            userAdded = true;
-          },
-          error(err) {
-            console.log(err);
-          },
+      )
+        .then(() => {
+          this.openDialog(false);
+        })
+        .catch(() => {
+          this.openDialog(true);
         });
     }
-
-    setTimeout(() => {
-      if (userAdded) {
-        this.openDialog();
-      } else {
-        this.openErrorDialog();
-      }
-    }, 1500);
   }
 
   getNameCtrl() {
@@ -262,14 +252,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
   getConfirmedPasswordCtrl() {
     return this.registerForm.get('confirmedPassword');
   }
-  openDialogIfValid() {}
 
-  openDialog(): void {
+  openDialog(error: boolean): void {
     if (
       this.registerForm.get('password')?.value ===
       this.registerForm.get('confirmedPassword')?.value
     ) {
-      this.router.navigate(['/login']);
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
@@ -280,24 +268,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
       dialogConfig.exitAnimationDuration;
       dialogConfig.data = {
         name: this.registerForm.get('name')?.value,
-        error: false,
+        error: error,
       };
       this.dialog.open(RegisterDialogComponent, dialogConfig);
+      if (!error) {
+        this.router.navigate(['/login']);
+      }
     }
-  }
-  openErrorDialog(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.hasBackdrop = true;
-    dialogConfig.height = 'fit-content';
-    dialogConfig.width = '90%';
-    dialogConfig.enterAnimationDuration;
-    dialogConfig.exitAnimationDuration;
-    dialogConfig.data = {
-      name: this.registerForm.get('name')?.value,
-      error: true,
-    };
-    this.dialog.open(RegisterDialogComponent, dialogConfig);
   }
 }

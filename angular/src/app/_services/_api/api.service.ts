@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { User } from 'src/app/_interfaces/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,13 @@ export class ApiService {
 
   constructor(private httpClient: HttpClient) {}
 
-  addUser(user: User) {
+  checkIfEmailExists(email: string) {
+    let params = new HttpParams();
+    params = params.set('email', email);
+    return this.httpClient.get(`${this.userUrl}?${params}`);
+  }
+
+  addUser(user: User): Observable<Object> {
     return this.httpClient.post(this.userUrl, user, this.httpOptions);
   }
 }
