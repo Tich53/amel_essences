@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -14,8 +15,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HeadersInterceptor } from './_services/authentication/headers.interceptor';
 import { RegisterComponent } from './register/register.component';
 
-import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
+import { RegisterDialogComponent } from './register/register-dialog/register-dialog.component';
 import { HomeComponent } from './home/home.component';
+import { NavbarDialogComponent } from './_shared/navbar/navbar-dialog/navbar-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { HomeComponent } from './home/home.component';
     RegisterComponent,
     RegisterDialogComponent,
     HomeComponent,
+    NavbarDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,9 +35,10 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule,
     HttpClientModule,
     MatDialogModule,
+    MatIconModule,
+    MatDividerModule,
     BrowserAnimationsModule,
     RouterModule,
-    MatDividerModule,
   ],
   providers: [
     {

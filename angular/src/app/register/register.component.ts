@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
+import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
 import { ApiService } from '../_services/api/api.service';
 
 /**

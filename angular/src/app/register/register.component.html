@@ -74,7 +74,7 @@
       <label class="form-label" for="email">Email</label>
       <input [ngClass]="
           registerForm.get('email')?.invalid ? 'is-invalid' : 'is-valid'
-        " class="form-control" id="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+        " class="form-control" id="email" type="email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,63}$"
         placeholder="Exemple: cosme.tiques@gmail.com" formControlName="email" />
       <div *ngIf="this.emailError" class="invalid-feedback d-block">
         * Ce champ est obligatoire et accepte au maximum 180 caractères !

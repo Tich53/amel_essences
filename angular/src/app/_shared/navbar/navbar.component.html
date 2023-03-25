@@ -1,9 +1,24 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<!-- navbar for login & registration pages -->
+<nav *ngIf="router.url === '/login' || router.url === '/register'"
+  class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <div>
+    <div class="m-r-20">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Créer un compte</a>
+          <mat-icon class="icon-button" (click)="openDialog()">info</mat-icon>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- navbar for home page-->
+<nav *ngIf="router.url === '/home'" class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <div class="m-r-20">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <mat-icon class="icon-button">info</mat-icon>
         </li>
       </ul>
     </div>
