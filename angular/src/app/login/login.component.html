@@ -3,7 +3,7 @@
 <div class="flex-center-center-80vh">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="fit-content p-20">
     <div *ngIf="this.loginError" class="invalid-feedback d-block">
-      * Email ou mot de passe incorrect
+      * Email ou mot de passe incorrect(s)
     </div>
     <div class="m-t-5">
       <label class="form-label" for="email">Email</label>
@@ -25,10 +25,7 @@
         formControlName="password" />
     </div>
     <div class="flex-center">
-      <button [disabled]="
-          loginForm.get('email')?.value === '' ||
-          loginForm.get('password')?.value === ''
-        " type="submit" class="btn btn-primary m-t-20">
+      <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary m-t-20">
         Se connecter
       </button>
     </div>

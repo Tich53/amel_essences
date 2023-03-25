@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from '../_services/_authentication/auth.service';
-import { StorageService } from '../_services/_authentication/storage.service';
+import { AuthService } from '../_services/authentication/auth.service';
+import { StorageService } from '../_services/authentication/storage.service';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +19,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   loginFormSubmitted = false;
   loginError = false;
-  loginSubscription?: Subscription;
   emailSubscription?: Subscription;
   passwordSubscription?: Subscription;
 
   constructor(
     private authService: AuthService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -44,7 +45,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.loginSubscription?.unsubscribe();
     this.emailSubscription?.unsubscribe();
     this.passwordSubscription?.unsubscribe();
   }
@@ -56,19 +56,17 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
   onSubmit() {
     this.loginFormSubmitted = true;
-    this.loginSubscription = this.authService
+    this.authService
       .login(
         this.loginForm.value.email as string,
         this.loginForm.value.password as string
       )
-      .subscribe({
-        next: (data) => {
-          this.storageService.saveUser(data);
-          // window.location.href = '/home';
-        },
-        error: () => {
-          this.loginError = true;
-        },
+      .then((data: any) => {
+        this.storageService.saveUser(data);
+        this.router.navigate(['/home']);
+      })
+      .catch(() => {
+        this.loginError = true;
       });
   }
 

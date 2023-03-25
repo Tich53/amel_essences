@@ -11,10 +11,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './_shared/navbar/navbar.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HeadersInterceptor } from './_services/_authentication/headers.interceptor';
+import { HeadersInterceptor } from './_services/authentication/headers.interceptor';
 import { RegisterComponent } from './register/register.component';
 
 import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RegisterDialogComponent } from './register-dialog/register-dialog.compo
     NavbarComponent,
     RegisterComponent,
     RegisterDialogComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

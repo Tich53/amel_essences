@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,14 +14,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post(
-      this.serverUrl + this.authentication_token,
-      {
-        email,
-        password,
-      },
-      this.httpOptions
+  login(email: string, password: string): Promise<object> {
+    return lastValueFrom(
+      this.http.post(
+        this.serverUrl + this.authentication_token,
+        {
+          email,
+          password,
+        },
+        this.httpOptions
+      )
     );
   }
 
