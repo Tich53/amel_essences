@@ -15,10 +15,16 @@
 <!-- navbar for home page-->
 <nav *ngIf="router.url === '/home'" class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <div class="m-r-20">
+    <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <mat-icon class="icon-button">info</mat-icon>
+          <a class="pointer" [ngClass]="catalogActive?'nav-link active':'nav-link'">Catalogue</a>
+        </li>
+        <li>
+          <a class="pointer" [ngClass]="orderActive?'nav-link active':'nav-link'">Mes commandes</a>
+        </li>
+        <li>
+          <a class="pointer" [ngClass]="orderActive?'nav-link active':'nav-link'">Bonjour {{ name }}</a>
         </li>
       </ul>
     </div>

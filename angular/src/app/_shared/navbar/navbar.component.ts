@@ -9,6 +9,9 @@ import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  catalogActive = false;
+  orderActive = false;
+  name?: string;
   constructor(public router: Router, private dialog: MatDialog) {}
 
   ngOnInit(): void {}

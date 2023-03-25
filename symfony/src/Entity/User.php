@@ -18,7 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-
+use App\Controller\MeController;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
@@ -32,6 +32,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
     operations: [
         new Get(),
         new GetCollection(),
+        new GetCollection(name: 'me', uriTemplate: '/me', controller: MeController::class, paginationEnabled: false),
         new Post()
     ]
 )]
