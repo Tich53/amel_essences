@@ -1,5 +1,5 @@
 <!-- Dialog if no error in registration -->
-<div *ngIf="!error" class="flex-column-center-center-100">
+<div *ngIf="!error && !emailExists" class="flex-column-center-center-100">
   <h2 class="dialog-title" mat-dialog-title>
     Félicitations {{ name }}, vous venez de créer votre compte !
   </h2>
@@ -18,14 +18,29 @@
 </div>
 
 
-
-<!-- Dialog if error in registration -->
-<div *ngIf="error" class="flex-column-center-center-100">
+<!-- Dialog if email already exists -->
+<div *ngIf="!error && emailExists" class="flex-column-center-center-100">
   <h2 class="dialog-title" mat-dialog-title>
-    Oooops, une erreur est survenue !!!
+    Cette adresse email est déjà utilisée !
   </h2>
   <div class="dialog-content" mat-dialog-content>
-    <p>Il se peut que cette email soit déjà utilisée. Sinon, réessayez plus tard !</p>
+    <p>Si vous ne retrouvez pas vos identifiants, veuillez contacter Amélie...</p>
+  </div>
+  <mat-dialog-actions>
+    <button class="btn btn-primary" mat-dialog-close>
+      Ok
+    </button>
+  </mat-dialog-actions>
+</div>
+
+
+<!-- Dialog if error in registration -->
+<div *ngIf="error && !emailExists" class="flex-column-center-center-100">
+  <h2 class="dialog-title" mat-dialog-title>
+    Oooops, une erreur est survenue !
+  </h2>
+  <div class="dialog-content" mat-dialog-content>
+    <p>Veuillez réessayer plus tard !</p>
   </div>
 
   <mat-dialog-actions>

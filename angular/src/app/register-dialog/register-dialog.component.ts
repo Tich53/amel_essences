@@ -9,15 +9,18 @@ import { Router } from '@angular/router';
 })
 export class RegisterDialogComponent implements OnInit {
   name: string;
+  emailExists: boolean;
   error: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<RegisterDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) data: { name: string; error: boolean },
+    @Inject(MAT_DIALOG_DATA)
+    data: { name: string; error: boolean; emailExists: boolean },
     private router: Router
   ) {
-    this.name = data.name;
+    this.name = data.name.trim();
     this.error = data.error;
+    this.emailExists = data.emailExists;
   }
 
   ngOnInit(): void {}

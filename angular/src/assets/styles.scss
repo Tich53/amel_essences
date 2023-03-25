@@ -108,6 +108,14 @@
   align-items: center;
 }
 
+.flex-column-center-center-auto {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 // Width
 .fit-content {
   width: fit-content;

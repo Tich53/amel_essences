@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { lastValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
 import { ApiService } from '../_services/_api/api.service';
 
@@ -82,6 +82,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   emailSubscription?: Subscription;
   passwordSubscription?: Subscription;
   confirmedPasswordSubscription?: Subscription;
+
+  emailExists = false;
 
   constructor(
     private apiService: ApiService,
@@ -190,34 +192,44 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.confirmedPasswordSubscription?.unsubscribe();
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
+    await this.apiService
+      .checkIfEmailExists(1, this.registerForm.get('email')!.value as string)
+      .then((data: any) => {
+        if (data['hydra:totalItems'] > 0) {
+          this.emailExists = true;
+        } else {
+          this.emailExists = false;
+        }
+      })
+      .catch();
+
     if (
       this.registerForm.get('password')?.value !==
       this.registerForm.get('confirmedPassword')?.value
     ) {
       this.isNotSamePassword = true;
-      // } else if() {
-
-      // }
+      return;
+    } else if (this.emailExists) {
+      this.openDialog(false, true);
     } else {
-      lastValueFrom(
-        this.apiService.addUser({
-          email: this.registerForm.get('email')?.value as string,
-          plainPassword: this.registerForm.get('password')?.value as string,
-          name: this.registerForm.get('name')?.value as string,
-          surname: this.registerForm.get('surname')?.value as string,
-          address: this.registerForm.get('address')?.value as string,
-          city: this.registerForm.get('city')?.value as string,
-          country: this.registerForm.get('country')?.value as string,
-          phone: this.registerForm.get('phone')?.value as string,
-          postCode: this.registerForm.get('postCode')?.value as string,
+      this.apiService
+        .addUser({
+          email: this.registerForm.get('email')!.value!.trim(),
+          plainPassword: this.registerForm.get('password')!.value!.trim(),
+          name: this.registerForm.get('name')!.value!.trim(),
+          surname: this.registerForm.get('surname')!.value!.trim(),
+          address: this.registerForm.get('address')!.value!.trim(),
+          city: this.registerForm.get('city')!.value!.trim(),
+          country: this.registerForm.get('country')!.value!.trim(),
+          phone: this.registerForm.get('phone')!.value!.trim(),
+          postCode: this.registerForm.get('postCode')!.value!.trim(),
         })
-      )
         .then(() => {
-          this.openDialog(false);
+          this.openDialog(false, false);
         })
         .catch(() => {
-          this.openDialog(true);
+          this.openDialog(true, false);
         });
     }
   }
@@ -253,7 +265,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.registerForm.get('confirmedPassword');
   }
 
-  openDialog(error: boolean): void {
+  openDialog(error: boolean, emailExists: boolean): void {
     if (
       this.registerForm.get('password')?.value ===
       this.registerForm.get('confirmedPassword')?.value
@@ -267,11 +279,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
       dialogConfig.enterAnimationDuration;
       dialogConfig.exitAnimationDuration;
       dialogConfig.data = {
-        name: this.registerForm.get('name')?.value,
+        name: this.registerForm.get('name')!.value!.trim(),
         error: error,
+        emailExists: emailExists,
       };
       this.dialog.open(RegisterDialogComponent, dialogConfig);
-      if (!error) {
+      if (!error && !emailExists) {
         this.router.navigate(['/login']);
       }
     }
