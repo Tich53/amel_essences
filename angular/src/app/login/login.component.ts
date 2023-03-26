@@ -97,22 +97,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.currentUserStatus === this.status.validated) {
       this.router.navigate(['/home']);
     }
-    if (this.currentUserStatus === this.status.pending) {
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.disableClose = true;
-      dialogConfig.autoFocus = true;
-      dialogConfig.hasBackdrop = true;
-      dialogConfig.height = 'fit-content';
-      dialogConfig.width = '90%';
-      dialogConfig.enterAnimationDuration;
-      dialogConfig.exitAnimationDuration;
-      dialogConfig.data = {
-        currentUserStatus: this.currentUserStatus,
-      };
-      this.dialog.open(LoginDialogComponent, dialogConfig);
-    }
-    if (this.currentUser.status.name === this.status.denied) {
-      console.log('Désolé, votre compte a été refusé.');
+    if (this.currentUserStatus !== this.status.validated) {
+      this.openDialog();
     }
   }
 
@@ -122,5 +108,19 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   getPasswordCtrl() {
     return this.loginForm.get('password');
+  }
+  openDialog() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.hasBackdrop = true;
+    dialogConfig.height = 'fit-content';
+    dialogConfig.width = '90%';
+    dialogConfig.enterAnimationDuration;
+    dialogConfig.exitAnimationDuration;
+    dialogConfig.data = {
+      currentUserStatus: this.currentUserStatus,
+    };
+    this.dialog.open(LoginDialogComponent, dialogConfig);
   }
 }

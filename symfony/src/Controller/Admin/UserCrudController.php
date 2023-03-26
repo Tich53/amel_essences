@@ -31,7 +31,7 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id')->onlyOnIndex(),
             EmailField::new('email'),
             CollectionField::new('roles')
                 ->setFormTypeOption('entry_type', ChoiceType::class)

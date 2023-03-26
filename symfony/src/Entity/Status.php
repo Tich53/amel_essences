@@ -88,4 +88,10 @@ class Status
 
         return $this;
     }
+
+    // Register Magic Method to Print the name of the State e.g California
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
