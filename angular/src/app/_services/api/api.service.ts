@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { User } from 'src/app/_interfaces/user';
 import { lastValueFrom } from 'rxjs';
+import { CurrentUser } from 'src/app/_interfaces/current-user';
+import { RegistratingUser } from 'src/app/_interfaces/registrating-user';
 
 @Injectable({
   providedIn: 'root',
@@ -30,23 +31,29 @@ export class ApiService {
   /**
    * Http GET methods
    */
-  checkIfEmailExists(page = 1, email: string): Promise<object> {
+  checkIfEmailExists(page = 1, email: string): Promise<CurrentUser> {
     let params = new HttpParams();
     params = params.set('page', page);
     params = params.set('email', email.trim());
-    return lastValueFrom(this.httpClient.get(`${this.userUrl}?${params}`));
+    return lastValueFrom(
+      this.httpClient.get<CurrentUser>(`${this.userUrl}?${params}`)
+    );
   }
 
-  getCurrentUser() {
-    return lastValueFrom(this.httpClient.get(this.meUrl));
+  getCurrentUser(): Promise<CurrentUser> {
+    return lastValueFrom(this.httpClient.get<CurrentUser>(this.meUrl));
   }
 
   /**
    * Http POST methods
    */
-  addUser(user: User): Promise<object> {
+  addUser(user: RegistratingUser): Promise<RegistratingUser> {
     return lastValueFrom(
-      this.httpClient.post(this.userUrl, user, this.httpOptions)
+      this.httpClient.post<RegistratingUser>(
+        this.userUrl,
+        user,
+        this.httpOptions
+      )
     );
   }
 }

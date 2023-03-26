@@ -17,14 +17,31 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
+        <li class="">
+          <a class="pointer nav-link active"
+            [ngStyle]="{'display':'flex', 'justify-content': 'center', 'align-items': 'center'}">
+            <mat-icon>person</mat-icon>
+            Bonjour {{ name }}
+          </a>
+        </li>
         <li class="nav-item">
-          <a class="pointer" [ngClass]="catalogActive?'nav-link active':'nav-link'">Catalogue</a>
+          <a class="pointer" [ngClass]="catalogActive?'nav-link active':'nav-link'"
+            [ngStyle]="{'display':'flex', 'justify-content': 'center', 'align-items': 'center'}">
+            <mat-icon>list_alt</mat-icon>Catalogue
+          </a>
         </li>
-        <li>
-          <a class="pointer" [ngClass]="orderActive?'nav-link active':'nav-link'">Mes commandes</a>
+        <li class="nav-item">
+          <a class="pointer" [ngClass]="orderActive?'nav-link active':'nav-link'"
+            [ngStyle]="{'display':'flex', 'justify-content': 'center', 'align-items': 'center'}">
+            <mat-icon>shopping_cart</mat-icon>Mes commandes
+          </a>
         </li>
-        <li>
-          <a class="pointer" [ngClass]="orderActive?'nav-link active':'nav-link'">Bonjour {{ name }}</a>
+      </ul>
+    </div>
+    <div class="m-r-20">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <mat-icon class="icon-button" (click)="openDialog()">info</mat-icon>
         </li>
       </ul>
     </div>

@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CurrentUser } from '../_interfaces/current-user';
 import { ApiService } from '../_services/api/api.service';
 
 import { AuthService } from '../_services/authentication/auth.service';
@@ -30,17 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   emailSubscription?: Subscription;
   passwordSubscription?: Subscription;
 
-  currentUser?: {
-    name: string;
-    surname: string;
-    address: string;
-    postCode: string;
-    city: string;
-    country: string;
-    phone: string;
-    role: string[];
-    status: { name: string };
-  };
+  currentUser?: CurrentUser;
 
   currentUserStatus?: string;
 
@@ -97,9 +88,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (this.currentUserStatus === this.status.validated) {
       this.router.navigate(['/home']);
     }
-    if (this.currentUserStatus !== this.status.validated) {
+    if (
+      this.currentUserStatus !== this.status.validated &&
+      this.loginError === false
+    ) {
       this.openDialog();
     }
+    console.log(this.currentUser);
   }
 
   getEmailCtrl() {

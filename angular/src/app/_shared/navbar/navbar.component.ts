@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { CurrentUser } from 'src/app/_interfaces/current-user';
+import { ApiService } from 'src/app/_services/api/api.service';
 import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
 
 @Component({
@@ -11,10 +13,19 @@ import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
 export class NavbarComponent implements OnInit {
   catalogActive = false;
   orderActive = false;
-  name?: string;
-  constructor(public router: Router, private dialog: MatDialog) {}
 
-  ngOnInit(): void {}
+  currentUser?: CurrentUser;
+  name!: string;
+
+  constructor(
+    private apiService: ApiService,
+    private dialog: MatDialog,
+    public router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.getCurrentUser();
+  }
 
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
@@ -26,5 +37,10 @@ export class NavbarComponent implements OnInit {
     dialogConfig.enterAnimationDuration;
     dialogConfig.exitAnimationDuration;
     this.dialog.open(NavbarDialogComponent, dialogConfig);
+  }
+
+  async getCurrentUser(): Promise<string> {
+    this.currentUser = await this.apiService.getCurrentUser().then();
+    return (this.name = this.currentUser?.name);
   }
 }
