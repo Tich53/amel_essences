@@ -51,10 +51,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['user:write'])]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private array $roles = [];
 
     #[Groups(['user:write'])]
@@ -67,35 +68,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write'])]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write'])]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $surname = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['user:write'])]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $address = null;
 
     #[ORM\Column(length: 5)]
-    #[Groups(['user:write'])]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $post_code = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write'])]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $city = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write'])]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $country = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['user:write'])]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $phone = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['user:read'])]
     private ?Status $status = null;
 
     #[ORM\OneToMany(mappedBy: 'user_account', targetEntity: Order::class)]

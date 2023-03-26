@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ApiService } from '../_services/api/api.service';
 
 import { AuthService } from '../_services/authentication/auth.service';
 import { StorageService } from '../_services/authentication/storage.service';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-login',
@@ -12,20 +15,41 @@ import { StorageService } from '../_services/authentication/storage.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  readonly status = {
+    validated: 'Validé',
+    pending: 'En attente',
+    denied: 'Refusé',
+  };
+
   loginForm = new FormGroup({
     email: new FormControl<string>('', [Validators.required]),
     password: new FormControl<string>('', [Validators.required]),
   });
 
-  loginFormSubmitted = false;
   loginError = false;
   emailSubscription?: Subscription;
   passwordSubscription?: Subscription;
 
+  currentUser?: {
+    name: string;
+    surname: string;
+    address: string;
+    postCode: string;
+    city: string;
+    country: string;
+    phone: string;
+    role: string[];
+    status: { name: string };
+  };
+
+  currentUserStatus?: string;
+
   constructor(
+    private apiService: ApiService,
     private authService: AuthService,
     private storageService: StorageService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -54,20 +78,42 @@ export class LoginComponent implements OnInit, OnDestroy {
    * dans le "Stockage de session" denotre navigateur.
    * Dans ce cas, redirection vers la page d'accueil
    */
-  onSubmit() {
-    this.loginFormSubmitted = true;
-    this.authService
+  async onSubmit() {
+    await this.authService
       .login(
         this.loginForm.value.email as string,
         this.loginForm.value.password as string
       )
       .then((data: any) => {
         this.storageService.saveUser(data);
-        this.router.navigate(['/home']);
       })
       .catch(() => {
         this.loginError = true;
       });
+
+    this.currentUser = await this.apiService.getCurrentUser().then();
+    this.currentUserStatus = this.currentUser.status.name;
+
+    if (this.currentUserStatus === this.status.validated) {
+      this.router.navigate(['/home']);
+    }
+    if (this.currentUserStatus === this.status.pending) {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.hasBackdrop = true;
+      dialogConfig.height = 'fit-content';
+      dialogConfig.width = '90%';
+      dialogConfig.enterAnimationDuration;
+      dialogConfig.exitAnimationDuration;
+      dialogConfig.data = {
+        currentUserStatus: this.currentUserStatus,
+      };
+      this.dialog.open(LoginDialogComponent, dialogConfig);
+    }
+    if (this.currentUser.status.name === this.status.denied) {
+      console.log('Désolé, votre compte a été refusé.');
+    }
   }
 
   getEmailCtrl() {

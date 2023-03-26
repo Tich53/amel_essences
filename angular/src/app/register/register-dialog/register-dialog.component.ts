@@ -12,8 +12,8 @@ export class RegisterDialogComponent implements OnInit {
   emailExists: boolean;
   error: boolean;
 
+  // public dialogRef: MatDialogRef<RegisterDialogComponent>
   constructor(
-    public dialogRef: MatDialogRef<RegisterDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     data: { name: string; error: boolean; emailExists: boolean },
     private router: Router

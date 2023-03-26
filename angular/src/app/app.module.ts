@@ -18,6 +18,7 @@ import { RegisterComponent } from './register/register.component';
 import { RegisterDialogComponent } from './register/register-dialog/register-dialog.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarDialogComponent } from './_shared/navbar/navbar-dialog/navbar-dialog.component';
+import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { NavbarDialogComponent } from './_shared/navbar/navbar-dialog/navbar-dia
     RegisterDialogComponent,
     HomeComponent,
     NavbarDialogComponent,
+    LoginDialogComponent,
   ],
   imports: [
     BrowserModule,

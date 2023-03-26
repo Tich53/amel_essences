@@ -1,0 +1,30 @@
+<!-- Dialog if pending status -->
+<div *ngIf="currentUserStatus===status.pending" class="flex-column-center-center-100">
+  <h2 class="dialog-title" mat-dialog-title>
+    Votre compte est en cours de validation !
+  </h2>
+  <div class="dialog-content" mat-dialog-content>
+    <p>Revenez un peu plus tard, cela ne devrait plus prendre beaucoup de temps. Bonne journée à vous.</p>
+  </div>
+  <mat-dialog-actions>
+    <button class="btn btn-primary" mat-dialog-close>
+      Ok
+    </button>
+  </mat-dialog-actions>
+</div>
+
+<!-- Dialog if denied status -->
+<div *ngIf="currentUserStatus===status.denied" class="flex-column-center-center-100">
+  <h2 class="dialog-title" mat-dialog-title>
+    Désolé, votre compte a été refusé !
+  </h2>
+  <div class="dialog-content" mat-dialog-content>
+    <p>Si vous pensez qu'il s'agit d'une erreur, contactez Amélie qui se fera un plaisir de vous aider. Bonne journée à
+      vous.</p>
+  </div>
+  <mat-dialog-actions>
+    <button class="btn btn-primary" mat-dialog-close>
+      Ok
+    </button>
+  </mat-dialog-actions>
+</div>

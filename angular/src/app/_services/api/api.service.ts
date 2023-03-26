@@ -17,6 +17,7 @@ export class ApiService {
     'https://localhost:8000/api/product_packagings';
   readonly statusUrl = 'https://localhost:8000/api/statuses';
   readonly userUrl = 'https://localhost:8000/api/users';
+  readonly meUrl = 'https://localhost:8000/api/me';
 
   readonly httpOptions = {
     headers: new HttpHeaders({
@@ -34,6 +35,10 @@ export class ApiService {
     params = params.set('page', page);
     params = params.set('email', email.trim());
     return lastValueFrom(this.httpClient.get(`${this.userUrl}?${params}`));
+  }
+
+  getCurrentUser() {
+    return lastValueFrom(this.httpClient.get(this.meUrl));
   }
 
   /**
