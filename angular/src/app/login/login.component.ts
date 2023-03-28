@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { StatusEnum } from '../enums/status';
 import { CurrentUser } from '../_interfaces/current-user';
 import { ApiService } from '../_services/api/api.service';
 
@@ -16,12 +17,6 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  readonly status = {
-    validated: 'Validé',
-    pending: 'En attente',
-    denied: 'Refusé',
-  };
-
   loginForm = new FormGroup({
     email: new FormControl<string>('', [Validators.required]),
     password: new FormControl<string>('', [Validators.required]),
@@ -35,12 +30,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   currentUserStatus?: string;
 
+  status = StatusEnum;
+
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
     private storageService: StorageService,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog // private status:StatusEnum
   ) {}
 
   async ngOnInit(): Promise<void> {
