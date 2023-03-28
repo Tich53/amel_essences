@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CurrentUser } from 'src/app/_interfaces/current-user';
 import { ApiService } from 'src/app/_services/api/api.service';
+import { StorageService } from 'src/app/_services/authentication/storage.service';
 import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
 
 @Component({
@@ -19,6 +20,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
+    private storageService: StorageService,
     private dialog: MatDialog,
     public router: Router
   ) {}
@@ -42,5 +44,10 @@ export class NavbarComponent implements OnInit {
   async getCurrentUser(): Promise<string> {
     this.currentUser = await this.apiService.getCurrentUser().then();
     return (this.name = this.currentUser?.name);
+  }
+
+  logout() {
+    this.storageService.clean();
+    this.router.navigate(['/login']);
   }
 }

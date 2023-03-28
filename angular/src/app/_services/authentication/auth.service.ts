@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { lastValueFrom, Observable } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +25,5 @@ export class AuthService {
         this.httpOptions
       )
     );
-  }
-
-  logout(): Observable<any> {
-    return this.http.post(this.serverUrl + 'signout', {}, this.httpOptions);
   }
 }

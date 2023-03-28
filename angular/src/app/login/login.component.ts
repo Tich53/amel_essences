@@ -43,9 +43,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     private dialog: MatDialog
   ) {}
 
-  ngOnInit(): void {
-    if (this.storageService.isLoggedIn()) {
-      // window.location.href = '/home';
+  async ngOnInit(): Promise<void> {
+    this.currentUser = await this.apiService.getCurrentUser().then();
+    if (this.currentUser) {
+      this.currentUserStatus = this.currentUser.status.name;
+    }
+    if (
+      this.storageService.isLoggedIn() &&
+      this.currentUserStatus === this.status.validated
+    ) {
+      this.router.navigate(['/home']);
     }
 
     // Remove the loginError error message when the user change the value of one field
@@ -70,6 +77,7 @@ export class LoginComponent implements OnInit, OnDestroy {
    * Dans ce cas, redirection vers la page d'accueil
    */
   async onSubmit() {
+    this.storageService.clean();
     await this.authService
       .login(
         this.loginForm.value.email as string,
@@ -92,9 +100,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.currentUserStatus !== this.status.validated &&
       this.loginError === false
     ) {
+      this.storageService.clean();
       this.openDialog();
     }
-    console.log(this.currentUser);
   }
 
   getEmailCtrl() {

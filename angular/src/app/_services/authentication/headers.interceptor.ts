@@ -17,7 +17,7 @@ export class HeadersInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     if (this.storageService.isLoggedIn()) {
-      const token = this.storageService.getUser().token;
+      const token = this.storageService.getUserToken().token;
       request = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${token}`),
       });

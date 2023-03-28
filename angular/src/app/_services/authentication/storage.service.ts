@@ -22,7 +22,7 @@ export class StorageService {
     return false;
   }
 
-  getUser(): any {
+  getUserToken(): any {
     const user = window.sessionStorage.getItem(this.authUser);
     if (user) {
       return JSON.parse(user);
