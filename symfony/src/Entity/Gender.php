@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GenderRepository::class)]
 #[ApiResource(
@@ -30,6 +31,7 @@ class Gender
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
+    #[Groups(['product:read'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'gender', targetEntity: Product::class)]
