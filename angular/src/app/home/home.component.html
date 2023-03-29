@@ -1,1 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar (menuItemSelectionEmitter)="menuItemSelection=$event"></app-navbar>
+<div class="m-l-20 m-r-20">
+  <app-catalog *ngIf="menuItemSelection.catalogActive"></app-catalog>
+</div>

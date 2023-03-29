@@ -28,7 +28,7 @@
           </a>
         </li>
         <mat-divider [vertical]="true"></mat-divider>
-        <li class="nav-item">
+        <li class="nav-item" (click)="onClickCatalog()">
           <a class="pointer" [ngClass]="catalogActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
               display: 'flex',
               'justify-content': 'center',
@@ -37,7 +37,7 @@
             <mat-icon>list_alt</mat-icon>Catalogue
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" (click)="onClickMyOrders()">
           <a class="pointer" [ngClass]="orderActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
               display: 'flex',
               'justify-content': 'center',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CurrentUser } from 'src/app/_interfaces/current-user';
@@ -12,7 +12,12 @@ import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  catalogActive = false;
+  @Output() menuItemSelectionEmitter = new EventEmitter<{
+    catalogActive: boolean;
+    orderActive: boolean;
+  }>();
+
+  catalogActive = true;
   orderActive = false;
 
   currentUser?: CurrentUser;
@@ -27,6 +32,10 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUser();
+    this.menuItemSelectionEmitter.emit({
+      catalogActive: this.catalogActive,
+      orderActive: this.orderActive,
+    });
   }
 
   openDialog(): void {
@@ -49,5 +58,23 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.storageService.clean();
     this.router.navigate(['/login']);
+  }
+
+  onClickCatalog() {
+    this.catalogActive = true;
+    this.orderActive = false;
+    this.menuItemSelectionEmitter.emit({
+      catalogActive: this.catalogActive,
+      orderActive: this.orderActive,
+    });
+  }
+
+  onClickMyOrders() {
+    this.catalogActive = false;
+    this.orderActive = true;
+    this.menuItemSelectionEmitter.emit({
+      catalogActive: this.catalogActive,
+      orderActive: this.orderActive,
+    });
   }
 }
