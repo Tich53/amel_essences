@@ -1,0 +1,168 @@
+/**
+* MARGIN
+*/
+// Margins 5 px
+.m-l-5 {
+  margin-left: 5px;
+}
+.m-t-5 {
+  margin-top: 5px;
+}
+.m-r-5 {
+  margin-right: 5px;
+}
+.m-b-5 {
+  margin-bottom: 5px;
+}
+.m-5 {
+  margin: 5px 5px;
+}
+
+// Margins 20 px
+.m-l-20 {
+  margin-left: 20px;
+}
+.m-t-20 {
+  margin-top: 20px;
+}
+.m-r-20 {
+  margin-right: 20px;
+}
+.m-b-20 {
+  margin-bottom: 20px;
+}
+.m-20 {
+  margin: 20px 20px;
+}
+
+/**
+* PADDING
+*/
+// Paddings 5px:
+.p-l-5 {
+  padding-left: 5px;
+}
+.p-t-5 {
+  padding-top: 5px;
+}
+.p-r-5 {
+  padding-right: 5px;
+}
+.p-b-5 {
+  padding-bottom: 5px;
+}
+.p-5 {
+  padding: 5px 5px;
+}
+
+// Paddings 20px:
+.p-l-20 {
+  padding-left: 20px;
+}
+.p-t-20 {
+  padding-top: 20px;
+}
+.p-r-20 {
+  padding-right: 20px;
+}
+.p-b-20 {
+  padding-bottom: 20px;
+}
+.p-20 {
+  padding: 20px 20px;
+}
+
+/**
+* FLEX
+*/
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+.flex-end {
+  display: flex;
+  justify-content: end;
+}
+
+.flex-center-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center-center-100 {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center-center-80vh {
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.flex-column-center-center-100 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-column-center-center-auto {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/**
+* WIDTH
+*/
+.fit-content {
+  width: fit-content;
+}
+.w-50{
+  width:50%;
+}
+
+/**
+* HEIGHT
+*/
+h-100 {
+  height: 100%;
+}
+
+/**
+* LI
+*/
+.li {
+  list-style-type: none;
+}
+
+/**
+* ICONS
+*/
+.icon-button{
+  color: white;
+  font-size:30px;
+  height: 30px !important;
+  width:30px !important;
+  cursor:pointer;
+}
+
+/**
+* OTHERS
+*/
+.text-align-center {
+  text-align: center;
+}
+
+.pointer{
+  cursor: pointer;
+}
