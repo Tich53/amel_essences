@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use ApiPlatform\Metadata\ApiResource;
@@ -10,11 +11,14 @@ use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use App\Controller\MeController;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
@@ -23,11 +27,19 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
     message: "Cet email est déjà utilisé",
 )]
 #[ApiResource(
+    normalizationContext: ['groups' => ['user:read']],
+    denormalizationContext: ['groups' => ['user:write']],
     operations: [
         new Get(),
-        new GetCollection()
+        new GetCollection(),
+        new GetCollection(name: 'me', uriTemplate: '/me', controller: MeController::class, paginationEnabled: false),
+        new Post()
     ]
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'email' => 'exact',
+
+])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     use TimestampableEntity;
@@ -39,47 +51,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private array $roles = [];
 
+    #[Groups(['user:write'])]
     private ?string $plainPassword = null;
 
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
-    #[NotBlank()]
+    #[ORM\Column(nullable: true)]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $surname = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $address = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 5)]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $post_code = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 60)]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $city = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 60)]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $country = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 10)]
+    #[Groups(['user:write', 'user:read'])]
     private ?string $phone = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['user:read'])]
     private ?Status $status = null;
 
     #[ORM\OneToMany(mappedBy: 'user_account', targetEntity: Order::class)]
     private Collection $orders;
+
 
     public function __construct()
     {
@@ -210,6 +233,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->post_code;
     }
 
+    #[Groups(['user:write'])]
     public function setPostCode(string $post_code): self
     {
         $this->post_code = $post_code;

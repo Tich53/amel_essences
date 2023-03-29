@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+
+<div class="flex-center-center-80vh">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="fit-content p-20">
+    <div *ngIf="this.loginError" class="invalid-feedback d-block">
+      * Email ou mot de passe incorrect(s)
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="email">Email</label>
+      <input [ngClass]="
+          loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+            ? 'is-invalid'
+            : undefined
+        " class="form-control" id="email" type="text" placeholder="Entrez votre adresse email ici"
+        formControlName="email" />
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="password">Mot de passe</label>
+      <input [ngClass]="
+          loginForm.get('password')?.invalid &&
+          loginForm.get('password')?.touched
+            ? 'is-invalid'
+            : undefined
+        " class="form-control" id="password" type="password" placeholder="Entrez votre mot de passe ici"
+        formControlName="password" />
+    </div>
+    <div class="flex-center">
+      <button [disabled]="loginForm.invalid" type="submit" class="btn btn-primary m-t-20">
+        Se connecter
+      </button>
+    </div>
+    <div class="m-t-20 text-align-center">
+      <a [routerLink]="['/register']">Pas de compte? Inscrivez-vous ici</a>
+    </div>
+  </form>
+</div>

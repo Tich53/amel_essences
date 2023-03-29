@@ -1,0 +1,51 @@
+<!-- Dialog if no error in registration -->
+<div *ngIf="!error && !emailExists" class="flex-column-center-center-100">
+  <h2 class="dialog-title" mat-dialog-title>
+    Félicitations {{ name }}, vous venez de créer votre compte !
+  </h2>
+
+  <div class="dialog-content" mat-dialog-content>
+    <p>Amélie va vérifier et valider vos informations au plus vite pour que vous puissiez
+      accéder au site. </p>
+    <p>A très vite !</p>
+  </div>
+
+  <mat-dialog-actions>
+    <button class="btn btn-primary" mat-dialog-close>
+      Ok
+    </button>
+  </mat-dialog-actions>
+</div>
+
+
+<!-- Dialog if email already exists -->
+<div *ngIf="!error && emailExists" class="flex-column-center-center-100">
+  <h2 class="dialog-title" mat-dialog-title>
+    Cette adresse email est déjà utilisée !
+  </h2>
+  <div class="dialog-content" mat-dialog-content>
+    <p>Si vous ne retrouvez pas vos identifiants, veuillez contacter Amélie...</p>
+  </div>
+  <mat-dialog-actions>
+    <button class="btn btn-primary" mat-dialog-close>
+      Ok
+    </button>
+  </mat-dialog-actions>
+</div>
+
+
+<!-- Dialog if error in registration -->
+<div *ngIf="error && !emailExists" class="flex-column-center-center-100">
+  <h2 class="dialog-title" mat-dialog-title>
+    Oooops, une erreur est survenue !
+  </h2>
+  <div class="dialog-content" mat-dialog-content>
+    <p>Veuillez réessayer plus tard !</p>
+  </div>
+
+  <mat-dialog-actions>
+    <button class="btn btn-primary" mat-dialog-close>
+      Ok
+    </button>
+  </mat-dialog-actions>
+</div>

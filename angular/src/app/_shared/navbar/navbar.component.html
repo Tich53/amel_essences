@@ -1,0 +1,62 @@
+<!-- navbar for login & registration pages -->
+<nav *ngIf="router.url === '/login' || router.url === '/register'"
+  class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <div class="m-r-20">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <mat-icon class="icon-button" (click)="openDialog()">info</mat-icon>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- navbar for home page-->
+<nav *ngIf="router.url === '/home'" class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto">
+        <li class="">
+          <a class="pointer nav-link active" [ngStyle]="{
+              display: 'flex',
+              'justify-content': 'center',
+              'align-items': 'center'
+            }">
+            <mat-icon>person</mat-icon>
+            Bonjour {{ name }}
+          </a>
+        </li>
+        <mat-divider [vertical]="true"></mat-divider>
+        <li class="nav-item">
+          <a class="pointer" [ngClass]="catalogActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
+              display: 'flex',
+              'justify-content': 'center',
+              'align-items': 'center'
+            }">
+            <mat-icon>list_alt</mat-icon>Catalogue
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="pointer" [ngClass]="orderActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
+              display: 'flex',
+              'justify-content': 'center',
+              'align-items': 'center'
+            }">
+            <mat-icon>shopping_cart</mat-icon>Mes commandes
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="m-r-20">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item m-r-5">
+          <mat-icon class="icon-button" (click)="openDialog()">info</mat-icon>
+        </li>
+        <li class="nav-item m-l-5">
+          <mat-icon class="icon-button" (click)="logout()">logout</mat-icon>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
