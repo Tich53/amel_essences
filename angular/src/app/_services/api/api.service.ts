@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { CurrentUser } from 'src/app/_interfaces/current-user';
 import { RegistratingUser } from 'src/app/_interfaces/registrating-user';
+import { Product } from 'src/app/_interfaces/product';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ export class ApiService {
   readonly packagingUrl = 'https://localhost:8000/api/packaging';
   readonly productPackagingUrl =
     'https://localhost:8000/api/product_packagings';
+  readonly productUrl = 'https://localhost:8000/api/products';
   readonly statusUrl = 'https://localhost:8000/api/statuses';
   readonly userUrl = 'https://localhost:8000/api/users';
   readonly meUrl = 'https://localhost:8000/api/me';
@@ -42,6 +44,10 @@ export class ApiService {
 
   getCurrentUser(): Promise<CurrentUser> {
     return lastValueFrom(this.httpClient.get<CurrentUser>(this.meUrl));
+  }
+
+  getProducts(): Promise<Product> {
+    return lastValueFrom(this.httpClient.get<Product>(this.productUrl));
   }
 
   /**
