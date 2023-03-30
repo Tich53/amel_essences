@@ -1,35 +1,52 @@
 <table class="table table-hover">
   <thead>
     <tr>
-      <th class="text-align-center" scope="col">Numéros</th>
-      <th class="text-align-center" scope="col">Si vous aimez</th>
-      <th class="text-align-center" scope="col">Conditionnement</th>
-      <th class="text-align-center" scope="col">Prix unitaire</th>
-      <th class="text-align-center" scope="col">Quantité</th>
-      <th class="text-align-center" scope="col">Prix total</th>
-      <th class="text-align-center" scope="col">Ajouter au panier</th>
+      <th class="text-align-center vertical-align-center" scope="col">Numéros</th>
+      <th class="text-align-center vertical-align-center" scope="col">Catégorie</th>
+      <th class="text-align-center vertical-align-center" scope="col">Si vous aimez</th>
+      <th class="text-align-center vertical-align-center" scope="col">Genre</th>
+      <th class="text-align-center vertical-align-center" scope="col">Conditionnement</th>
+      <th class="text-align-center vertical-align-center" scope="col">Prix unitaire</th>
+      <th class="text-align-center vertical-align-center" scope="col">Quantité</th>
+      <th class="text-align-center vertical-align-center" scope="col">Prix total</th>
+      <th class="text-align-center vertical-align-center" scope="col"></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let product of products; index">
-      <th class="text-align-center" scope="row">{{ product.name }}</th>
-      <td class="text-align-center">Column content</td>
-      <td
-        *ngFor="let productPackaging of product.productPackagings"
-        class="text-align-center"
-      >
+    <tr *ngFor="let product of products">
+      <th class="text-align-center vertical-align-center" scope="row">{{ product.name }}</th>
+      <td class="text-align-center vertical-align-center">{{ product.category.name }}</td>
+      <td class="text-align-center vertical-align-center">Column content</td>
+      <td class="text-align-center vertical-align-center">{{ product.gender.name }}</td>
+      <td *ngFor="let productPackaging of product.productPackagings" class="text-align-center vertical-align-center">
         {{ productPackaging.packaging.capacity }}
         {{ productPackaging.packaging.capacity_unit }}
       </td>
-      <td
-        *ngFor="let productPackaging of product.productPackagings"
-        class="text-align-center"
-      >
+      <td *ngFor="let productPackaging of product.productPackagings" class="text-align-center vertical-align-center">
         {{ productPackaging.unit_price }} €
       </td>
-      <td class="text-align-center">Mettre flèches bas et haut</td>
-      <td class="text-align-center">faire le calcul automatique</td>
-      <td class="text-align-center"><mat-icon>add_shopping_cart</mat-icon></td>
+      <td>
+        <div class="flex-center-center">
+          <span>0</span>
+          <div class="flex-column-center-center-100 m-l-20">
+            <button class="btn btn-secondary">
+              <mat-icon>add</mat-icon>
+            </button>
+            <button class="btn btn-secondary m-t-5">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+        </div>
+      </td>
+      <td class="text-align-center vertical-align-center">faire le calcul automatique</td>
+      <td class="text-align-center vertical-align-center">
+        <button class=" btn btn-primary">
+          <div class="flex-center-center">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Ajouter au panier
+          </div>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
