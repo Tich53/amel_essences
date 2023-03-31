@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { CurrentUser } from 'src/app/_interfaces/current-user';
 import { RegistratingUser } from 'src/app/_interfaces/registrating-user';
 import { Product } from 'src/app/_interfaces/product';
+import { HydraProduct } from 'src/app/_interfaces/hydra-product';
 
 @Injectable({
   providedIn: 'root',
@@ -46,8 +47,15 @@ export class ApiService {
     return lastValueFrom(this.httpClient.get<CurrentUser>(this.meUrl));
   }
 
-  getProducts(): Promise<Product> {
-    return lastValueFrom(this.httpClient.get<Product>(this.productUrl));
+  async getProducts(): Promise<Product[]> {
+    let products!: Product[];
+    await lastValueFrom(
+      this.httpClient.get<HydraProduct>(this.productUrl)
+    ).then((data: HydraProduct) => {
+      products = data['hydra:member'];
+    });
+
+    return products;
   }
 
   /**

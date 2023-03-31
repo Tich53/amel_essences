@@ -14,17 +14,6 @@ export class CatalogComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   async ngOnInit(): Promise<void> {
-    await this.apiService
-      .getProducts()
-      .then((data: any) => {
-        this.products = data[this.hydraMember];
-      })
-      .catch((error) => console.log(error));
-
-    console.log(this.products);
-
-    for (const product of this.products) {
-      console.log(product);
-    }
+    this.products = await this.apiService.getProducts();
   }
 }

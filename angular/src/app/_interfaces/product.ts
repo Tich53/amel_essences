@@ -6,5 +6,5 @@ export interface Product {
   name: string;
   category: Category;
   gender: Gender;
-  productPackaging: ProductPackaging;
+  productPackagings: ProductPackaging[];
 }
