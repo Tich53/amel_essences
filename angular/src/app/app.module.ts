@@ -19,6 +19,7 @@ import { RegisterDialogComponent } from './register/register-dialog/register-dia
 import { HomeComponent } from './home/home.component';
 import { NavbarDialogComponent } from './_shared/navbar/navbar-dialog/navbar-dialog.component';
 import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
+import { CatalogComponent } from './home/catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { LoginDialogComponent } from './login/login-dialog/login-dialog.componen
     HomeComponent,
     NavbarDialogComponent,
     LoginDialogComponent,
+    CatalogComponent,
   ],
   imports: [
     BrowserModule,

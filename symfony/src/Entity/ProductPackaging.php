@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Repository\ProductPackagingRepository;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductPackagingRepository::class)]
 #[ApiResource(
@@ -33,9 +34,11 @@ class ProductPackaging
 
     #[ORM\ManyToOne(inversedBy: 'productPackagings')]
     #[ORM\JoinColumn(nullable: true)]
+    #[Groups(['product:read'])]
     private ?Packaging $packaging = null;
 
     #[ORM\Column]
+    #[Groups(['product:read'])]
     private ?float $unit_price = null;
 
     public function getId(): ?int
