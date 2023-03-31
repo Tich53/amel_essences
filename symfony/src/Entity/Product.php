@@ -13,9 +13,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiResource(
+    normalizationContext: ['groups' => ['product:read']],
     operations: [
         new Get(),
         new GetCollection()
@@ -32,20 +34,24 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['product:read'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['product:read'])]
     private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['product:read'])]
     private ?Gender $gender = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderProduct::class)]
     private Collection $orderProducts;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductPackaging::class)]
+    #[Groups(['product:read'])]
     private Collection $productPackagings;
 
     public function __construct()
@@ -70,6 +76,7 @@ class Product
 
         return $this;
     }
+
 
     public function getCategory(): ?Category
     {

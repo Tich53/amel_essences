@@ -9,4 +9,4 @@ api_platform:
         name: Authorization
         type: header
   defaults:
-    pagination_items_per_page: 20 # Default value
+    pagination_enabled: false

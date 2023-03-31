@@ -11,41 +11,35 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
-        $product = new Product();
-        $product->setName('100');
-        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
-        $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
-        $manager->persist($product);
+        // 100 Parfums femmes 
+        for ($i = 100; $i < 200; $i++) {
+            $product = new Product();
+            $product->setName($i);
+            $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
+            $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
+            $this->addReference($i, $product);
+            $manager->persist($product);
+        }
 
-        $product = new Product();
-        $product->setName('101');
-        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
-        $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
-        $manager->persist($product);
+        // 100 Parfums hommes 
+        for ($i = 200; $i < 300; $i++) {
+            $product = new Product();
+            $product->setName($i);
+            $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
+            $product->setGender($this->getReference(GenderFixtures::GENDER_MALE));
+            $this->addReference($i, $product);
+            $manager->persist($product);
+        }
 
-        $product = new Product();
-        $product->setName('102');
-        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
-        $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
-        $manager->persist($product);
-
-        $product = new Product();
-        $product->setName('103');
-        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
-        $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
-        $manager->persist($product);
-
-        $product = new Product();
-        $product->setName('104');
-        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
-        $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
-        $manager->persist($product);
-
-        $product = new Product();
-        $product->setName('105');
-        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
-        $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
-        $manager->persist($product);
+        // 50 Parfums mixtes 
+        for ($i = 300; $i < 350; $i++) {
+            $product = new Product();
+            $product->setName($i);
+            $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
+            $product->setGender($this->getReference(GenderFixtures::GENDER_MIXED));
+            $this->addReference($i, $product);
+            $manager->persist($product);
+        }
 
         $manager->flush();
     }
