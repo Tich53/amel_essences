@@ -103,6 +103,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user_account', targetEntity: Order::class)]
     private Collection $orders;
 
+    #[ORM\OneToOne(mappedBy: 'user_account', cascade: ['persist', 'remove'])]
+    private ?Cart $cart = null;
+
 
     public function __construct()
     {
@@ -315,6 +318,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $order->setUserAccount(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(Cart $cart): self
+    {
+        // set the owning side of the relation if necessary
+        if ($cart->getUserAccount() !== $this) {
+            $cart->setUserAccount($this);
+        }
+
+        $this->cart = $cart;
 
         return $this;
     }

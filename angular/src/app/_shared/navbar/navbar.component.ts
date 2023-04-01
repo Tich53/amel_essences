@@ -15,10 +15,12 @@ export class NavbarComponent implements OnInit {
   @Output() menuItemSelectionEmitter = new EventEmitter<{
     catalogActive: boolean;
     orderActive: boolean;
+    cartActive: boolean;
   }>();
 
   catalogActive = true;
   orderActive = false;
+  cartActive = false;
 
   currentUser?: CurrentUser;
   name!: string;
@@ -35,6 +37,7 @@ export class NavbarComponent implements OnInit {
     this.menuItemSelectionEmitter.emit({
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
+      cartActive: this.cartActive,
     });
   }
 
@@ -63,18 +66,33 @@ export class NavbarComponent implements OnInit {
   onClickCatalog() {
     this.catalogActive = true;
     this.orderActive = false;
+    this.cartActive = false;
     this.menuItemSelectionEmitter.emit({
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
+      cartActive: this.cartActive,
     });
   }
 
   onClickMyOrders() {
     this.catalogActive = false;
     this.orderActive = true;
+    this.cartActive = false;
     this.menuItemSelectionEmitter.emit({
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
+      cartActive: this.cartActive,
+    });
+  }
+
+  onClickMyCart() {
+    this.catalogActive = false;
+    this.orderActive = false;
+    this.cartActive = true;
+    this.menuItemSelectionEmitter.emit({
+      catalogActive: this.catalogActive,
+      orderActive: this.orderActive,
+      cartActive: this.cartActive,
     });
   }
 }

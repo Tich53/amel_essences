@@ -9,6 +9,7 @@ export class HomeComponent implements OnInit {
   menuItemSelection = {
     catalogActive: false,
     orderActive: false,
+    cartActive: false,
   };
 
   constructor() {}

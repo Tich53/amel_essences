@@ -5,7 +5,7 @@ import {
   Router,
   RouterStateSnapshot,
 } from '@angular/router';
-import { StatusEnum } from 'src/app/enums/status';
+import { StatusEnum } from 'src/app/_enums/status';
 import { ApiService } from '../api/api.service';
 import { StorageService } from '../authentication/storage.service';
 

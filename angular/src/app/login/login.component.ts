@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { StatusEnum } from '../enums/status';
+import { StatusEnum } from '../_enums/status';
 import { CurrentUser } from '../_interfaces/current-user';
 import { ApiService } from '../_services/api/api.service';
 

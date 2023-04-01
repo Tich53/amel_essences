@@ -54,10 +54,14 @@ class Product
     #[Groups(['product:read'])]
     private Collection $productPackagings;
 
+    #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartProduct::class)]
+    private Collection $cartProducts;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
         $this->productPackagings = new ArrayCollection();
+        $this->cartProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,6 +160,36 @@ class Product
             // set the owning side to null (unless already changed)
             if ($productPackaging->getProduct() === $this) {
                 $productPackaging->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CartProduct>
+     */
+    public function getCartProducts(): Collection
+    {
+        return $this->cartProducts;
+    }
+
+    public function addCartProduct(CartProduct $cartProduct): self
+    {
+        if (!$this->cartProducts->contains($cartProduct)) {
+            $this->cartProducts->add($cartProduct);
+            $cartProduct->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartProduct(CartProduct $cartProduct): self
+    {
+        if ($this->cartProducts->removeElement($cartProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($cartProduct->getProduct() === $this) {
+                $cartProduct->setProduct(null);
             }
         }
 

@@ -34,7 +34,7 @@
               'justify-content': 'center',
               'align-items': 'center'
             }">
-            <mat-icon>list_alt</mat-icon>Catalogue
+            <mat-icon class="m-r-5">auto_stories</mat-icon>Catalogue
           </a>
         </li>
         <li class="nav-item" (click)="onClickMyOrders()">
@@ -43,7 +43,16 @@
               'justify-content': 'center',
               'align-items': 'center'
             }">
-            <mat-icon>shopping_cart</mat-icon>Mes commandes
+            <mat-icon class="m-r-5">list_alt</mat-icon>Mes commandes
+          </a>
+        </li>
+        <li class="nav-item" (click)="onClickMyCart()">
+          <a class="pointer" [ngClass]="cartActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
+              display: 'flex',
+              'justify-content': 'center',
+              'align-items': 'center'
+            }">
+            <mat-icon class="m-r-5">shopping_cart</mat-icon>Mon panier
           </a>
         </li>
       </ul>
