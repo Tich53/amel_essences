@@ -2,6 +2,7 @@
 
 namespace App\EntityListener;
 
+use App\Entity\Cart;
 use App\Entity\User;
 use App\Enum\StatusEnum;
 use App\Enum\RoleEnum;
@@ -23,6 +24,7 @@ class UserListener
         $this->encodePassword($user);
         $this->setDefaultStatus($user);
         $this->setDefaultRole($user);
+        $this->setCart($user);
     }
 
     public function preUpdate(User $user)
@@ -57,7 +59,16 @@ class UserListener
 
     public function setDefaultRole(User $user)
     {
-        $role = [RoleEnum::ROLE_USER];
-        $user->setRoles($role);
+        if ($user->getRoles() === null) {
+            $role = [RoleEnum::ROLE_USER];
+            $user->setRoles($role);
+        }
+    }
+
+    public function setCart(User $user)
+    {
+        if ($user->getCart() === null) {
+            $user->setCart(new Cart());
+        }
     }
 }
