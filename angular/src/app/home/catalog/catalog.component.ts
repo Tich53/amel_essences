@@ -16,4 +16,8 @@ export class CatalogComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.products = await this.apiService.getProducts();
   }
+
+  addToCart(product: Product) {
+    console.log(product);
+  }
 }

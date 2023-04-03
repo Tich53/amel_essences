@@ -11,6 +11,12 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+        $product = new Product();
+        $product->setName('100');
+        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
+        $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
+        $this->addReference('100bis', $product);
+        $manager->persist($product);
         // 100 Parfums femmes 
         for ($i = 100; $i < 200; $i++) {
             $product = new Product();
