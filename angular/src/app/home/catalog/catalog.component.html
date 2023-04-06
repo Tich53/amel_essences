@@ -33,23 +33,16 @@
         {{ product.gender.name }}
       </td>
       <td class="text-align-center vertical-align-center">
-        <select name="capacity">
-          <option
-            *ngFor="let productPackaging of product.productPackagings"
-            value="
-            {{ productPackaging.capacity }}             
-            {{ productPackaging.packaging.capacity_unit }}
-            "
-            id="{{ product.id }}"
-          >
+        <select (change)="getProductPackaging($event, product)" name="data">
+          <option *ngFor="let productPackaging of product.productPackagings"
+            value="{{ productPackaging.packaging.capacity }}">
             {{ productPackaging.packaging.capacity }}
-            {{ productPackaging.packaging.capacity_unit }}
+            {{ productPackaging.packaging.capacityUnit }}
           </option>
         </select>
       </td>
       <td class="text-align-center vertical-align-center">
-        récupérer la valeur du conditionnement avec un getElementById
-        productPackaging.unit_price €
+        {{ getUnitPrice(product) }}
       </td>
       <td class="text-align-center vertical-align-center">
         <button class="btn btn-primary" (click)="addToCart(product)">

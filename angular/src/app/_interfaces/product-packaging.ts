@@ -1,6 +1,6 @@
+import { Packaging } from './packaging';
+
 export interface ProductPackaging {
-  type: string;
-  capacity: number;
-  capacityUnit: string;
+  packaging: Packaging;
   unitPrice: number;
 }

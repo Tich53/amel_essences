@@ -39,7 +39,6 @@ class Packaging
     private ?float $capacity = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['product:read'])]
     private ?string $capacity_unit = null;
 
     #[ORM\OneToMany(mappedBy: 'packaging', targetEntity: ProductPackaging::class)]
@@ -79,6 +78,7 @@ class Packaging
         return $this;
     }
 
+    #[Groups(['product:read'])]
     public function getCapacityUnit(): ?string
     {
         return $this->capacity_unit;

@@ -38,7 +38,6 @@ class ProductPackaging
     private ?Packaging $packaging = null;
 
     #[ORM\Column]
-    #[Groups(['product:read'])]
     private ?float $unit_price = null;
 
     public function getId(): ?int
@@ -70,6 +69,7 @@ class ProductPackaging
         return $this;
     }
 
+    #[Groups(['product:read'])]
     public function getUnitPrice(): ?float
     {
         return $this->unit_price;
