@@ -13,7 +13,8 @@ export class CatalogComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
 
   selectedProductPackaging?: ProductPackaging;
-  products: any[] = [];
+  products: Product[] = [];
+  count = 0;
 
   constructor(private apiService: ApiService) {}
 
@@ -21,25 +22,35 @@ export class CatalogComponent implements OnInit {
     this.products = await this.apiService.getProducts();
   }
 
-  getProductPackaging(event: any, product: Product): void {
-    const selectedCapacity = parseInt(event.target.value);
+  getUnitPrice(product: Product): number | void {
+    const selectElement = document.getElementById(
+      `product-packaging-${product.id}`
+    ) as HTMLSelectElement;
+    const selectedOption = parseInt(selectElement?.selectedOptions[0].value);
+
     for (const productPackaging of product.productPackagings) {
-      if (productPackaging.packaging.capacity === selectedCapacity) {
-        console.log(productPackaging);
-        this.selectedProductPackaging = productPackaging;
+      if (productPackaging.id === selectedOption) {
+        return productPackaging.unitPrice;
+      } else {
+        return productPackaging.unitPrice;
       }
     }
   }
 
-  getUnitPrice(product: Product): number | void {
-    if (this.selectedProductPackaging) {
-      if (product.productPackagings.includes(this.selectedProductPackaging)) {
-        return this.selectedProductPackaging.unitPrice;
-      } else {
-        return product.productPackagings[0].unitPrice;
+  onSelectChange(selectedProduct: Product): number | void {
+    const selectElement = document.getElementById(
+      `product-packaging-${selectedProduct.id}`
+    ) as HTMLSelectElement;
+    const selectedOption = parseInt(selectElement?.selectedOptions[0].value);
+    const unitPriceElement = document.getElementById(
+      `unit-price-${selectedProduct.id}`
+    );
+
+    for (const productPackaging of selectedProduct.productPackagings) {
+      if (productPackaging.id === selectedOption) {
+        if (unitPriceElement)
+          unitPriceElement.innerHTML = productPackaging.unitPrice.toString();
       }
-    } else {
-      return product.productPackagings[0].unitPrice;
     }
   }
 

@@ -33,15 +33,15 @@
         {{ product.gender.name }}
       </td>
       <td class="text-align-center vertical-align-center">
-        <select (change)="getProductPackaging($event, product)" name="data">
-          <option *ngFor="let productPackaging of product.productPackagings"
-            value="{{ productPackaging.packaging.capacity }}">
+        <select class="form-select text-align-center" (change)="onSelectChange(product)"
+          id="product-packaging-{{ product.id }}">
+          <option *ngFor="let productPackaging of product.productPackagings" value="{{ productPackaging.id }}">
             {{ productPackaging.packaging.capacity }}
             {{ productPackaging.packaging.capacityUnit }}
           </option>
         </select>
       </td>
-      <td class="text-align-center vertical-align-center">
+      <td class="text-align-center vertical-align-center" id="unit-price-{{ product.id }}">
         {{ getUnitPrice(product) }}
       </td>
       <td class="text-align-center vertical-align-center">

@@ -26,6 +26,7 @@ class ProductPackaging
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['product:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'productPackagings')]
