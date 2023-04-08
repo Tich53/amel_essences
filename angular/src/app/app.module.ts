@@ -20,6 +20,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarDialogComponent } from './_shared/navbar/navbar-dialog/navbar-dialog.component';
 import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
 import { CatalogComponent } from './home/catalog/catalog.component';
+import { FilterComponent } from './home/filter/filter.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CatalogComponent } from './home/catalog/catalog.component';
     NavbarDialogComponent,
     LoginDialogComponent,
     CatalogComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,

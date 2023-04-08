@@ -1,4 +1,5 @@
 <app-navbar (menuItemSelectionEmitter)="menuItemSelection=$event"></app-navbar>
-<div class="m-l-20 m-r-20">
-  <app-catalog *ngIf="menuItemSelection.catalogActive"></app-catalog>
+<div class="m-l-20 m-r-20 m-t-20 flex-center-center-80vh">
+  <app-filter class="w-20 m-5 max-h-100-o-y-a"></app-filter>
+  <app-catalog *ngIf="menuItemSelection.catalogActive" class="w-100 m-5 max-h-100-o-y-a"></app-catalog>
 </div>
