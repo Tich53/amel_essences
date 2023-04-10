@@ -51,17 +51,16 @@
       <div class="filter-group">
         <div class="form-check">
           <h4 class="filter-title">Conditionnement</h4>
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            50 ml
-          </label>
+          <div *ngFor="let packaging of packagings">
+            <input class="form-check-input" type="checkbox" value="{{ packaging.id }}" id="packaging-{{ packaging.id }}"
+              (change)="onPackagingCheckbox($event, packaging)">
+            <label class="form-check-label" for="packaging-{{ packaging.id }}">
+              {{ packaging.capacity }}
+              {{ packaging.capacityUnit }}
+            </label>
+          </div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-          <label class="form-check-label" for="flexCheckChecked">
-            100 ml
-          </label>
-        </div>
+
       </div>
     </div>
     <div class="flex-center-center">

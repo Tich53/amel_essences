@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PackagingRepository::class)]
 #[ApiResource(
+    normalizationContext: ['groups' => ['packaging:read']],
     operations: [
         new Get(),
         new GetCollection()
@@ -28,14 +29,15 @@ class Packaging
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['packaging:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['product:read'])]
+    #[Groups(['packaging:read', 'product:read'])]
     private ?string $type = null;
 
     #[ORM\Column]
-    #[Groups(['product:read'])]
+    #[Groups(['packaging:read', 'product:read'])]
     private ?float $capacity = null;
 
     #[ORM\Column(length: 10)]
@@ -78,7 +80,7 @@ class Packaging
         return $this;
     }
 
-    #[Groups(['product:read'])]
+    #[Groups(['packaging:read', 'product:read'])]
     public function getCapacityUnit(): ?string
     {
         return $this->capacity_unit;

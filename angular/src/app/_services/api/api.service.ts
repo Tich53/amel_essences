@@ -6,6 +6,7 @@ import { RegistratingUser } from 'src/app/_interfaces/registrating-user';
 import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
 import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
 import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
+import { HydraPackaging } from 'src/app/_interfaces/_hydras/hydra-packaging';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,7 @@ export class ApiService {
   readonly mainOrderUrl = 'https://localhost:8000/api/main_orders';
   readonly orderProductUrl = 'https://localhost:8000/api/order_products';
   readonly orderUrl = 'https://localhost:8000/api/orders';
-  readonly packagingUrl = 'https://localhost:8000/api/packaging';
+  readonly packagingUrl = 'https://localhost:8000/api/packagings';
   readonly productPackagingUrl =
     'https://localhost:8000/api/product_packagings';
   readonly productUrl = 'https://localhost:8000/api/products';
@@ -58,6 +59,12 @@ export class ApiService {
 
   getGender(): Promise<HydraGender> {
     return lastValueFrom(this.httpClient.get<HydraGender>(this.genderUrl));
+  }
+
+  getPackaging(): Promise<HydraPackaging> {
+    return lastValueFrom(
+      this.httpClient.get<HydraPackaging>(this.packagingUrl)
+    );
   }
 
   // getProducts(

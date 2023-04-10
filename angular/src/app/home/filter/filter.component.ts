@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/_interfaces/category';
 import { Gender } from 'src/app/_interfaces/gender';
+import { Packaging } from 'src/app/_interfaces/packaging';
 import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
 import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
+import { HydraPackaging } from 'src/app/_interfaces/_hydras/hydra-packaging';
 import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
@@ -14,9 +16,11 @@ export class FilterComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
   categories?: Category[];
   genders?: Gender[];
+  packagings?: Packaging[];
 
   filteredCategories: Category[] = [];
   filteredGenders: Gender[] = [];
+  filteredPackagings: Packaging[] = [];
 
   number?: string;
   preference?: string;
@@ -33,6 +37,12 @@ export class FilterComponent implements OnInit {
     await this.apiService.getGender().then((hydraGender: HydraGender) => {
       this.genders = hydraGender[this.hydraMember];
     });
+    await this.apiService
+      .getPackaging()
+      .then((HydraPackaging: HydraPackaging) => {
+        this.packagings = HydraPackaging[this.hydraMember];
+      });
+    console.log(this.packagings);
   }
 
   onCategoryCheckbox(event: any, category: Category): void {
@@ -65,6 +75,22 @@ export class FilterComponent implements OnInit {
       }
     }
     console.log(this.filteredGenders);
+  }
+
+  onPackagingCheckbox(event: any, packaging: Packaging) {
+    const isSelected = event.target.checked;
+    if (isSelected) {
+      if (!this.filteredPackagings.includes(packaging)) {
+        this.filteredPackagings?.push(packaging);
+      }
+    }
+    if (!isSelected) {
+      const index = this.filteredPackagings?.indexOf(packaging);
+      if (index !== undefined) {
+        this.filteredPackagings?.splice(index, 1);
+      }
+    }
+    console.log(this.filteredPackagings);
   }
 
   onSubmit() {
