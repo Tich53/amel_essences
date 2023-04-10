@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Packaging } from 'src/app/_interfaces/packaging';
 import { Product } from 'src/app/_interfaces/product';
 import { ProductPackaging } from 'src/app/_interfaces/product-packaging';
+import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
 import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
@@ -13,16 +13,18 @@ export class CatalogComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
 
   selectedProductPackaging?: ProductPackaging;
-  products: Product[] = [];
+  products?: Product[];
   count = 0;
 
   constructor(private apiService: ApiService) {}
 
   async ngOnInit(): Promise<void> {
-    this.products = await this.apiService.getProducts();
+    await this.apiService.getProducts().then((hydraProduct: HydraProduct) => {
+      this.products = hydraProduct[this.hydraMember];
+    });
   }
 
-  getUnitPrice(product: Product): number | void {
+  getUnitPrice(product: Product): string | void {
     const selectElement = document.getElementById(
       `product-packaging-${product.id}`
     ) as HTMLSelectElement;
@@ -30,14 +32,14 @@ export class CatalogComponent implements OnInit {
 
     for (const productPackaging of product.productPackagings) {
       if (productPackaging.id === selectedOption) {
-        return productPackaging.unitPrice;
+        return `${productPackaging.unitPrice} €`;
       } else {
-        return productPackaging.unitPrice;
+        return `${productPackaging.unitPrice} €`;
       }
     }
   }
 
-  onSelectChange(selectedProduct: Product): number | void {
+  onSelectChange(selectedProduct: Product): void {
     const selectElement = document.getElementById(
       `product-packaging-${selectedProduct.id}`
     ) as HTMLSelectElement;
@@ -49,7 +51,7 @@ export class CatalogComponent implements OnInit {
     for (const productPackaging of selectedProduct.productPackagings) {
       if (productPackaging.id === selectedOption) {
         if (unitPriceElement)
-          unitPriceElement.innerHTML = productPackaging.unitPrice.toString();
+          unitPriceElement.innerHTML = `${productPackaging.unitPrice.toString()} €`;
       }
     }
   }

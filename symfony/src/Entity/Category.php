@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ApiResource(
+    normalizationContext: ['groups' => ['category:read']],
     operations: [
         new Get(),
         new GetCollection()
@@ -28,10 +29,11 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['category:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['product:read'])]
+    #[Groups(['category:read', 'product:read'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]

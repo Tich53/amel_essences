@@ -3,72 +3,71 @@
     <div class="card-header">
       <h2>Filtres</h2>
     </div>
+
+
+    <div class="filter-group">
+      <div class="form-check">
+        <h4 class="filter-title text-align-center">Numéro</h4>
+        <input class="form-control" type="text" id="flexCheckDefault" [(ngModel)]="number">
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="form-check">
+        <h4 class="filter-title text-align-center">Si vous aimez</h4>
+        <input class="form-control" type="text" id="flexCheckDefault" [(ngModel)]="preference">
+      </div>
+    </div>
+
+
+    <div class="flex-start-center">
+      <div class="filter-group">
+        <div class="form-check">
+          <h4 class="filter-title">Catégorie</h4>
+          <ng-container *ngFor="let category of categories">
+            <input #cat class="form-check-input" type="checkbox" id="category-{{ category.id }}"
+              value="{{ category.id }}" (change)="onCategoryCheckbox($event, category)">
+            <label class="form-check-label" for="category-{{ category.id }}">
+              {{ category.name }}
+            </label>
+          </ng-container>
+        </div>
+
+      </div>
+
+      <div class="filter-group">
+        <div class="form-check">
+          <h4 class="filter-title">Genre</h4>
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            Femme
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+          <label class="form-check-label" for="flexCheckChecked">
+            Homme
+          </label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="form-check">
+          <h4 class="filter-title">Conditionnement</h4>
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <label class="form-check-label" for="flexCheckDefault">
+            50 ml
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
+          <label class="form-check-label" for="flexCheckChecked">
+            100 ml
+          </label>
+        </div>
+      </div>
+    </div>
     <div class="flex-center-center">
-
-      <div class="filter-group">
-        <div class="form-check">
-          <h4 class="filter-title">Catégorie</h4>
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            Parfum
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked="">
-          <label class="form-check-label" for="flexCheckChecked">
-            Barbe
-          </label>
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <div class="form-check">
-          <h4 class="filter-title">Catégorie</h4>
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            Parfum
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked="">
-          <label class="form-check-label" for="flexCheckChecked">
-            Barbe
-          </label>
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <div class="form-check">
-          <h4 class="filter-title">Catégorie</h4>
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            Parfum
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked="">
-          <label class="form-check-label" for="flexCheckChecked">
-            Barbe
-          </label>
-        </div>
-      </div>
-
-      <div class="filter-group">
-        <div class="form-check">
-          <h4 class="filter-title">Catégorie</h4>
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-          <label class="form-check-label" for="flexCheckDefault">
-            Parfum
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked="">
-          <label class="form-check-label" for="flexCheckChecked">
-            Barbe
-          </label>
-        </div>
-      </div>
-
-
+      <button class="btn btn-primary m-t-20" (click)="onSubmit()">Filtrer</button>
     </div>
   </div>

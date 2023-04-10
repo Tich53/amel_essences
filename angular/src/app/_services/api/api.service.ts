@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { CurrentUser } from 'src/app/_interfaces/current-user';
 import { RegistratingUser } from 'src/app/_interfaces/registrating-user';
-import { Product } from 'src/app/_interfaces/product';
-import { HydraProduct } from 'src/app/_interfaces/hydra-product';
+import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
+import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
 
 @Injectable({
   providedIn: 'root',
@@ -47,16 +47,58 @@ export class ApiService {
     return lastValueFrom(this.httpClient.get<CurrentUser>(this.meUrl));
   }
 
-  async getProducts(): Promise<Product[]> {
-    let products!: Product[];
-    await lastValueFrom(
-      this.httpClient.get<HydraProduct>(this.productUrl)
-    ).then((data: HydraProduct) => {
-      products = data['hydra:member'];
-    });
-
-    return products;
+  getProducts(): Promise<HydraProduct> {
+    return lastValueFrom(this.httpClient.get<HydraProduct>(this.productUrl));
   }
+
+  getCategory(): Promise<HydraCategory> {
+    return lastValueFrom(this.httpClient.get<HydraCategory>(this.categoryUrl));
+  }
+
+  // getProducts(
+  //   page = 1,
+  //   cleanedReference?: any,
+  //   rawReference?: any,
+  //   cleanedBrand?: any,
+  //   rawBrand?: any,
+  //   productName?: any,
+  //   tags?: any,
+  //   min_price?: number,
+  //   max_price?: number
+  // ) {
+  //   let params = new HttpParams();
+  //   params = params.set('page', page);
+  //   if (cleanedReference) {
+  //     params = params.set('cleaned_reference', cleanedReference);
+  //   }
+  //   if (rawReference) {
+  //     params = params.set('raw_reference', rawReference);
+  //   }
+  //   if (cleanedBrand) {
+  //     params = params.set('cleaned_brand', cleanedBrand);
+  //   }
+  //   if (rawBrand) {
+  //     params = params.set('raw_brand', rawBrand);
+  //   }
+  //   if (productName) {
+  //     params = params.set('name', productName);
+  //   }
+  //   if (tags) {
+  //     tags.forEach((tag: any) => {
+  //       //tags = affichage dans l'URL
+  //       params = params.append('tags[]', tag);
+  //     });
+  //   }
+  //   if (min_price && max_price) {
+  //     params = params.set('price[between]', min_price + '..' + max_price);
+  //   } else if (min_price) {
+  //     params = params.set('price[gte]', min_price);
+  //   } else if (max_price) {
+  //     params = params.set('price[lte]', max_price);
+  //   }
+  //   return this.httpClient.get(this.ProductUrl + '?' + params);
+  //   // return this.httpClient.get(this.apiUrl);!!!!!!!!!!!!!!!!!!!!!!!!
+  // }
 
   /**
    * Http POST methods
