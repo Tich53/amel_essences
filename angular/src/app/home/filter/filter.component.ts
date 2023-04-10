@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Category } from 'src/app/_interfaces/category';
 import { Gender } from 'src/app/_interfaces/gender';
 import { Packaging } from 'src/app/_interfaces/packaging';
@@ -14,21 +15,18 @@ import { ApiService } from 'src/app/_services/api/api.service';
 })
 export class FilterComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
+
   categories?: Category[];
   genders?: Gender[];
   packagings?: Packaging[];
 
+  filteredName?: string;
+  filteredPreference?: string;
   filteredCategories: Category[] = [];
   filteredGenders: Gender[] = [];
   filteredPackagings: Packaging[] = [];
 
-  number?: string;
-  preference?: string;
-
-  gender?: string;
-  packaging?: string;
-
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
   async ngOnInit(): Promise<void> {
     await this.apiService.getCategory().then((hydraCategory: HydraCategory) => {
@@ -40,7 +38,9 @@ export class FilterComponent implements OnInit {
     await this.apiService
       .getPackaging()
       .then((HydraPackaging: HydraPackaging) => {
-        this.packagings = HydraPackaging[this.hydraMember];
+        this.packagings = HydraPackaging[this.hydraMember].sort(
+          (a: Packaging, b: Packaging) => a.capacity - b.capacity
+        );
       });
     console.log(this.packagings);
   }
@@ -94,6 +94,52 @@ export class FilterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.number, this.preference, this.gender, this.packaging);
+    console.log(this.filteredName, this.filteredPreference);
+    this.router.navigate(['/home'], {
+      queryParams: {
+        filteredName: this.filteredName ? this.filteredName : undefined,
+        filteredPreference: this.filteredPreference
+          ? this.filteredName
+          : undefined,
+        filteredCategories:
+          this.filteredCategories.length > 0
+            ? JSON.stringify(this.filteredCategories)
+            : undefined,
+        filteredGenders:
+          this.filteredGenders.length > 0
+            ? JSON.stringify(this.filteredGenders)
+            : undefined,
+        filteredPackagings:
+          this.filteredPackagings.length > 0
+            ? JSON.stringify(this.filteredPackagings)
+            : undefined,
+      },
+    });
+  }
+
+  onReset() {
+    this.filteredName = undefined;
+    this.filteredPreference = undefined;
+    this.filteredCategories = [];
+    this.filteredGenders = [];
+    this.filteredPackagings = [];
+
+    this.router.navigate(['/home'], {
+      queryParams: {
+        filteredName: this.filteredName ? this.filteredName : undefined,
+        filteredPreference: this.filteredPreference
+          ? this.filteredName
+          : undefined,
+        filteredCategories: this.filteredCategories
+          ? JSON.stringify(this.filteredCategories)
+          : undefined,
+        filteredGenders: this.filteredGenders
+          ? JSON.stringify(this.filteredGenders)
+          : undefined,
+        filteredPackagings: this.filteredPackagings
+          ? JSON.stringify(this.filteredPackagings)
+          : undefined,
+      },
+    });
   }
 }

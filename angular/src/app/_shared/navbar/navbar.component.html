@@ -1,5 +1,5 @@
 <!-- navbar for login & registration pages -->
-<nav *ngIf="router.url === '/login' || router.url === '/register'"
+<nav *ngIf="router.url.includes('/login') || router.url.includes('/register')"
   class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <div class="m-r-20">
@@ -13,7 +13,7 @@
 </nav>
 
 <!-- navbar for home page-->
-<nav *ngIf="router.url === '/home'" class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav *ngIf="router.url.includes('/home')" class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">

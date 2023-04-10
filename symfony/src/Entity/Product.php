@@ -2,18 +2,22 @@
 
 namespace App\Entity;
 
+use App\Entity\Range;
 use App\Entity\OrderProduct;
 use ApiPlatform\Metadata\Get;
 use App\Entity\ProductPackaging;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductRepository;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[ApiResource(
@@ -23,6 +27,15 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection()
     ]
 )]
+#[ApiFilter(SearchFilter::class, properties: [
+    'name' => 'ipartial',
+    'preference' => 'ipartial',
+    'category' => 'exact',
+    'gender' => 'exact',
+    'productPackagings.packaging.capacity' => 'exact',
+
+])]
+
 class Product
 {
     use TimestampableEntity;
@@ -57,6 +70,14 @@ class Product
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartProduct::class)]
     private Collection $cartProducts;
+
+    #[ORM\Column(length: 255)]
+    #[Groups(['product:read'])]
+    private ?string $preference = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?range $range_account = null;
 
     public function __construct()
     {
@@ -193,6 +214,31 @@ class Product
                 $cartProduct->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPreference(): ?string
+    {
+        return $this->preference;
+    }
+
+    public function setPreference(string $preference): self
+    {
+        $this->preference = $preference;
+
+        return $this;
+    }
+
+    #[Groups(['product:read'])]
+    public function getRangeAccount(): ?range
+    {
+        return $this->range_account;
+    }
+
+    public function setRangeAccount(?range $range_account): self
+    {
+        $this->range_account = $range_account;
 
         return $this;
     }
