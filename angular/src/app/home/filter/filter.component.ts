@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/_interfaces/category';
+import { Gender } from 'src/app/_interfaces/gender';
 import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
+import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
 import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
@@ -11,10 +13,14 @@ import { ApiService } from 'src/app/_services/api/api.service';
 export class FilterComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
   categories?: Category[];
+  genders?: Gender[];
+
+  filteredCategories: Category[] = [];
+  filteredGenders: Gender[] = [];
 
   number?: string;
   preference?: string;
-  filteredCategories: Category[] = [];
+
   gender?: string;
   packaging?: string;
 
@@ -24,9 +30,12 @@ export class FilterComponent implements OnInit {
     await this.apiService.getCategory().then((hydraCategory: HydraCategory) => {
       this.categories = hydraCategory[this.hydraMember];
     });
+    await this.apiService.getGender().then((hydraGender: HydraGender) => {
+      this.genders = hydraGender[this.hydraMember];
+    });
   }
 
-  onCategoryCheckbox(event: any, category: Category) {
+  onCategoryCheckbox(event: any, category: Category): void {
     const isSelected = event.target.checked;
     if (isSelected) {
       if (!this.filteredCategories.includes(category)) {
@@ -35,12 +44,27 @@ export class FilterComponent implements OnInit {
     }
     if (!isSelected) {
       const index = this.filteredCategories?.indexOf(category);
-      console.log(index);
       if (index !== undefined) {
         this.filteredCategories?.splice(index, 1);
       }
     }
     console.log(this.filteredCategories);
+  }
+
+  onGenderCheckbox(event: any, gender: Gender) {
+    const isSelected = event.target.checked;
+    if (isSelected) {
+      if (!this.filteredGenders.includes(gender)) {
+        this.filteredGenders?.push(gender);
+      }
+    }
+    if (!isSelected) {
+      const index = this.filteredGenders?.indexOf(gender);
+      if (index !== undefined) {
+        this.filteredGenders?.splice(index, 1);
+      }
+    }
+    console.log(this.filteredGenders);
   }
 
   onSubmit() {

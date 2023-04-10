@@ -5,6 +5,7 @@ import { CurrentUser } from 'src/app/_interfaces/current-user';
 import { RegistratingUser } from 'src/app/_interfaces/registrating-user';
 import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
 import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
+import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
 
 @Injectable({
   providedIn: 'root',
@@ -53,6 +54,10 @@ export class ApiService {
 
   getCategory(): Promise<HydraCategory> {
     return lastValueFrom(this.httpClient.get<HydraCategory>(this.categoryUrl));
+  }
+
+  getGender(): Promise<HydraGender> {
+    return lastValueFrom(this.httpClient.get<HydraGender>(this.genderUrl));
   }
 
   // getProducts(
