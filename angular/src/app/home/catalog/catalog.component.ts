@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/_interfaces/product';
 import { ProductPackaging } from 'src/app/_interfaces/product-packaging';
 import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
@@ -16,13 +17,32 @@ export class CatalogComponent implements OnInit {
   products?: Product[];
   count = 0;
 
-  constructor(private apiService: ApiService) {}
-
-  async ngOnInit(): Promise<void> {
-    await this.apiService.getProducts().then((hydraProduct: HydraProduct) => {
-      this.products = hydraProduct[this.hydraMember];
+  constructor(
+    private apiService: ApiService,
+    private activatedRoute: ActivatedRoute
+  ) {
+    this.activatedRoute.queryParamMap.subscribe((params) => {
+      const name = params.get('name');
+      const preference = params.get('preference');
+      const categories = params.getAll('category');
+      const genders = params.getAll('gender');
+      const capacityStrings = params.getAll(
+        'productPackagings.packaging.capacity'
+      );
+      const capacities = capacityStrings
+        ? capacityStrings.map((string) => {
+            return parseInt(string);
+          })
+        : [];
+      this.apiService
+        .getProducts(name, preference, categories, genders, capacities)
+        .subscribe((hydraProduct: HydraProduct) => {
+          this.products = hydraProduct[this.hydraMember];
+        });
     });
   }
+
+  ngOnInit() {}
 
   getUnitPrice(product: Product): string | void {
     const selectElement = document.getElementById(

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { CurrentUser } from 'src/app/_interfaces/current-user';
 import { RegistratingUser } from 'src/app/_interfaces/registrating-user';
 import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
@@ -49,8 +49,40 @@ export class ApiService {
     return lastValueFrom(this.httpClient.get<CurrentUser>(this.meUrl));
   }
 
-  getProducts(): Promise<HydraProduct> {
-    return lastValueFrom(this.httpClient.get<HydraProduct>(this.productUrl));
+  getProducts(
+    name: string | null,
+    preference: string | null,
+    categories: string[] | null,
+    genders: string[] | null,
+    capacities: number[] | null
+  ): Observable<HydraProduct> {
+    let params = new HttpParams();
+    if (name) {
+      params = params.set('name', name);
+    }
+    if (preference) {
+      params = params.set('preference', preference);
+    }
+
+    if (categories) {
+      for (const category of categories) {
+        params = params.append('category[]', category);
+      }
+    }
+    if (genders) {
+      for (const gender of genders) {
+        params = params.append('gender[]', gender);
+      }
+    }
+    if (capacities) {
+      for (const capacity of capacities) {
+        params = params.append(
+          'productPackagings.packaging.capacity[]',
+          capacity
+        );
+      }
+    }
+    return this.httpClient.get<HydraProduct>(`${this.productUrl}?${params}`);
   }
 
   getCategory(): Promise<HydraCategory> {
@@ -67,54 +99,6 @@ export class ApiService {
     );
   }
 
-  // getProducts(
-  //   page = 1,
-  //   cleanedReference?: any,
-  //   rawReference?: any,
-  //   cleanedBrand?: any,
-  //   rawBrand?: any,
-  //   productName?: any,
-  //   tags?: any,
-  //   min_price?: number,
-  //   max_price?: number
-  // ) {
-  //   let params = new HttpParams();
-  //   params = params.set('page', page);
-  //   if (cleanedReference) {
-  //     params = params.set('cleaned_reference', cleanedReference);
-  //   }
-  //   if (rawReference) {
-  //     params = params.set('raw_reference', rawReference);
-  //   }
-  //   if (cleanedBrand) {
-  //     params = params.set('cleaned_brand', cleanedBrand);
-  //   }
-  //   if (rawBrand) {
-  //     params = params.set('raw_brand', rawBrand);
-  //   }
-  //   if (productName) {
-  //     params = params.set('name', productName);
-  //   }
-  //   if (tags) {
-  //     tags.forEach((tag: any) => {
-  //       //tags = affichage dans l'URL
-  //       params = params.append('tags[]', tag);
-  //     });
-  //   }
-  //   if (min_price && max_price) {
-  //     params = params.set('price[between]', min_price + '..' + max_price);
-  //   } else if (min_price) {
-  //     params = params.set('price[gte]', min_price);
-  //   } else if (max_price) {
-  //     params = params.set('price[lte]', max_price);
-  //   }
-  //   return this.httpClient.get(this.ProductUrl + '?' + params);
-  //   // return this.httpClient.get(this.apiUrl);!!!!!!!!!!!!!!!!!!!!!!!!
-  // }
-
-  /**
-   * Http POST methods
-   */
   addUser(user: RegistratingUser): Promise<RegistratingUser> {
     return lastValueFrom(
       this.httpClient.post<RegistratingUser>(

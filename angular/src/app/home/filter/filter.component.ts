@@ -22,9 +22,9 @@ export class FilterComponent implements OnInit {
 
   filteredName?: string;
   filteredPreference?: string;
-  filteredCategories: Category[] = [];
-  filteredGenders: Gender[] = [];
-  filteredPackagings: Packaging[] = [];
+  filteredCategories: number[] = [];
+  filteredGenders: number[] = [];
+  filteredPackagingCapacities: number[] = [];
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -45,16 +45,16 @@ export class FilterComponent implements OnInit {
     console.log(this.packagings);
   }
 
-  onCategoryCheckbox(event: any, category: Category): void {
+  onCategoryCheckbox(event: any, categoryId: number): void {
     console.log(event);
     const isSelected = event.target.checked;
     if (isSelected) {
-      if (!this.filteredCategories.includes(category)) {
-        this.filteredCategories?.push(category);
+      if (!this.filteredCategories.includes(categoryId)) {
+        this.filteredCategories?.push(categoryId);
       }
     }
     if (!isSelected) {
-      const index = this.filteredCategories?.indexOf(category);
+      const index = this.filteredCategories?.indexOf(categoryId);
       if (index !== undefined) {
         this.filteredCategories?.splice(index, 1);
       }
@@ -62,15 +62,15 @@ export class FilterComponent implements OnInit {
     console.log(this.filteredCategories);
   }
 
-  onGenderCheckbox(event: any, gender: Gender) {
+  onGenderCheckbox(event: any, genderId: number) {
     const isSelected = event.target.checked;
     if (isSelected) {
-      if (!this.filteredGenders.includes(gender)) {
-        this.filteredGenders?.push(gender);
+      if (!this.filteredGenders.includes(genderId)) {
+        this.filteredGenders?.push(genderId);
       }
     }
     if (!isSelected) {
-      const index = this.filteredGenders?.indexOf(gender);
+      const index = this.filteredGenders?.indexOf(genderId);
       if (index !== undefined) {
         this.filteredGenders?.splice(index, 1);
       }
@@ -78,42 +78,42 @@ export class FilterComponent implements OnInit {
     console.log(this.filteredGenders);
   }
 
-  onPackagingCheckbox(event: any, packaging: Packaging) {
+  onPackagingCheckbox(event: any, packagingCapacity: number) {
     const isSelected = event.target.checked;
     if (isSelected) {
-      if (!this.filteredPackagings.includes(packaging)) {
-        this.filteredPackagings?.push(packaging);
+      if (!this.filteredPackagingCapacities.includes(packagingCapacity)) {
+        this.filteredPackagingCapacities?.push(packagingCapacity);
       }
     }
     if (!isSelected) {
-      const index = this.filteredPackagings?.indexOf(packaging);
+      const index =
+        this.filteredPackagingCapacities?.indexOf(packagingCapacity);
       if (index !== undefined) {
-        this.filteredPackagings?.splice(index, 1);
+        this.filteredPackagingCapacities?.splice(index, 1);
       }
     }
-    console.log(this.filteredPackagings);
+    console.log(this.filteredPackagingCapacities);
   }
 
   onSubmit() {
-    console.log(this.filteredName, this.filteredPreference);
+    console.log(
+      this.filteredName,
+      this.filteredPreference,
+      this.filteredCategories,
+      this.filteredGenders,
+      this.filteredPackagingCapacities
+    );
     this.router.navigate(['/home'], {
       queryParams: {
-        filteredName: this.filteredName ? this.filteredName : undefined,
-        filteredPreference: this.filteredPreference
-          ? this.filteredName
+        name: this.filteredName ? this.filteredName : undefined,
+        preference: this.filteredPreference
+          ? this.filteredPreference
           : undefined,
-        filteredCategories:
-          this.filteredCategories.length > 0
-            ? JSON.stringify(this.filteredCategories)
-            : undefined,
-        filteredGenders:
-          this.filteredGenders.length > 0
-            ? JSON.stringify(this.filteredGenders)
-            : undefined,
-        filteredPackagings:
-          this.filteredPackagings.length > 0
-            ? JSON.stringify(this.filteredPackagings)
-            : undefined,
+        category: this.filteredCategories ? this.filteredCategories : undefined,
+        gender: this.filteredGenders ? this.filteredGenders : undefined,
+        'productPackagings.packaging.capacity': this.filteredPackagingCapacities
+          ? this.filteredPackagingCapacities
+          : undefined,
       },
     });
   }
@@ -123,13 +123,11 @@ export class FilterComponent implements OnInit {
     this.filteredPreference = undefined;
     this.filteredCategories = [];
     this.filteredGenders = [];
-    this.filteredPackagings = [];
-
+    this.filteredPackagingCapacities = [];
     const checkboxes = document.getElementsByName('checkbox') as any;
     for (const checkbox of checkboxes) {
       checkbox.checked = false;
     }
-
     this.router.navigate(['/home']);
   }
 }
