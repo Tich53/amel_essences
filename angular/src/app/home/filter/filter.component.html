@@ -4,43 +4,62 @@
       <h2>Filtres</h2>
     </div>
 
-
     <div class="filter-group">
       <div class="form-check">
         <h4 class="filter-title text-align-center">Numéro</h4>
-        <input class="form-control" type="text" id="flexCheckDefault" [(ngModel)]="filteredName">
+        <input
+          class="form-control"
+          type="text"
+          id="flexCheckDefault"
+          [(ngModel)]="filteredName"
+        />
       </div>
     </div>
 
     <div class="filter-group">
       <div class="form-check">
         <h4 class="filter-title text-align-center">Si vous aimez</h4>
-        <input class="form-control" type="text" id="flexCheckDefault" [(ngModel)]="filteredPreference">
+        <input
+          class="form-control"
+          type="text"
+          id="flexCheckDefault"
+          [(ngModel)]="filteredPreference"
+        />
       </div>
     </div>
-
 
     <div class="flex-start-center">
       <div class="filter-group">
         <div class="form-check">
           <h4 class="filter-title">Catégorie</h4>
           <div *ngFor="let category of categories">
-            <input #cat class="form-check-input" type="checkbox" id="category-{{ category.id }}"
-              value="{{ category.id }}" (change)="onCategoryCheckbox($event, category)">
+            <input
+              name="checkbox"
+              class="form-check-input"
+              type="checkbox"
+              id="category-{{ category.id }}"
+              value="{{ category.id }}"
+              (change)="onCategoryCheckbox($event, category)"
+            />
             <label class="form-check-label" for="category-{{ category.id }}">
               {{ category.name }}
             </label>
           </div>
         </div>
-
       </div>
 
       <div class="filter-group">
         <div class="form-check">
           <h4 class="filter-title">Genre</h4>
           <div *ngFor="let gender of genders">
-            <input class="form-check-input" type="checkbox" value="{{ gender.id }}" id="gender-{{ gender.id }}"
-              (change)="onGenderCheckbox($event, gender)">
+            <input
+              name="checkbox"
+              class="form-check-input"
+              type="checkbox"
+              value="{{ gender.id }}"
+              id="gender-{{ gender.id }}"
+              (change)="onGenderCheckbox($event, gender)"
+            />
             <label class="form-check-label" for="gender-{{ gender.id }}">
               {{ gender.name }}
             </label>
@@ -52,18 +71,29 @@
         <div class="form-check">
           <h4 class="filter-title">Conditionnement</h4>
           <div *ngFor="let packaging of packagings">
-            <input class="form-check-input" type="checkbox" value="{{ packaging.id }}" id="packaging-{{ packaging.id }}"
-              (change)="onPackagingCheckbox($event, packaging)">
+            <input
+              name="checkbox"
+              class="form-check-input"
+              type="checkbox"
+              value="{{ packaging.id }}"
+              id="packaging-{{ packaging.id }}"
+              (change)="onPackagingCheckbox($event, packaging)"
+            />
             <label class="form-check-label" for="packaging-{{ packaging.id }}">
-              {{ packaging.capacity }}
-              {{ packaging.capacityUnit }}
+              {{ packaging.capacity }}
+              {{ packaging.capacityUnit }}
             </label>
           </div>
         </div>
-
       </div>
     </div>
     <div class="flex-center-center">
-      <button class="btn btn-primary m-t-20" (click)="onSubmit()">Filtrer</button>
+      <button class="btn btn-primary m-t-20 m-t-5" (click)="onSubmit()">
+        Filtrer
+      </button>
+      <button class="btn btn-secondary m-t-20 m-l-5" (click)="onReset()">
+        Reset
+      </button>
     </div>
   </div>
+</div>

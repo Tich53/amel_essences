@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/_interfaces/category';
 import { Gender } from 'src/app/_interfaces/gender';
@@ -46,6 +46,7 @@ export class FilterComponent implements OnInit {
   }
 
   onCategoryCheckbox(event: any, category: Category): void {
+    console.log(event);
     const isSelected = event.target.checked;
     if (isSelected) {
       if (!this.filteredCategories.includes(category)) {
@@ -124,22 +125,11 @@ export class FilterComponent implements OnInit {
     this.filteredGenders = [];
     this.filteredPackagings = [];
 
-    this.router.navigate(['/home'], {
-      queryParams: {
-        filteredName: this.filteredName ? this.filteredName : undefined,
-        filteredPreference: this.filteredPreference
-          ? this.filteredName
-          : undefined,
-        filteredCategories: this.filteredCategories
-          ? JSON.stringify(this.filteredCategories)
-          : undefined,
-        filteredGenders: this.filteredGenders
-          ? JSON.stringify(this.filteredGenders)
-          : undefined,
-        filteredPackagings: this.filteredPackagings
-          ? JSON.stringify(this.filteredPackagings)
-          : undefined,
-      },
-    });
+    const checkboxes = document.getElementsByName('checkbox') as any;
+    for (const checkbox of checkboxes) {
+      checkbox.checked = false;
+    }
+
+    this.router.navigate(['/home']);
   }
 }
