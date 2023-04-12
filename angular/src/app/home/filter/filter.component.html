@@ -1,7 +1,8 @@
 <div class="card bg-light mb-3 max-h-100-o-y-a">
   <div class="card-body">
     <div class="card-header">
-      <h2>Filtres</h2>
+      <h2 *ngIf="productNumber<=1">Filtres: {{ productNumber }} produit trouvé</h2>
+      <h2 *ngIf="productNumber>1">Filtres: {{ productNumber }} produits trouvés</h2>
     </div>
 
     <div class="filter-group">

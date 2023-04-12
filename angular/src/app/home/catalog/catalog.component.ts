@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/_interfaces/product';
 import { ProductPackaging } from 'src/app/_interfaces/product-packaging';
@@ -13,34 +13,12 @@ import { ApiService } from 'src/app/_services/api/api.service';
 export class CatalogComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
 
+  @Input() products?: Product[];
+
   selectedProductPackaging?: ProductPackaging;
-  products?: Product[];
   count = 0;
 
-  constructor(
-    private apiService: ApiService,
-    private activatedRoute: ActivatedRoute
-  ) {
-    this.activatedRoute.queryParamMap.subscribe((params) => {
-      const name = params.get('name');
-      const preference = params.get('preference');
-      const categories = params.getAll('category');
-      const genders = params.getAll('gender');
-      const capacityStrings = params.getAll(
-        'productPackagings.packaging.capacity'
-      );
-      const capacities = capacityStrings
-        ? capacityStrings.map((string) => {
-            return parseInt(string);
-          })
-        : [];
-      this.apiService
-        .getProducts(name, preference, categories, genders, capacities)
-        .subscribe((hydraProduct: HydraProduct) => {
-          this.products = hydraProduct[this.hydraMember];
-        });
-    });
-  }
+  constructor() {}
 
   ngOnInit() {}
 

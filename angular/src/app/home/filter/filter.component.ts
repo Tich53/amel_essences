@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/_interfaces/category';
 import { Gender } from 'src/app/_interfaces/gender';
@@ -15,6 +15,8 @@ import { ApiService } from 'src/app/_services/api/api.service';
 })
 export class FilterComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
+
+  @Input() productNumber = 0;
 
   categories?: Category[];
   genders?: Gender[];
@@ -42,7 +44,6 @@ export class FilterComponent implements OnInit {
           (a: Packaging, b: Packaging) => a.capacity - b.capacity
         );
       });
-    console.log(this.packagings);
   }
 
   onCategoryCheckbox(event: any, categoryId: number): void {
