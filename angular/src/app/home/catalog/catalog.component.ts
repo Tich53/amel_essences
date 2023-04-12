@@ -1,9 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Product } from 'src/app/_interfaces/product';
-import { ProductPackaging } from 'src/app/_interfaces/product-packaging';
-import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
-import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
   selector: 'app-catalog',
@@ -14,9 +10,7 @@ export class CatalogComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
 
   @Input() products?: Product[];
-
-  selectedProductPackaging?: ProductPackaging;
-  count = 0;
+  selectedPackagingId = 0;
 
   constructor() {}
 
@@ -38,6 +32,7 @@ export class CatalogComponent implements OnInit {
   }
 
   onSelectChange(selectedProduct: Product): void {
+    console.log(selectedProduct);
     const selectElement = document.getElementById(
       `product-packaging-${selectedProduct.id}`
     ) as HTMLSelectElement;
@@ -48,6 +43,7 @@ export class CatalogComponent implements OnInit {
 
     for (const productPackaging of selectedProduct.productPackagings) {
       if (productPackaging.id === selectedOption) {
+        selectedProduct.selectedProductPackaging = productPackaging;
         if (unitPriceElement)
           unitPriceElement.innerHTML = `${productPackaging.unitPrice.toString()} €`;
       }
