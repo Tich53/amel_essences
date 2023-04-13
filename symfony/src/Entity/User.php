@@ -104,6 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $orders;
 
     #[ORM\OneToOne(mappedBy: 'user_account', cascade: ['persist', 'remove'])]
+    #[Groups(['user:read'])]
     private ?Cart $cart = null;
 
 

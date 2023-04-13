@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Get;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CartRepository;
 use ApiPlatform\Metadata\ApiResource;
@@ -22,9 +23,11 @@ class Cart
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user:read'])]
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['user:read'])]
     private ?float $amount = null;
 
     #[ORM\OneToOne(inversedBy: 'cart', cascade: ['persist', 'remove'])]
@@ -32,6 +35,7 @@ class Cart
     private ?User $user_account = null;
 
     #[ORM\OneToMany(mappedBy: 'cart', targetEntity: CartProduct::class, orphanRemoval: true)]
+    #[Groups(['user:read'])]
     private Collection $cartProducts;
 
     public function __construct()
