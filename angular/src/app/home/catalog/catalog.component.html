@@ -34,16 +34,16 @@
           {{ product.gender.name }}
         </td>
         <td class="text-align-center vertical-align-center">
-          <select class="form-select text-align-center" (change)="onSelectChange(product)"
+          <select class="form-select text-align-center" [(ngModel)]="product.selectedProductPackaging"
             id="product-packaging-{{ product.id }}">
-            <option *ngFor="let productPackaging of product.productPackagings" value="{{ productPackaging.id }}">
+            <option *ngFor="let productPackaging of product.productPackagings" [ngValue]="productPackaging">
               {{ productPackaging.packaging.capacity }}
               {{ productPackaging.packaging.capacityUnit }}
             </option>
           </select>
         </td>
         <td class="text-align-center vertical-align-center" id="unit-price-{{ product.id }}">
-          {{ getUnitPrice(product) }}
+          {{ product.selectedProductPackaging.unitPrice }}
         </td>
         <td class="text-align-center vertical-align-center">
           <button class="btn btn-primary" (click)="addToCart(product)">

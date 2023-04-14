@@ -44,9 +44,10 @@ export class HomeComponent implements OnInit, OnDestroy {
           : [];
         this.apiService
           .getProducts(name, preference, categories, genders, capacities)
-          .subscribe((hydraProduct: HydraProduct) => {
-            this.products = hydraProduct[this.hydraMember];
+          .then((hydraProduct: HydraProduct) => {
+            this.products = [hydraProduct[this.hydraMember][0]];
             this.productNumber = hydraProduct[this.hydraTotalItem];
+            this.products.forEach((product)=>product.selectedProductPackaging=product.productPackagings?.[0])
           });
       }
     );

@@ -65,7 +65,7 @@ export class ApiService {
     categories: string[] | null,
     genders: string[] | null,
     capacities: number[] | null
-  ): Observable<HydraProduct> {
+  ): Promise<HydraProduct> {
     let params = new HttpParams();
     if (name) {
       params = params.set('name', name);
@@ -92,7 +92,7 @@ export class ApiService {
         );
       }
     }
-    return this.httpClient.get<HydraProduct>(`${this.productUrl}?${params}`);
+    return lastValueFrom(this.httpClient.get<HydraProduct>(`${this.productUrl}?${params}`));
   }
   getCategory(): Promise<HydraCategory> {
     return lastValueFrom(this.httpClient.get<HydraCategory>(this.categoryUrl));
@@ -118,7 +118,7 @@ export class ApiService {
       )
     );
   }
-  addToCart(cartProduct: CartProduct): Promise<CartProduct> {
+  // addToCart(cartProduct: CartProduct): Promise<CartProduct> {
 
   //   return lastValueFrom(
   //     this.httpClient.post<RegistratingUser>(
