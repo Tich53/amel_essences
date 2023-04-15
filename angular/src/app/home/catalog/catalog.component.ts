@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { CartProduct } from 'src/app/_interfaces/cart-product';
+import { CurrentUser } from 'src/app/_interfaces/current-user';
 import { Product } from 'src/app/_interfaces/product';
-import { ProductPackaging } from 'src/app/_interfaces/product-packaging';
+import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
   selector: 'app-catalog',
@@ -11,49 +13,26 @@ export class CatalogComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
 
   @Input() products?: Product[];
-  selectedPackagingId = 0;
 
-  constructor() {}
+  currentUser!: CurrentUser;
 
-  ngOnInit() {}
+  constructor(private apiService: ApiService) {}
 
-  getUnitPrice(product: Product): number {
-    // const selectElement = document.getElementById(
-    //   `product-packaging-${product.id}`
-    // ) as HTMLSelectElement;
-    // const selectedOption = parseInt(selectElement?.selectedOptions[0].value);
-
-    // for (const productPackaging of product.productPackagings) {
-    //   if (productPackaging.id === selectedOption) {
-    //     return `${productPackaging.unitPrice} €`;
-    //   } else {
-    //     return `${productPackaging.unitPrice} €`;
-    //   }
-    // }
-    
-    return product.selectedProductPackaging?.unitPrice;
+  async ngOnInit() {
+    await this.apiService
+      .getCurrentUser()
+      .then((currentUser) => (this.currentUser = currentUser));
   }
 
-  // onSelectChange(selectedProduct: Product): void {
-  //   console.log(selectedProduct);
-  //   const selectElement = document.getElementById(
-  //     `product-packaging-${selectedProduct.id}`
-  //   ) as HTMLSelectElement;
-  //   const selectedOption = parseInt(selectElement?.selectedOptions[0].value);
-  //   const unitPriceElement = document.getElementById(
-  //     `unit-price-${selectedProduct.id}`
-  //   );
-
-  //   for (const productPackaging of selectedProduct.productPackagings) {
-  //     if (productPackaging.id === selectedOption) {
-  //       selectedProduct.selectedProductPackaging = productPackaging;
-  //       if (unitPriceElement)
-  //         unitPriceElement.innerHTML = `${productPackaging.unitPrice.toString()} €`;
-  //     }
-  //   }
-  // }
-
-  addToCart(product: Product) {
-    console.log(product);
+  addToCart(product: Product): void {
+    const cartIri = '/api/carts/';
+    const productIri = '/api/products/';
+    const cartProduct: CartProduct = {
+      amount: product.selectedProductPackaging.unitPrice,
+      cart: `${cartIri}${this.currentUser.cart.id}`,
+      product: `${productIri}${product.id}`,
+      productQuantity: 1,
+    };
+    this.apiService.addToCart(cartProduct).then();
   }
 }

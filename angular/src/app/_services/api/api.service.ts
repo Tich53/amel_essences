@@ -28,6 +28,7 @@ export class ApiService {
   readonly statusUrl = 'https://localhost:8000/api/statuses';
   readonly userUrl = 'https://localhost:8000/api/users';
   readonly meUrl = 'https://localhost:8000/api/me';
+  readonly cartProductUrl = 'https://localhost:8000/api/cart_products';
 
   /**
    * IRI
@@ -92,7 +93,9 @@ export class ApiService {
         );
       }
     }
-    return lastValueFrom(this.httpClient.get<HydraProduct>(`${this.productUrl}?${params}`));
+    return lastValueFrom(
+      this.httpClient.get<HydraProduct>(`${this.productUrl}?${params}`)
+    );
   }
   getCategory(): Promise<HydraCategory> {
     return lastValueFrom(this.httpClient.get<HydraCategory>(this.categoryUrl));
@@ -109,29 +112,23 @@ export class ApiService {
   /**
    * Http POST methods
    */
-  addUser(user: RegistratingUser): Promise<RegistratingUser> {
+  addUser(registratingUser: RegistratingUser): Promise<RegistratingUser> {
     return lastValueFrom(
       this.httpClient.post<RegistratingUser>(
         this.userUrl,
-        user,
+        registratingUser,
         this.httpOptions
       )
     );
   }
-  // addToCart(cartProduct: CartProduct): Promise<CartProduct> {
 
-  //   return lastValueFrom(
-  //     this.httpClient.post<RegistratingUser>(
-  //       this.userUrl,
-  //       user,
-  //       this.httpOptions
-  //     )
-  //   );
-  //   {
-  //     "amount": 0,
-  //     "cart": "string",
-  //     "product": "string",
-  //     "productQuantity": 0
-  //   }
-  // }
+  addToCart(cartProduct: CartProduct): Promise<CartProduct> {
+    return lastValueFrom(
+      this.httpClient.post<CartProduct>(
+        this.cartProductUrl,
+        cartProduct,
+        this.httpOptions
+      )
+    );
+  }
 }
