@@ -8,6 +8,7 @@ import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
 import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
 import { HydraPackaging } from 'src/app/_interfaces/_hydras/hydra-packaging';
 import { CartProduct } from 'src/app/_interfaces/cart-product';
+import { HydraCartProduct } from 'src/app/_interfaces/_hydras/hydra-cart-product';
 
 @Injectable({
   providedIn: 'root',
@@ -60,6 +61,18 @@ export class ApiService {
   getCurrentUser(): Promise<CurrentUser> {
     return lastValueFrom(this.httpClient.get<CurrentUser>(this.meUrl));
   }
+
+  getCategory(): Promise<HydraCategory> {
+    return lastValueFrom(this.httpClient.get<HydraCategory>(this.categoryUrl));
+  }
+  getGender(): Promise<HydraGender> {
+    return lastValueFrom(this.httpClient.get<HydraGender>(this.genderUrl));
+  }
+  getPackaging(): Promise<HydraPackaging> {
+    return lastValueFrom(
+      this.httpClient.get<HydraPackaging>(this.packagingUrl)
+    );
+  }
   getProducts(
     name: string | null,
     preference: string | null,
@@ -97,15 +110,9 @@ export class ApiService {
       this.httpClient.get<HydraProduct>(`${this.productUrl}?${params}`)
     );
   }
-  getCategory(): Promise<HydraCategory> {
-    return lastValueFrom(this.httpClient.get<HydraCategory>(this.categoryUrl));
-  }
-  getGender(): Promise<HydraGender> {
-    return lastValueFrom(this.httpClient.get<HydraGender>(this.genderUrl));
-  }
-  getPackaging(): Promise<HydraPackaging> {
+  getCartProducts(): Promise<HydraCartProduct> {
     return lastValueFrom(
-      this.httpClient.get<HydraPackaging>(this.packagingUrl)
+      this.httpClient.get<HydraCartProduct>(this.cartProductUrl)
     );
   }
 

@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CartProduct } from '../_interfaces/cart-product';
 import { Product } from '../_interfaces/product';
+import { HydraCartProduct } from '../_interfaces/_hydras/hydra-cart-product';
 import { HydraProduct } from '../_interfaces/_hydras/hydra-product';
 import { ApiService } from '../_services/api/api.service';
 
@@ -10,13 +12,17 @@ import { ApiService } from '../_services/api/api.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   readonly hydraMember = 'hydra:member';
   readonly hydraTotalItem = 'hydra:totalItems';
 
+  productSubscription?: Subscription;
+
   products?: Product[];
   productNumber = 0;
-  productSubscription?: Subscription;
+
+  cartProducts?: CartProduct[];
+  cartProductNumber = 0;
 
   menuItemSelection = {
     catalogActive: false,
@@ -27,7 +33,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
     private apiService: ApiService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.productSubscription = this.activatedRoute.queryParamMap.subscribe(
       (params) => {
         const name = params.get('name');
@@ -55,9 +63,21 @@ export class HomeComponent implements OnInit, OnDestroy {
           });
       }
     );
+
+    this.apiService
+      .getCartProducts()
+      .then((hydraCartProduct: HydraCartProduct) => {
+        this.cartProducts = hydraCartProduct[this.hydraMember];
+        this.cartProductNumber = hydraCartProduct[this.hydraTotalItem];
+        console.log(
+          'Nombre de produit dans le panier: ',
+          this.cartProductNumber
+        );
+        console.log('Liste des produits dans le panier: ', this.cartProducts);
+      });
   }
 
-  ngOnInit(): void {}
+  ngOnChanges(): void {}
 
   ngOnDestroy(): void {
     this.productSubscription?.unsubscribe();

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { CurrentUser } from 'src/app/_interfaces/current-user';
@@ -12,6 +12,7 @@ import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+  @Input() cartProductNumber = 0;
   @Output() menuItemSelectionEmitter = new EventEmitter<{
     catalogActive: boolean;
     orderActive: boolean;

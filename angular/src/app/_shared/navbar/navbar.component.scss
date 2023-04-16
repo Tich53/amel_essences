@@ -1,3 +1,10 @@
 .container-fluid {
   justify-content: end;
 }
+
+// Soit class="badge bg-secondary rounded-pill" ou :
+.cart-circle{
+  border: 1px solid;
+  border-radius: 50%;
+  padding: 4px;
+}
