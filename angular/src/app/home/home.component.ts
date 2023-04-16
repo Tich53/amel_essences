@@ -12,7 +12,7 @@ import { ApiService } from '../_services/api/api.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnChanges, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy {
   readonly hydraMember = 'hydra:member';
   readonly hydraTotalItem = 'hydra:totalItems';
 
@@ -36,6 +36,15 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.getProducts();
+    this.getCartProducts();
+  }
+
+  ngOnDestroy(): void {
+    this.productSubscription?.unsubscribe();
+  }
+
+  getProducts() {
     this.productSubscription = this.activatedRoute.queryParamMap.subscribe(
       (params) => {
         const name = params.get('name');
@@ -63,23 +72,14 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
           });
       }
     );
+  }
 
+  getCartProducts() {
     this.apiService
       .getCartProducts()
       .then((hydraCartProduct: HydraCartProduct) => {
         this.cartProducts = hydraCartProduct[this.hydraMember];
         this.cartProductNumber = hydraCartProduct[this.hydraTotalItem];
-        console.log(
-          'Nombre de produit dans le panier: ',
-          this.cartProductNumber
-        );
-        console.log('Liste des produits dans le panier: ', this.cartProducts);
       });
-  }
-
-  ngOnChanges(): void {}
-
-  ngOnDestroy(): void {
-    this.productSubscription?.unsubscribe();
   }
 }

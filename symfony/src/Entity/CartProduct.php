@@ -12,10 +12,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: CartProductRepository::class)]
 #[ApiResource(
+    security: "is_granted('ROLE_USER')",
     normalizationContext: ['groups' => ['cartProduct:read']],
     denormalizationContext: ['groups' => ['cartProduct:write']],
     operations: [
-        new Get(),
+        new Get(security: "is_granted('CART_PRODUCT_VIEW', object)"),
         new GetCollection(),
         new Post()
     ]
