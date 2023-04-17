@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CartProduct } from '../_interfaces/cart-product';
@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   cartProducts?: CartProduct[];
   cartProductNumber = 0;
+
+  hasAddedCartProduct?: boolean;
 
   menuItemSelection = {
     catalogActive: false,

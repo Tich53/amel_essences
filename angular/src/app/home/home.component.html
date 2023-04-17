@@ -1,7 +1,18 @@
-<app-navbar [cartProductNumber]="cartProductNumber" (menuItemSelectionEmitter)="menuItemSelection=$event"></app-navbar>
+<app-navbar
+  [cartProductNumber]="cartProductNumber"
+  (menuItemSelectionEmitter)="menuItemSelection = $event"
+></app-navbar>
 <div class="m-l-20 m-r-20 m-t-20 flex-center-center-80vh">
-  <app-filter *ngIf="menuItemSelection.catalogActive" class="w-20 m-r-5  max-h-100-o-y-a"
-    [productNumber]="productNumber"></app-filter>
-  <app-catalog *ngIf="menuItemSelection.catalogActive" class="w-100 m-l-5 max-h-100-o-y-a" [products]="products">
+  <app-filter
+    *ngIf="menuItemSelection.catalogActive"
+    class="w-20 m-r-5 max-h-100-o-y-a"
+    [productNumber]="productNumber"
+  ></app-filter>
+  <app-catalog
+    *ngIf="menuItemSelection.catalogActive"
+    class="w-100 m-l-5 max-h-100-o-y-a"
+    [products]="products"
+    (hasAddedCartProductEvent)="getCartProducts()"
+  >
   </app-catalog>
 </div>
