@@ -1,0 +1,51 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th class="text-align-center vertical-align-center" scope="col">
+        Numéros
+      </th>
+      <th class="text-align-center vertical-align-center" scope="col">
+        Catégorie
+      </th>
+      <th class="text-align-center vertical-align-center" scope="col">
+        Si vous aimez
+      </th>
+      <th class="text-align-center vertical-align-center" scope="col">Genre</th>
+      <th class="text-align-center vertical-align-center" scope="col">
+        Conditionnement
+      </th>
+      <th class="text-align-center vertical-align-center" scope="col">
+        Prix unitaire
+      </th>
+      <th class="text-align-center vertical-align-center" scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cartProduct of cartProducts">
+      <th class="text-align-center vertical-align-center" scope="row">
+        {{ cartProduct.product.name }}
+      </th>
+      <td class="text-align-center vertical-align-center">
+        {{ cartProduct.product.category.name }}
+      </td>
+      <td class="text-align-center vertical-align-center">
+        {{ cartProduct.product.preference }}
+      </td>
+      <td class="text-align-center vertical-align-center">
+        {{ cartProduct.product.gender.name }}
+      </td>
+      <td class="text-align-center vertical-align-center">
+        {{ cartProduct.product.selectedProductPackaging.packaging.capacity }}
+        {{
+          cartProduct.product.selectedProductPackaging.packaging.capacityUnit
+        }}
+      </td>
+      <td
+        class="text-align-center vertical-align-center"
+        id="unit-price-{{ cartProduct.product.id }}"
+      >
+        {{ cartProduct.product.selectedProductPackaging.unitPrice }} €
+      </td>
+    </tr>
+  </tbody>
+</table>

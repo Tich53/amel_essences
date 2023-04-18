@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom, Observable } from 'rxjs';
-import { CurrentUser } from 'src/app/_interfaces/current-user';
-import { RegistratingUser } from 'src/app/_interfaces/registrating-user';
+import { CurrentUser } from 'src/app/_interfaces/_abstract/user/current-user';
+import { RegistratingUser } from 'src/app/_interfaces/_abstract/user/registrating-user';
 import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
 import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
 import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
 import { HydraPackaging } from 'src/app/_interfaces/_hydras/hydra-packaging';
-import { CartProduct } from 'src/app/_interfaces/cart-product';
 import { HydraCartProduct } from 'src/app/_interfaces/_hydras/hydra-cart-product';
+import { CartProductIri } from 'src/app/_interfaces/_abstract/cart-product/cart-product-iri';
 
 @Injectable({
   providedIn: 'root',
@@ -129,9 +129,9 @@ export class ApiService {
     );
   }
 
-  addToCart(cartProduct: CartProduct): Promise<CartProduct> {
+  addToCart(cartProduct: CartProductIri): Promise<CartProductIri> {
     return lastValueFrom(
-      this.httpClient.post<CartProduct>(
+      this.httpClient.post<CartProductIri>(
         this.cartProductUrl,
         cartProduct,
         this.httpOptions

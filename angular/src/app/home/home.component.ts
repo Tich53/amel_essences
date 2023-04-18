@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CartProduct } from '../_interfaces/cart-product';
+import { CartProduct } from '../_interfaces/_abstract/cart-product/cart-product';
 import { Product } from '../_interfaces/product';
 import { HydraCartProduct } from '../_interfaces/_hydras/hydra-cart-product';
 import { HydraProduct } from '../_interfaces/_hydras/hydra-product';

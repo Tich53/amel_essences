@@ -21,6 +21,7 @@ import { NavbarDialogComponent } from './_shared/navbar/navbar-dialog/navbar-dia
 import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
 import { CatalogComponent } from './home/catalog/catalog.component';
 import { FilterComponent } from './home/filter/filter.component';
+import { CartComponent } from './home/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { FilterComponent } from './home/filter/filter.component';
     LoginDialogComponent,
     CatalogComponent,
     FilterComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

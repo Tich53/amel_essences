@@ -1,4 +1,4 @@
-export interface User {
+export interface AbstractUser {
   email: string;
   name: string;
   surname: string;

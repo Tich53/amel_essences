@@ -1,6 +1,5 @@
-export interface CartProduct {
+export interface AbstractCartProduct {
   amount: number;
   cart: string;
-  product: string;
   productQuantity: number;
 }

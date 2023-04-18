@@ -4,7 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { StatusEnum } from '../_enums/status';
-import { CurrentUser } from '../_interfaces/current-user';
+import { CurrentUser } from '../_interfaces/_abstract/user/current-user';
 import { ApiService } from '../_services/api/api.service';
 
 import { AuthService } from '../_services/authentication/auth.service';
