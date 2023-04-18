@@ -2,7 +2,6 @@
 
 namespace App\Doctrine;
 
-use App\Entity\CartProduct;
 use App\Entity\User;
 
 use Doctrine\ORM\QueryBuilder;
@@ -11,7 +10,7 @@ use Symfony\Component\Security\Core\Security;
 
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
-
+use App\Entity\CartProductPackaging;
 
 final class CartProductExtension implements QueryCollectionExtensionInterface
 {
@@ -45,7 +44,7 @@ final class CartProductExtension implements QueryCollectionExtensionInterface
         $user = $this->security->getUser();
 
         if (
-            CartProduct::class !== $resourceClass
+            CartProductPackaging::class !== $resourceClass
             || null === $user
         ) {
             return;

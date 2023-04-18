@@ -21,30 +21,26 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let cartProduct of cartProducts">
+    <tr *ngFor="let cartProductPackaging of cartProductPackagings">
       <th class="text-align-center vertical-align-center" scope="row">
-        {{ cartProduct.product.name }}
+        {{ cartProductPackaging.productPackaging.product.name }}
       </th>
       <td class="text-align-center vertical-align-center">
-        {{ cartProduct.product.category.name }}
+        {{ cartProductPackaging.productPackaging.product.category.name }}
       </td>
       <td class="text-align-center vertical-align-center">
-        {{ cartProduct.product.preference }}
+        {{ cartProductPackaging.productPackaging.product.preference }}
       </td>
       <td class="text-align-center vertical-align-center">
-        {{ cartProduct.product.gender.name }}
+        {{ cartProductPackaging.productPackaging.product.gender.name }}
       </td>
       <td class="text-align-center vertical-align-center">
-        {{ cartProduct.product.selectedProductPackaging.packaging.capacity }}
-        {{
-          cartProduct.product.selectedProductPackaging.packaging.capacityUnit
-        }}
+        {{ cartProductPackaging.productPackaging.packaging.capacity }}
+        {{ cartProductPackaging.productPackaging.packaging.capacityUnit }}
       </td>
-      <td
-        class="text-align-center vertical-align-center"
-        id="unit-price-{{ cartProduct.product.id }}"
-      >
-        {{ cartProduct.product.selectedProductPackaging.unitPrice }} €
+      <td class="text-align-center vertical-align-center"
+        id="unit-price-{{ cartProductPackaging.productPackaging.product.id }}">
+        {{ cartProductPackaging.amount }} €
       </td>
     </tr>
   </tbody>

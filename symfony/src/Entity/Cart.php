@@ -34,13 +34,12 @@ class Cart
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user_account = null;
 
-    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: CartProduct::class, orphanRemoval: true)]
-    #[Groups(['user:read'])]
-    private Collection $cartProducts;
+    #[ORM\OneToMany(mappedBy: 'cart', targetEntity: CartProductPackaging::class)]
+    private Collection $cartProductPackagings;
 
     public function __construct()
     {
-        $this->cartProducts = new ArrayCollection();
+        $this->cartProductPackagings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,29 +72,29 @@ class Cart
     }
 
     /**
-     * @return Collection<int, CartProduct>
+     * @return Collection<int, CartProductPackaging>
      */
-    public function getCartProducts(): Collection
+    public function getCartProductPackagings(): Collection
     {
-        return $this->cartProducts;
+        return $this->cartProductPackagings;
     }
 
-    public function addCartProduct(CartProduct $cartProduct): self
+    public function addCartProductPackaging(CartProductPackaging $cartProductPackaging): self
     {
-        if (!$this->cartProducts->contains($cartProduct)) {
-            $this->cartProducts->add($cartProduct);
-            $cartProduct->setCart($this);
+        if (!$this->cartProductPackagings->contains($cartProductPackaging)) {
+            $this->cartProductPackagings->add($cartProductPackaging);
+            $cartProductPackaging->setCart($this);
         }
 
         return $this;
     }
 
-    public function removeCartProduct(CartProduct $cartProduct): self
+    public function removeCartProductPackaging(CartProductPackaging $cartProductPackaging): self
     {
-        if ($this->cartProducts->removeElement($cartProduct)) {
+        if ($this->cartProductPackagings->removeElement($cartProductPackaging)) {
             // set the owning side to null (unless already changed)
-            if ($cartProduct->getCart() === $this) {
-                $cartProduct->setCart(null);
+            if ($cartProductPackaging->getCart() === $this) {
+                $cartProductPackaging->setCart(null);
             }
         }
 

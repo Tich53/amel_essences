@@ -14,6 +14,7 @@ use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -48,17 +49,17 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['product:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['product:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read'])]
     private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['product:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read'])]
     private ?Gender $gender = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderProduct::class)]
@@ -68,22 +69,23 @@ class Product
     #[Groups(['product:read'])]
     private Collection $productPackagings;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: CartProduct::class)]
-    private Collection $cartProducts;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['product:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read'])]
     private ?string $preference = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?range $range_account = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ApiProperty(readableLink: false, writableLink: true)]
+    private ?productPackaging $selected_product_packaging = null;
+
     public function __construct()
     {
         $this->orderProducts = new ArrayCollection();
         $this->productPackagings = new ArrayCollection();
-        $this->cartProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -188,36 +190,6 @@ class Product
         return $this;
     }
 
-    /**
-     * @return Collection<int, CartProduct>
-     */
-    public function getCartProducts(): Collection
-    {
-        return $this->cartProducts;
-    }
-
-    public function addCartProduct(CartProduct $cartProduct): self
-    {
-        if (!$this->cartProducts->contains($cartProduct)) {
-            $this->cartProducts->add($cartProduct);
-            $cartProduct->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCartProduct(CartProduct $cartProduct): self
-    {
-        if ($this->cartProducts->removeElement($cartProduct)) {
-            // set the owning side to null (unless already changed)
-            if ($cartProduct->getProduct() === $this) {
-                $cartProduct->setProduct(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getPreference(): ?string
     {
         return $this->preference;
@@ -239,6 +211,19 @@ class Product
     public function setRangeAccount(?range $range_account): self
     {
         $this->range_account = $range_account;
+
+        return $this;
+    }
+
+    #[Groups(['product:read'])]
+    public function getSelectedProductPackaging(): ?productPackaging
+    {
+        return $this->selected_product_packaging;
+    }
+
+    public function setSelectedProductPackaging(?productPackaging $selected_product_packaging): self
+    {
+        $this->selected_product_packaging = $selected_product_packaging;
 
         return $this;
     }

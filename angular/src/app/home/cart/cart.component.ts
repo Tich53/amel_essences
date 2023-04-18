@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CartProduct } from 'src/app/_interfaces/_abstract/cart-product/cart-product';
+import { CartProductPackaging } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging';
 
 @Component({
   selector: 'app-cart',
@@ -7,9 +7,11 @@ import { CartProduct } from 'src/app/_interfaces/_abstract/cart-product/cart-pro
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit {
-  @Input() cartProducts?: CartProduct[];
+  @Input() cartProductPackagings?: CartProductPackaging[];
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.cartProductPackagings);
+  }
 }

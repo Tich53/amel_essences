@@ -7,8 +7,8 @@ import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
 import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
 import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
 import { HydraPackaging } from 'src/app/_interfaces/_hydras/hydra-packaging';
-import { HydraCartProduct } from 'src/app/_interfaces/_hydras/hydra-cart-product';
-import { CartProductIri } from 'src/app/_interfaces/_abstract/cart-product/cart-product-iri';
+import { HydraCartProductPackaging } from 'src/app/_interfaces/_hydras/hydra-cart-product-packaging';
+import { CartProductPackagingIri } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging-iri';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +29,8 @@ export class ApiService {
   readonly statusUrl = 'https://localhost:8000/api/statuses';
   readonly userUrl = 'https://localhost:8000/api/users';
   readonly meUrl = 'https://localhost:8000/api/me';
-  readonly cartProductUrl = 'https://localhost:8000/api/cart_products';
+  readonly cartProductPackagingUrl =
+    'https://localhost:8000/api/cart_product_packagings';
 
   /**
    * IRI
@@ -110,9 +111,11 @@ export class ApiService {
       this.httpClient.get<HydraProduct>(`${this.productUrl}?${params}`)
     );
   }
-  getCartProducts(): Promise<HydraCartProduct> {
+  getCartProductPackagings(): Promise<HydraCartProductPackaging> {
     return lastValueFrom(
-      this.httpClient.get<HydraCartProduct>(this.cartProductUrl)
+      this.httpClient.get<HydraCartProductPackaging>(
+        this.cartProductPackagingUrl
+      )
     );
   }
 
@@ -129,11 +132,13 @@ export class ApiService {
     );
   }
 
-  addToCart(cartProduct: CartProductIri): Promise<CartProductIri> {
+  addToCart(
+    cartProductPackaging: CartProductPackagingIri
+  ): Promise<CartProductPackagingIri> {
     return lastValueFrom(
-      this.httpClient.post<CartProductIri>(
-        this.cartProductUrl,
-        cartProduct,
+      this.httpClient.post<CartProductPackagingIri>(
+        this.cartProductPackagingUrl,
+        cartProductPackaging,
         this.httpOptions
       )
     );

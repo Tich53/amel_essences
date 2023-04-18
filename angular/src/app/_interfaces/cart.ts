@@ -1,6 +1,6 @@
-import { CartProduct } from './_abstract/cart-product/cart-product';
+import { CartProductPackaging } from './_abstract/cart-product-packaging/cart-product-packaging';
 
 export interface Cart {
   id: number;
-  cartProducts: CartProduct[];
+  cartProductPackagings: CartProductPackaging[];
 }

@@ -33,7 +33,7 @@ class Gender
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['gender:read', 'product:read'])]
+    #[Groups(['gender:read', 'product:read', 'cartProductPackaging:read'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'gender', targetEntity: Product::class)]

@@ -17,7 +17,7 @@ class CartProductVoter extends Voter
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
         return in_array($attribute, [self::CART_PRODUCT_VIEW, self::CART_PRODUCT_EDIT, self::CART_PRODUCT_DELETE])
-            && $subject instanceof \App\Entity\CartProduct;
+            && $subject instanceof \App\Entity\CartProductPackaging;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $cartProduct, TokenInterface $token): bool

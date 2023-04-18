@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CartProduct } from '../_interfaces/_abstract/cart-product/cart-product';
+import { CartProductPackaging } from '../_interfaces/_abstract/cart-product-packaging/cart-product-packaging';
 import { Product } from '../_interfaces/product';
-import { HydraCartProduct } from '../_interfaces/_hydras/hydra-cart-product';
+import { HydraCartProductPackaging } from '../_interfaces/_hydras/hydra-cart-product-packaging';
 import { HydraProduct } from '../_interfaces/_hydras/hydra-product';
 import { ApiService } from '../_services/api/api.service';
 
@@ -21,10 +21,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   products?: Product[];
   productNumber = 0;
 
-  cartProducts?: CartProduct[];
+  cartProductPackagings?: CartProductPackaging[];
   cartProductNumber = 0;
 
-  hasAddedCartProduct?: boolean;
+  hasAddedCartProductPackaging?: boolean;
 
   menuItemSelection = {
     catalogActive: false,
@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProducts();
-    this.getCartProducts();
+    this.getCartProductPackagings();
   }
 
   ngOnDestroy(): void {
@@ -71,17 +71,20 @@ export class HomeComponent implements OnInit, OnDestroy {
                 (product.selectedProductPackaging =
                   product.productPackagings?.[0])
             );
+            console.log(this.products);
           });
       }
     );
   }
 
-  getCartProducts() {
+  getCartProductPackagings() {
     this.apiService
-      .getCartProducts()
-      .then((hydraCartProduct: HydraCartProduct) => {
-        this.cartProducts = hydraCartProduct[this.hydraMember];
-        this.cartProductNumber = hydraCartProduct[this.hydraTotalItem];
+      .getCartProductPackagings()
+      .then((HydraCartProductPackaging: HydraCartProductPackaging) => {
+        this.cartProductPackagings =
+          HydraCartProductPackaging[this.hydraMember];
+        this.cartProductNumber = HydraCartProductPackaging[this.hydraTotalItem];
+        console.log(this.cartProductPackagings);
       });
   }
 }

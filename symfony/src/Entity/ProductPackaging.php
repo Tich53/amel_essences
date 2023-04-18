@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Get;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
@@ -31,15 +33,24 @@ class ProductPackaging
 
     #[ORM\ManyToOne(inversedBy: 'productPackagings')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['cartProductPackaging:read'])]
     private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'productPackagings')]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['product:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read'])]
     private ?Packaging $packaging = null;
 
     #[ORM\Column]
     private ?float $unit_price = null;
+
+    #[ORM\OneToMany(mappedBy: 'product_packaging', targetEntity: CartProductPackaging::class)]
+    private Collection $cartProductPackagings;
+
+    public function __construct()
+    {
+        $this->cartProductPackagings = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,7 +81,7 @@ class ProductPackaging
         return $this;
     }
 
-    #[Groups(['product:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read'])]
     public function getUnitPrice(): ?float
     {
         return $this->unit_price;
@@ -79,6 +90,36 @@ class ProductPackaging
     public function setUnitPrice(float $unit_price): self
     {
         $this->unit_price = $unit_price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CartProductPackaging>
+     */
+    public function getCartProductPackagings(): Collection
+    {
+        return $this->cartProductPackagings;
+    }
+
+    public function addCartProductPackaging(CartProductPackaging $cartProductPackaging): self
+    {
+        if (!$this->cartProductPackagings->contains($cartProductPackaging)) {
+            $this->cartProductPackagings->add($cartProductPackaging);
+            $cartProductPackaging->setProductPackaging($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartProductPackaging(CartProductPackaging $cartProductPackaging): self
+    {
+        if ($this->cartProductPackagings->removeElement($cartProductPackaging)) {
+            // set the owning side to null (unless already changed)
+            if ($cartProductPackaging->getProductPackaging() === $this) {
+                $cartProductPackaging->setProductPackaging(null);
+            }
+        }
 
         return $this;
     }
