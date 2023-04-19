@@ -27,7 +27,7 @@ class Range
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['product:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read'])]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'range_account', targetEntity: Product::class)]

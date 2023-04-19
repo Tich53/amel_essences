@@ -28,14 +28,14 @@ export class CatalogComponent implements OnInit {
   addToCart(product: Product): void {
     const cartIri = '/api/carts/';
     const productPackagingIri = '/api/product_packagings/';
-    const cartProduct: CartProductPackagingIri = {
+    const cartProductPackaging: CartProductPackagingIri = {
       amount: product.selectedProductPackaging.unitPrice,
       cart: `${cartIri}${this.currentUser.cart.id}`,
-      productPackaging: `${productPackagingIri}${product.id}`,
+      productPackaging: `${productPackagingIri}${product.selectedProductPackaging.id}`,
       productQuantity: 1,
     };
-    this.apiService.addToCart(cartProduct);
+    this.apiService.postCartProductPackaging(cartProductPackaging);
     this.hasAddedCartProductEvent.emit();
-    console.log(cartProduct);
+    console.log(cartProductPackaging);
   }
 }

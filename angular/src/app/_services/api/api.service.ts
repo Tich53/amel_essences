@@ -132,7 +132,7 @@ export class ApiService {
     );
   }
 
-  addToCart(
+  postCartProductPackaging(
     cartProductPackaging: CartProductPackagingIri
   ): Promise<CartProductPackagingIri> {
     return lastValueFrom(

@@ -7,12 +7,16 @@
       <th class="text-align-center vertical-align-center" scope="col">
         Catégorie
       </th>
+      <th class="text-align-center vertical-align-center" scope="col">Gamme</th>
       <th class="text-align-center vertical-align-center" scope="col">
         Si vous aimez
       </th>
       <th class="text-align-center vertical-align-center" scope="col">Genre</th>
       <th class="text-align-center vertical-align-center" scope="col">
         Conditionnement
+      </th>
+      <th class="text-align-center vertical-align-center" scope="col">
+        Quantité
       </th>
       <th class="text-align-center vertical-align-center" scope="col">
         Prix unitaire
@@ -29,6 +33,9 @@
         {{ cartProductPackaging.productPackaging.product.category.name }}
       </td>
       <td class="text-align-center vertical-align-center">
+        {{ cartProductPackaging.productPackaging.product.rangeAccount.name }}
+      </td>
+      <td class="text-align-center vertical-align-center">
         {{ cartProductPackaging.productPackaging.product.preference }}
       </td>
       <td class="text-align-center vertical-align-center">
@@ -38,8 +45,13 @@
         {{ cartProductPackaging.productPackaging.packaging.capacity }}
         {{ cartProductPackaging.productPackaging.packaging.capacityUnit }}
       </td>
-      <td class="text-align-center vertical-align-center"
-        id="unit-price-{{ cartProductPackaging.productPackaging.product.id }}">
+      <td class="text-align-center vertical-align-center">
+        {{ cartProductPackaging.productQuantity }}
+      </td>
+      <td
+        class="text-align-center vertical-align-center"
+        id="unit-price-{{ cartProductPackaging.productPackaging.product.id }}"
+      >
         {{ cartProductPackaging.amount }} €
       </td>
     </tr>

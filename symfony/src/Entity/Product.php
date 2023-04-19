@@ -14,7 +14,6 @@ use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Metadata\ApiProperty;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
@@ -78,9 +77,6 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?range $range_account = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ApiProperty(readableLink: false, writableLink: true)]
-    private ?productPackaging $selected_product_packaging = null;
 
     public function __construct()
     {
@@ -202,7 +198,7 @@ class Product
         return $this;
     }
 
-    #[Groups(['product:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read'])]
     public function getRangeAccount(): ?range
     {
         return $this->range_account;
@@ -211,19 +207,6 @@ class Product
     public function setRangeAccount(?range $range_account): self
     {
         $this->range_account = $range_account;
-
-        return $this;
-    }
-
-    #[Groups(['product:read'])]
-    public function getSelectedProductPackaging(): ?productPackaging
-    {
-        return $this->selected_product_packaging;
-    }
-
-    public function setSelectedProductPackaging(?productPackaging $selected_product_packaging): self
-    {
-        $this->selected_product_packaging = $selected_product_packaging;
 
         return $this;
     }
