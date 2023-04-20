@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging';
 
 @Component({
@@ -9,31 +15,32 @@ import { CartProductPackaging } from 'src/app/_interfaces/_abstract/cart-product
 export class CartComponent implements OnInit, OnChanges {
   @Input() cartProductPackagings?: CartProductPackaging[];
   selectedCartProductPackagings?: CartProductPackaging[];
-  totalCartAmount = 0;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Copy of the cartProductPackaging
+    this.selectedCartProductPackagings = this.cartProductPackagings?.map(
+      (x) => x
+    );
+  }
 
   ngOnChanges(): void {
     this.getTotalCartAmount();
   }
 
-  getTotalCartAmount() {
-    // Copy of the cartProductPackaging
-    this.selectedCartProductPackagings = this.cartProductPackagings?.map(
-      (x) => x
-    );
-    this.totalCartAmount = 0;
+  getTotalCartAmount(): number {
+    let totalCartAmount = 0;
     if (this.selectedCartProductPackagings) {
       for (const selectedCartProductPackaging of this
         .selectedCartProductPackagings) {
-        this.totalCartAmount += selectedCartProductPackaging.amount;
+        totalCartAmount += selectedCartProductPackaging.amount;
       }
     }
+    return totalCartAmount;
   }
 
-  onCheck(event: any, cartProductPackaging: CartProductPackaging) {
+  onCheck(event: any, cartProductPackaging: CartProductPackaging): void {
     const isSelected = event.target.checked;
     if (isSelected) {
       if (!this.selectedCartProductPackagings?.includes(cartProductPackaging)) {
@@ -47,7 +54,5 @@ export class CartComponent implements OnInit, OnChanges {
         this.selectedCartProductPackagings?.splice(index, 1);
       }
     }
-    console.log(this.cartProductPackagings);
-    console.log(this.selectedCartProductPackagings);
   }
 }

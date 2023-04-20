@@ -30,20 +30,18 @@ export class FilterComponent implements OnInit {
 
   constructor(private apiService: ApiService, private router: Router) {}
 
-  async ngOnInit(): Promise<void> {
-    await this.apiService.getCategory().then((hydraCategory: HydraCategory) => {
+  ngOnInit(): void {
+    this.apiService.getCategory().then((hydraCategory: HydraCategory) => {
       this.categories = hydraCategory[this.hydraMember];
     });
-    await this.apiService.getGender().then((hydraGender: HydraGender) => {
+    this.apiService.getGender().then((hydraGender: HydraGender) => {
       this.genders = hydraGender[this.hydraMember];
     });
-    await this.apiService
-      .getPackaging()
-      .then((HydraPackaging: HydraPackaging) => {
-        this.packagings = HydraPackaging[this.hydraMember].sort(
-          (a: Packaging, b: Packaging) => a.capacity - b.capacity
-        );
-      });
+    this.apiService.getPackaging().then((HydraPackaging: HydraPackaging) => {
+      this.packagings = HydraPackaging[this.hydraMember].sort(
+        (a: Packaging, b: Packaging) => a.capacity - b.capacity
+      );
+    });
   }
 
   onCategoryCheckbox(event: any, categoryId: number): void {
@@ -63,7 +61,7 @@ export class FilterComponent implements OnInit {
     console.log(this.filteredCategories);
   }
 
-  onGenderCheckbox(event: any, genderId: number) {
+  onGenderCheckbox(event: any, genderId: number): void {
     const isSelected = event.target.checked;
     if (isSelected) {
       if (!this.filteredGenders.includes(genderId)) {
@@ -76,10 +74,9 @@ export class FilterComponent implements OnInit {
         this.filteredGenders?.splice(index, 1);
       }
     }
-    console.log(this.filteredGenders);
   }
 
-  onPackagingCheckbox(event: any, packagingCapacity: number) {
+  onPackagingCheckbox(event: any, packagingCapacity: number): void {
     const isSelected = event.target.checked;
     if (isSelected) {
       if (!this.filteredPackagingCapacities.includes(packagingCapacity)) {
@@ -93,17 +90,9 @@ export class FilterComponent implements OnInit {
         this.filteredPackagingCapacities?.splice(index, 1);
       }
     }
-    console.log(this.filteredPackagingCapacities);
   }
 
-  onSubmit() {
-    console.log(
-      this.filteredName,
-      this.filteredPreference,
-      this.filteredCategories,
-      this.filteredGenders,
-      this.filteredPackagingCapacities
-    );
+  onSubmit(): void {
     this.router.navigate(['/home'], {
       queryParams: {
         name: this.filteredName ? this.filteredName : undefined,
@@ -119,7 +108,7 @@ export class FilterComponent implements OnInit {
     });
   }
 
-  onReset() {
+  onReset(): void {
     this.filteredName = undefined;
     this.filteredPreference = undefined;
     this.filteredCategories = [];

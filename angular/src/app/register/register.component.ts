@@ -1,5 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -234,34 +239,37 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
   }
 
-  getNameCtrl() {
+  getNameCtrl(): AbstractControl<string | null, string | null> | null {
     return this.registerForm.get('name');
   }
-  getSurnameCtrl() {
+  getSurnameCtrl(): AbstractControl<string | null, string | null> | null {
     return this.registerForm.get('surname');
   }
-  getAddressCtrl() {
+  getAddressCtrl(): AbstractControl<string | null, string | null> | null {
     return this.registerForm.get('address');
   }
-  getPostCodeCtrl() {
+  getPostCodeCtrl(): AbstractControl<string | null, string | null> | null {
     return this.registerForm.get('postCode');
   }
-  getCityCtrl() {
+  getCityCtrl(): AbstractControl<string | null, string | null> | null {
     return this.registerForm.get('city');
   }
-  getCountryCtrl() {
+  getCountryCtrl(): AbstractControl<string | null, string | null> | null {
     return this.registerForm.get('country');
   }
-  getPhoneCtrl() {
+  getPhoneCtrl(): AbstractControl<string | null, string | null> | null {
     return this.registerForm.get('phone');
   }
-  getEmailCtrl() {
+  getEmailCtrl(): AbstractControl<string | null, string | null> | null {
     return this.registerForm.get('email');
   }
-  getPasswordCtrl() {
+  getPasswordCtrl(): AbstractControl<string | null, string | null> | null {
     return this.registerForm.get('password');
   }
-  getConfirmedPasswordCtrl() {
+  getConfirmedPasswordCtrl(): AbstractControl<
+    string | null,
+    string | null
+  > | null {
     return this.registerForm.get('confirmedPassword');
   }
 

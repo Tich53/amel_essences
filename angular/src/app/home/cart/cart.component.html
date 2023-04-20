@@ -67,13 +67,18 @@
     </tbody>
   </table>
 </div>
-<h2 class="flex-center-center">Montant total: {{ totalCartAmount }} EUR</h2>
-<div class="flex-center-center">
+
+<div class="flex-column-center-center-auto">
+  <h2 class="flex-center-center cart-amount">Montant total: {{ getTotalCartAmount() }} EUR</h2>
   <button class="btn btn-primary fit-content">
     <div class="flex-center-center">
-      <mat-icon>check_circle</mat-icon>
-      <span class="m-l-5 m-r-5 font-25">Valider le panier</span>
-      <span class="font-20">(uniquement les produits sélectionnés)</span>
+      <div class="flex-column-center-center-auto">
+        <div class="flex-center-center">
+          <mat-icon>check_circle</mat-icon>
+          <span class="m-l-5 m-r-5 font-25">Valider le panier</span>
+        </div>
+        <span class="font-20">(uniquement les produits sélectionnés)</span>
+      </div>
     </div>
   </button>
 </div>

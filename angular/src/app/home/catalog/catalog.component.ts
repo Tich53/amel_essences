@@ -38,7 +38,6 @@ export class CatalogComponent implements OnInit {
     };
     this.apiService.postCartProductPackaging(cartProductPackaging);
     this.hasAddedCartProductEvent.emit();
-    console.log(cartProductPackaging);
   }
 
   getCartProductQuantity(product: Product): number | void {
