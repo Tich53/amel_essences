@@ -1,59 +1,79 @@
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th class="text-align-center vertical-align-center" scope="col">
-        Numéros
-      </th>
-      <th class="text-align-center vertical-align-center" scope="col">
-        Catégorie
-      </th>
-      <th class="text-align-center vertical-align-center" scope="col">Gamme</th>
-      <th class="text-align-center vertical-align-center" scope="col">
-        Si vous aimez
-      </th>
-      <th class="text-align-center vertical-align-center" scope="col">Genre</th>
-      <th class="text-align-center vertical-align-center" scope="col">
-        Conditionnement
-      </th>
-      <th class="text-align-center vertical-align-center" scope="col">
-        Quantité
-      </th>
-      <th class="text-align-center vertical-align-center" scope="col">
-        Prix unitaire
-      </th>
-      <th class="text-align-center vertical-align-center" scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cartProductPackaging of cartProductPackagings">
-      <th class="text-align-center vertical-align-center" scope="row">
-        {{ cartProductPackaging.productPackaging.product.name }}
-      </th>
-      <td class="text-align-center vertical-align-center">
-        {{ cartProductPackaging.productPackaging.product.category.name }}
-      </td>
-      <td class="text-align-center vertical-align-center">
-        {{ cartProductPackaging.productPackaging.product.rangeAccount.name }}
-      </td>
-      <td class="text-align-center vertical-align-center">
-        {{ cartProductPackaging.productPackaging.product.preference }}
-      </td>
-      <td class="text-align-center vertical-align-center">
-        {{ cartProductPackaging.productPackaging.product.gender.name }}
-      </td>
-      <td class="text-align-center vertical-align-center">
-        {{ cartProductPackaging.productPackaging.packaging.capacity }}
-        {{ cartProductPackaging.productPackaging.packaging.capacityUnit }}
-      </td>
-      <td class="text-align-center vertical-align-center">
-        {{ cartProductPackaging.productQuantity }}
-      </td>
-      <td
-        class="text-align-center vertical-align-center"
-        id="unit-price-{{ cartProductPackaging.productPackaging.product.id }}"
-      >
-        {{ cartProductPackaging.amount }} €
-      </td>
-    </tr>
-  </tbody>
-</table>
+<h1 class="text-align-start m-l-35 font-weight-bold">Votre panier</h1>
+<div class="card bg-light mb-3 w-95 margin-auto">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th class="text-align-center vertical-align-center" scope="col">
+        </th>
+        <th class="text-align-center vertical-align-center" scope="col">
+          Numéros
+        </th>
+        <th class="text-align-center vertical-align-center" scope="col">
+          Catégorie
+        </th>
+        <th class="text-align-center vertical-align-center" scope="col">Gamme</th>
+        <th class="text-align-center vertical-align-center" scope="col">
+          Si vous aimez
+        </th>
+        <th class="text-align-center vertical-align-center" scope="col">Genre</th>
+        <th class="text-align-center vertical-align-center" scope="col">
+          Conditionnement
+        </th>
+        <th class="text-align-center vertical-align-center" scope="col">
+          Quantité
+        </th>
+        <th class="text-align-center vertical-align-center" scope="col">
+          Montant
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let cartProductPackaging of cartProductPackagings">
+        <td class="text-align-center vertical-align-center" width="10px">
+          <input class="form-check-input" type="checkbox" value=""
+            id="cartProductPackaging-{{ cartProductPackaging.id }}" checked
+            (change)="onCheck($event, cartProductPackaging)">
+          <label class="form-check-label" for="cartProductPackaging-{{ cartProductPackaging.id }}">
+          </label>
+        </td>
+        <th class="text-align-center vertical-align-center" scope="row">
+          {{ cartProductPackaging.productPackaging.product.name }}
+        </th>
+        <td class="text-align-center vertical-align-center">
+          {{ cartProductPackaging.productPackaging.product.category.name }}
+        </td>
+        <td class="text-align-center vertical-align-center">
+          {{ cartProductPackaging.productPackaging.product.rangeAccount.name }}
+        </td>
+        <td class="text-align-center vertical-align-center">
+          {{ cartProductPackaging.productPackaging.product.preference }}
+        </td>
+        <td class="text-align-center vertical-align-center">
+          {{ cartProductPackaging.productPackaging.product.gender.name }}
+        </td>
+        <td class="text-align-center vertical-align-center">
+          {{ cartProductPackaging.productPackaging.packaging.capacity }}
+          {{ cartProductPackaging.productPackaging.packaging.capacityUnit }}
+        </td>
+        <td class="text-align-center vertical-align-center">
+          {{ cartProductPackaging.productQuantity }}
+        </td>
+        <td class="text-align-center vertical-align-center"
+          id="unit-price-{{ cartProductPackaging.productPackaging.product.id }}">
+          {{ cartProductPackaging.amount }} €
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<h2 class="flex-center-center">Montant total: {{ totalCartAmount }} EUR</h2>
+<div class="flex-center-center">
+  <button class="btn btn-primary fit-content">
+    <div class="flex-center-center">
+      <mat-icon>check_circle</mat-icon>
+      <span class="m-l-5 m-r-5 font-25">Valider le panier</span>
+      <span class="font-20">(uniquement les produits sélectionnés)</span>
+    </div>
+  </button>
+</div>

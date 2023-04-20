@@ -25,6 +25,7 @@ class CartProductPackaging
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['cartProductPackaging:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'cartProductPackagings')]
