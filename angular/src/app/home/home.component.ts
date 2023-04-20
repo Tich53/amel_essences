@@ -71,7 +71,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                 (product.selectedProductPackaging =
                   product.productPackagings?.[0])
             );
-            console.log(this.products);
           });
       }
     );
@@ -84,7 +83,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.cartProductPackagings =
           HydraCartProductPackaging[this.hydraMember];
         this.cartProductNumber = HydraCartProductPackaging[this.hydraTotalItem];
-        console.log(this.cartProductPackagings);
       });
   }
 }

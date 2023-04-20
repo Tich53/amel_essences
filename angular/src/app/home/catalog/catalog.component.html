@@ -24,6 +24,7 @@
           Prix unitaire
         </th>
         <th class="text-align-center vertical-align-center" scope="col"></th>
+        <th class="text-align-center vertical-align-center" scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -72,6 +73,16 @@
             </div>
           </button>
         </td>
+        <td
+          *ngIf="getCartProductQuantity(product) > 0"
+          class="text-align-center vertical-align-center text-danger"
+        >
+          Déjà {{ getCartProductQuantity(product) }} dans le panier
+        </td>
+        <td
+          *ngIf="getCartProductQuantity(product) <= 0"
+          class="text-align-center vertical-align-center text-danger"
+        ></td>
       </tr>
     </tbody>
   </table>
