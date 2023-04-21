@@ -36,11 +36,21 @@ export class CatalogComponent implements OnInit {
       productPackaging: `${productPackagingIri}${product.selectedProductPackaging.id}`,
       productQuantity: 1,
     };
+
+    // if (this.getCartProductPackagingId) {
+    //   const cartProductQuantity = this.getCartProductQuantity(product) + 1;
+    //   const cartProductPackagingId = this.getCartProductPackagingId(product);
+
+    //   this.apiService.addOneCartProductPackaging(
+    //     this.getCartProductPackagingId(product)
+    //   );
+    // }
+
     this.apiService.postCartProductPackaging(cartProductPackaging);
     this.hasAddedCartProductEvent.emit();
   }
 
-  getCartProductQuantity(product: Product): number | void {
+  getCartProductQuantity(product: Product): number {
     let quantity = 0;
     if (this.cartProductPackagings) {
       const filteredCartProductPackagings = this.cartProductPackagings.filter(
@@ -52,5 +62,19 @@ export class CatalogComponent implements OnInit {
       }
       return quantity;
     }
+    return 0;
   }
+
+  // getCartProductPackagingId(product: Product): number {
+  //   let id = -1;
+  //   if (this.cartProductPackagings) {
+  //     const filteredCartProductPackagings = this.cartProductPackagings.filter(
+  //       (cartProductPackaging) =>
+  //         cartProductPackaging.productPackaging.id ===
+  //         product.selectedProductPackaging.id
+  //     );
+  //     id = filteredCartProductPackagings[0].id;
+  //   }
+  //   return id;
+  // }
 }

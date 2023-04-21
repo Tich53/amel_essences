@@ -3,6 +3,7 @@ import {
   Component,
   Input,
   OnChanges,
+  SimpleChanges,
   OnInit,
 } from '@angular/core';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging';
@@ -18,15 +19,13 @@ export class CartComponent implements OnInit, OnChanges {
 
   constructor() {}
 
-  ngOnInit(): void {
-    // Copy of the cartProductPackaging
-    this.selectedCartProductPackagings = this.cartProductPackagings?.map(
-      (x) => x
-    );
-  }
+  ngOnInit(): void {}
 
-  ngOnChanges(): void {
-    this.getTotalCartAmount();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['cartProductPackagings']) {
+      // Copy of the cartProductPackaging
+      this.selectedCartProductPackagings = this.cartProductPackagings?.slice();
+    }
   }
 
   getTotalCartAmount(): number {

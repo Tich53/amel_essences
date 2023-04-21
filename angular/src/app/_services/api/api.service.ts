@@ -9,6 +9,7 @@ import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
 import { HydraPackaging } from 'src/app/_interfaces/_hydras/hydra-packaging';
 import { HydraCartProductPackaging } from 'src/app/_interfaces/_hydras/hydra-cart-product-packaging';
 import { CartProductPackagingIri } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging-iri';
+import { CartProductPackaging } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging';
 
 @Injectable({
   providedIn: 'root',
@@ -139,6 +140,21 @@ export class ApiService {
       this.httpClient.post<CartProductPackagingIri>(
         this.cartProductPackagingUrl,
         cartProductPackaging,
+        this.httpOptions
+      )
+    );
+  }
+
+  /**
+   * Http PATCH methods
+   */
+  addOneCartProductPackaging(
+    cartProductPackagingId: number
+  ): Promise<{ productQuantity: number }> {
+    return lastValueFrom(
+      this.httpClient.patch<{ productQuantity: number }>(
+        this.cartProductPackagingUrl,
+        { productQuantity: cartProductPackagingId },
         this.httpOptions
       )
     );
