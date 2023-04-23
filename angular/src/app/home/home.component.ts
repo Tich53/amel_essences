@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CartProductPackaging } from '../_interfaces/_abstract/cart-product-packaging/cart-product-packaging';
+import { CartProductPackaging } from '../_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
 import { Product } from '../_interfaces/product';
 import { HydraCartProductPackaging } from '../_interfaces/_hydras/hydra-cart-product-packaging';
 import { HydraProduct } from '../_interfaces/_hydras/hydra-product';
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   productNumber = 0;
 
   cartProductPackagings?: CartProductPackaging[];
-  cartProductNumber = 0;
+  cartProductQuantity = 0;
 
   hasAddedCartProductPackaging?: boolean;
 
@@ -82,7 +82,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then((HydraCartProductPackaging: HydraCartProductPackaging) => {
         this.cartProductPackagings =
           HydraCartProductPackaging[this.hydraMember];
-        this.cartProductNumber = HydraCartProductPackaging[this.hydraTotalItem];
+        this.cartProductQuantity =
+          HydraCartProductPackaging[this.hydraTotalItem];
       });
   }
 }

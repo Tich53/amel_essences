@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CartProductPackaging } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging';
-import { CartProductPackagingIri } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging-iri';
-import { CurrentUser } from 'src/app/_interfaces/_abstract/user/current-user';
+import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
+import { CartProductPackagingIri } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging-iri';
+import { CurrentUser } from 'src/app/_interfaces/_abstracts/user/current-user';
 import { Product } from 'src/app/_interfaces/product';
 import { ApiService } from 'src/app/_services/api/api.service';
 
@@ -37,17 +37,26 @@ export class CatalogComponent implements OnInit {
       productQuantity: 1,
     };
 
-    // if (this.getCartProductPackagingId) {
-    //   const cartProductQuantity = this.getCartProductQuantity(product) + 1;
-    //   const cartProductPackagingId = this.getCartProductPackagingId(product);
+    if (this.getCartProductPackagingId(product) > -1) {
+      const cartProductPackagingId = this.getCartProductPackagingId(product);
+      const cartProductQuantity =
+        this.getCartProductPackagingQuantity(product) + 1;
+      const cartProductPrice =
+        cartProductQuantity * product.selectedProductPackaging.unitPrice;
+      const PatchQuantityPrice = {
+        productQuantity: cartProductQuantity,
+        amount: cartProductPrice,
+      };
 
-    //   this.apiService.addOneCartProductPackaging(
-    //     this.getCartProductPackagingId(product)
-    //   );
-    // }
-
-    this.apiService.postCartProductPackaging(cartProductPackaging);
-    this.hasAddedCartProductEvent.emit();
+      this.apiService.addOneCartProductPackaging(
+        cartProductPackagingId,
+        PatchQuantityPrice
+      );
+      this.hasAddedCartProductEvent.emit();
+    } else {
+      this.apiService.postCartProductPackaging(cartProductPackaging);
+      this.hasAddedCartProductEvent.emit();
+    }
   }
 
   getCartProductQuantity(product: Product): number {
@@ -65,16 +74,34 @@ export class CatalogComponent implements OnInit {
     return 0;
   }
 
-  // getCartProductPackagingId(product: Product): number {
-  //   let id = -1;
-  //   if (this.cartProductPackagings) {
-  //     const filteredCartProductPackagings = this.cartProductPackagings.filter(
-  //       (cartProductPackaging) =>
-  //         cartProductPackaging.productPackaging.id ===
-  //         product.selectedProductPackaging.id
-  //     );
-  //     id = filteredCartProductPackagings[0].id;
-  //   }
-  //   return id;
-  // }
+  getCartProductPackagingId(product: Product): number {
+    let id = -1;
+    if (this.cartProductPackagings) {
+      const filteredCartProductPackagings = this.cartProductPackagings.filter(
+        (cartProductPackaging) =>
+          cartProductPackaging.productPackaging.id ===
+          product.selectedProductPackaging.id
+      );
+      if (filteredCartProductPackagings.length > 0) {
+        id = filteredCartProductPackagings[0].id;
+      }
+    }
+    return id;
+  }
+
+  getCartProductPackagingQuantity(product: Product): number {
+    let quantity = 0;
+    if (this.cartProductPackagings) {
+      const filteredCartProductPackagings = this.cartProductPackagings.filter(
+        (cartProductPackaging) =>
+          cartProductPackaging.productPackaging.id ===
+          product.selectedProductPackaging.id
+      );
+      for (const filteredCartProductPackaging of filteredCartProductPackagings) {
+        quantity += filteredCartProductPackaging.productQuantity;
+      }
+      return quantity;
+    }
+    return 0;
+  }
 }

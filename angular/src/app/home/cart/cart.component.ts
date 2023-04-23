@@ -6,7 +6,7 @@ import {
   SimpleChanges,
   OnInit,
 } from '@angular/core';
-import { CartProductPackaging } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging';
+import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
 
 @Component({
   selector: 'app-cart',

@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom, Observable } from 'rxjs';
-import { CurrentUser } from 'src/app/_interfaces/_abstract/user/current-user';
-import { RegistratingUser } from 'src/app/_interfaces/_abstract/user/registrating-user';
+import { CurrentUser } from 'src/app/_interfaces/_abstracts/user/current-user';
+import { RegistratingUser } from 'src/app/_interfaces/_abstracts/user/registrating-user';
 import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
 import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
 import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
 import { HydraPackaging } from 'src/app/_interfaces/_hydras/hydra-packaging';
 import { HydraCartProductPackaging } from 'src/app/_interfaces/_hydras/hydra-cart-product-packaging';
-import { CartProductPackagingIri } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging-iri';
-import { CartProductPackaging } from 'src/app/_interfaces/_abstract/cart-product-packaging/cart-product-packaging';
+import { CartProductPackagingIri } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging-iri';
+import { PatchQuantityPrice } from 'src/app/_interfaces/_patches/patch-quantity-price';
 
 @Injectable({
   providedIn: 'root',
@@ -41,9 +41,15 @@ export class ApiService {
   /**
    * HTTPOptions
    */
-  readonly httpOptions = {
+  readonly httpOptionsJson = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
+    }),
+  };
+
+  readonly httpOptionsPatchJson = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/merge-patch+json',
     }),
   };
 
@@ -128,7 +134,7 @@ export class ApiService {
       this.httpClient.post<RegistratingUser>(
         this.userUrl,
         registratingUser,
-        this.httpOptions
+        this.httpOptionsJson
       )
     );
   }
@@ -140,7 +146,7 @@ export class ApiService {
       this.httpClient.post<CartProductPackagingIri>(
         this.cartProductPackagingUrl,
         cartProductPackaging,
-        this.httpOptions
+        this.httpOptionsJson
       )
     );
   }
@@ -149,13 +155,14 @@ export class ApiService {
    * Http PATCH methods
    */
   addOneCartProductPackaging(
-    cartProductPackagingId: number
-  ): Promise<{ productQuantity: number }> {
+    cartProductPackagingId: number,
+    PatchQuantityPrice: PatchQuantityPrice
+  ): Promise<PatchQuantityPrice> {
     return lastValueFrom(
-      this.httpClient.patch<{ productQuantity: number }>(
-        this.cartProductPackagingUrl,
-        { productQuantity: cartProductPackagingId },
-        this.httpOptions
+      this.httpClient.patch<PatchQuantityPrice>(
+        `${this.cartProductPackagingUrl}/${cartProductPackagingId}`,
+        PatchQuantityPrice,
+        this.httpOptionsPatchJson
       )
     );
   }

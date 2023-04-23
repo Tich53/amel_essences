@@ -1,4 +1,4 @@
-import { CartProductPackaging } from './_abstract/cart-product-packaging/cart-product-packaging';
+import { CartProductPackaging } from './_abstracts/cart-product-packaging/cart-product-packaging';
 
 export interface Cart {
   id: number;

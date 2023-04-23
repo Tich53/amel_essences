@@ -9,7 +9,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { StatusEnum } from '../_enums/status';
-import { CurrentUser } from '../_interfaces/_abstract/user/current-user';
+import { CurrentUser } from '../_interfaces/_abstracts/user/current-user';
 import { ApiService } from '../_services/api/api.service';
 
 import { AuthService } from '../_services/authentication/auth.service';
@@ -108,7 +108,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   getEmailCtrl(): AbstractControl<string | null, string | null> | null {
-    console.log(this.loginForm.get('email'));
     return this.loginForm.get('email');
   }
 
