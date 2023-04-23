@@ -80,10 +80,19 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.apiService
       .getCartProductPackagings()
       .then((HydraCartProductPackaging: HydraCartProductPackaging) => {
-        this.cartProductPackagings =
-          HydraCartProductPackaging[this.hydraMember];
-        this.cartProductQuantity =
-          HydraCartProductPackaging[this.hydraTotalItem];
+        this.cartProductPackagings = HydraCartProductPackaging[
+          this.hydraMember
+        ].sort((a: CartProductPackaging, b: CartProductPackaging) =>
+          a.productPackaging.product.name.localeCompare(
+            b.productPackaging.product.name
+          )
+        );
+        this.cartProductQuantity = 0;
+        this.cartProductPackagings.forEach(
+          (cartProductPackaging: CartProductPackaging) => {
+            this.cartProductQuantity += cartProductPackaging.productQuantity;
+          }
+        );
       });
   }
 }

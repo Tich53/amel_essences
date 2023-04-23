@@ -52,11 +52,10 @@ export class CatalogComponent implements OnInit {
         cartProductPackagingId,
         PatchQuantityPrice
       );
-      this.hasAddedCartProductEvent.emit();
     } else {
       this.apiService.postCartProductPackaging(cartProductPackaging);
-      this.hasAddedCartProductEvent.emit();
     }
+    this.hasAddedCartProductEvent.emit();
   }
 
   getCartProductQuantity(product: Product): number {
