@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use App\Repository\CartProductPackagingRepository;
@@ -19,7 +20,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Get(),
         new GetCollection(),
         new Post(),
-        new Patch()
+        new Patch(),
+        new Delete()
     ]
 )]
 class CartProductPackaging

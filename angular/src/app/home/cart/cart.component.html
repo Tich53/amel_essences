@@ -25,6 +25,7 @@
         <th class="text-align-center vertical-align-center" scope="col">
           Montant
         </th>
+        <th class="text-align-center vertical-align-center" scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -62,6 +63,9 @@
         <td class="text-align-center vertical-align-center"
           id="unit-price-{{ cartProductPackaging.productPackaging.product.id }}">
           {{ cartProductPackaging.amount }} €
+        </td>
+        <td class="text-align-center vertical-align-center">
+          <mat-icon class="trash" (click)="deleteCartProductPackaging(cartProductPackaging)">delete</mat-icon>
         </td>
       </tr>
     </tbody>

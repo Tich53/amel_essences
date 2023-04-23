@@ -10,6 +10,7 @@ import { HydraPackaging } from 'src/app/_interfaces/_hydras/hydra-packaging';
 import { HydraCartProductPackaging } from 'src/app/_interfaces/_hydras/hydra-cart-product-packaging';
 import { CartProductPackagingIri } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging-iri';
 import { PatchQuantityPrice } from 'src/app/_interfaces/_patches/patch-quantity-price';
+import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
 
 @Injectable({
   providedIn: 'root',
@@ -163,6 +164,19 @@ export class ApiService {
         `${this.cartProductPackagingUrl}/${cartProductPackagingId}`,
         PatchQuantityPrice,
         this.httpOptionsPatchJson
+      )
+    );
+  }
+
+  /**
+   * Http DELETE methods
+   */
+  deleteCartProductPackaging(
+    cartProductPackaging: CartProductPackaging
+  ): Promise<number> {
+    return lastValueFrom(
+      this.httpClient.delete<number>(
+        `${this.cartProductPackagingUrl}/${cartProductPackaging.id}`
       )
     );
   }

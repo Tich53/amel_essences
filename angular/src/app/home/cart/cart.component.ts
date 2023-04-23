@@ -1,12 +1,14 @@
 import {
-  AfterViewInit,
   Component,
   Input,
   OnChanges,
   SimpleChanges,
   OnInit,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
+import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,9 +17,11 @@ import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-produc
 })
 export class CartComponent implements OnInit, OnChanges {
   @Input() cartProductPackagings?: CartProductPackaging[];
+  @Output() hasDeletedCartProductEvent = new EventEmitter();
+
   selectedCartProductPackagings?: CartProductPackaging[];
 
-  constructor() {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {}
 
@@ -52,6 +56,21 @@ export class CartComponent implements OnInit, OnChanges {
       if (index !== undefined) {
         this.selectedCartProductPackagings?.splice(index, 1);
       }
+    }
+  }
+
+  deleteCartProductPackaging(cartProductPackaging: CartProductPackaging): void {
+    this.apiService.deleteCartProductPackaging(cartProductPackaging);
+
+    if (this.cartProductPackagings) {
+      const index = this.cartProductPackagings?.indexOf(cartProductPackaging);
+      this.cartProductPackagings?.splice(index, 1);
+    }
+
+    if (this.selectedCartProductPackagings) {
+      const index =
+        this.selectedCartProductPackagings?.indexOf(cartProductPackaging);
+      this.selectedCartProductPackagings?.splice(index, 1);
     }
   }
 }
