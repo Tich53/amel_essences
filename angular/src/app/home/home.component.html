@@ -1,11 +1,29 @@
-<app-navbar [cartProductQuantity]="cartProductQuantity" (menuItemSelectionEmitter)="menuItemSelection = $event">
+<app-navbar
+  [cartProductQuantity]="cartProductQuantity"
+  (menuItemSelectionEmitter)="menuItemSelection = $event"
+>
 </app-navbar>
-<div *ngIf="menuItemSelection.catalogActive" class="m-l-20 m-r-20 m-t-20 flex-center-center-80vh">
-  <app-filter class="w-20 m-r-5 max-h-100-o-y-a" [productNumber]="productNumber"></app-filter>
-  <app-catalog class="w-100 m-l-5 max-h-100-o-y-a" [products]="products" [cartProductPackagings]="cartProductPackagings"
-    (hasAddedCartProductEvent)="getCartProductPackagings()">
+<div
+  *ngIf="menuItemSelection.catalogActive"
+  class="m-l-20 m-r-20 m-t-20 flex-center-center-80vh"
+>
+  <app-filter
+    class="w-20 m-r-5 max-h-100-o-y-a"
+    [productNumber]="productNumber"
+  ></app-filter>
+  <app-catalog
+    class="w-100 m-l-5 max-h-100-o-y-a"
+    [products]="products"
+    [cartProductPackagings]="cartProductPackagings"
+    (hasAddedCartProductEvent)="getCartProductPackagings()"
+  >
   </app-catalog>
 </div>
 
-<app-cart *ngIf="menuItemSelection.cartActive" class="m-20" [cartProductPackagings]="cartProductPackagings">
+<app-cart
+  *ngIf="menuItemSelection.cartActive"
+  class="m-20"
+  [cartProductPackagings]="cartProductPackagings"
+  (hasDeletedCartProductEvent)="deleteCartProductPackaging($event)"
+>
 </app-cart>

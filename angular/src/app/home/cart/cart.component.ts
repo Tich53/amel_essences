@@ -8,7 +8,6 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
-import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
   selector: 'app-cart',
@@ -17,11 +16,12 @@ import { ApiService } from 'src/app/_services/api/api.service';
 })
 export class CartComponent implements OnInit, OnChanges {
   @Input() cartProductPackagings?: CartProductPackaging[];
-  @Output() hasDeletedCartProductEvent = new EventEmitter();
+  @Output() hasDeletedCartProductEvent =
+    new EventEmitter<CartProductPackaging>();
 
   selectedCartProductPackagings?: CartProductPackaging[];
 
-  constructor(private apiService: ApiService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
@@ -60,17 +60,6 @@ export class CartComponent implements OnInit, OnChanges {
   }
 
   deleteCartProductPackaging(cartProductPackaging: CartProductPackaging): void {
-    this.apiService.deleteCartProductPackaging(cartProductPackaging);
-
-    if (this.cartProductPackagings) {
-      const index = this.cartProductPackagings?.indexOf(cartProductPackaging);
-      this.cartProductPackagings?.splice(index, 1);
-    }
-
-    if (this.selectedCartProductPackagings) {
-      const index =
-        this.selectedCartProductPackagings?.indexOf(cartProductPackaging);
-      this.selectedCartProductPackagings?.splice(index, 1);
-    }
+    this.hasDeletedCartProductEvent.emit(cartProductPackaging);
   }
 }

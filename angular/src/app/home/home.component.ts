@@ -95,4 +95,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         );
       });
   }
+
+  async deleteCartProductPackaging(cartProductPackaging: CartProductPackaging) {
+    await this.apiService.deleteCartProductPackaging(cartProductPackaging);
+    this.getCartProductPackagings();
+  }
 }
