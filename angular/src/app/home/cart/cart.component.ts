@@ -18,6 +18,10 @@ export class CartComponent implements OnInit, OnChanges {
   @Input() cartProductPackagings?: CartProductPackaging[];
   @Output() hasDeletedCartProductEvent =
     new EventEmitter<CartProductPackaging>();
+  @Output() hasAddedOneCartProductEvent =
+    new EventEmitter<CartProductPackaging>();
+  @Output() hasdeletedOneCartProductEvent =
+    new EventEmitter<CartProductPackaging>();
 
   selectedCartProductPackagings?: CartProductPackaging[];
 
@@ -57,6 +61,15 @@ export class CartComponent implements OnInit, OnChanges {
         this.selectedCartProductPackagings?.splice(index, 1);
       }
     }
+  }
+
+  addOneProductPackaging(cartProductPackaging: CartProductPackaging) {
+    this.hasAddedOneCartProductEvent.emit(cartProductPackaging);
+    console.log('test');
+  }
+
+  deleteOneProductPackaging(cartProductPackaging: CartProductPackaging) {
+    this.hasdeletedOneCartProductEvent.emit(cartProductPackaging);
   }
 
   deleteCartProductPackaging(cartProductPackaging: CartProductPackaging): void {

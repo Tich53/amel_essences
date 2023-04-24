@@ -6,6 +6,7 @@ import { Product } from '../_interfaces/product';
 import { HydraCartProductPackaging } from '../_interfaces/_hydras/hydra-cart-product-packaging';
 import { HydraProduct } from '../_interfaces/_hydras/hydra-product';
 import { ApiService } from '../_services/api/api.service';
+import { PatchQuantityPrice } from '../_interfaces/_patches/patch-quantity-price';
 
 @Component({
   selector: 'app-home',
@@ -94,6 +95,22 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         );
       });
+  }
+
+  hasAddedOneCartProductPackaging(cartProductPackaging: CartProductPackaging) {
+    const cartProductPackagingQuantity =
+      cartProductPackaging.productQuantity + 1;
+    const cartProductPackagingAmount =
+      cartProductPackagingQuantity *
+      cartProductPackaging.productPackaging.unitPrice;
+    const patchQuantityPrice: PatchQuantityPrice = {
+      productQuantity: cartProductPackagingQuantity,
+      amount: cartProductPackagingAmount,
+    };
+    this.apiService.addOneCartProductPackaging(
+      cartProductPackaging.id,
+      patchQuantityPrice
+    );
   }
 
   async deleteCartProductPackaging(cartProductPackaging: CartProductPackaging) {

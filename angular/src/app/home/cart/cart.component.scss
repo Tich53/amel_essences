@@ -1,26 +1,46 @@
-.m-l-35{
+.m-l-35 {
   margin-left: 35px;
 }
 
-.form-check-input{
+.form-check-input {
   padding: 8px;
 }
 
-.font-20{
+.font-20 {
   font-size: 20px;
 }
 
-.font-25{
+.font-25 {
   font-size: 25px;
 }
 
-.cart-amount{
-  border:1px solid;
+.cart-amount {
+  border: 1px solid;
   width: fit-content;
   padding: 5px;
   border-radius: 5px;
 }
 
-.trash{
+.trash {
   cursor: pointer;
+}
+
+.arrow-up {
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+.arrow-up:hover {
+  color: white;
+  background-color: #22b24c;
+}
+
+.arrow-down {
+  border-radius: 5px;
+  background-color: lightgray;
+}
+
+.arrow-down:hover {
+  color: white;
+  background-color: red;
 }

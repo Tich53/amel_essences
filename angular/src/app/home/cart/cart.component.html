@@ -3,19 +3,22 @@
   <table class="table table-hover">
     <thead>
       <tr>
-        <th class="text-align-center vertical-align-center" scope="col">
-        </th>
+        <th class="text-align-center vertical-align-center" scope="col"></th>
         <th class="text-align-center vertical-align-center" scope="col">
           Numéros
         </th>
         <th class="text-align-center vertical-align-center" scope="col">
           Catégorie
         </th>
-        <th class="text-align-center vertical-align-center" scope="col">Gamme</th>
+        <th class="text-align-center vertical-align-center" scope="col">
+          Gamme
+        </th>
         <th class="text-align-center vertical-align-center" scope="col">
           Si vous aimez
         </th>
-        <th class="text-align-center vertical-align-center" scope="col">Genre</th>
+        <th class="text-align-center vertical-align-center" scope="col">
+          Genre
+        </th>
         <th class="text-align-center vertical-align-center" scope="col">
           Conditionnement
         </th>
@@ -29,13 +32,20 @@
       </tr>
     </thead>
     <tbody>
-
       <tr *ngFor="let cartProductPackaging of cartProductPackagings">
         <td class="text-align-center vertical-align-center" width="10px">
-          <input class="form-check-input" type="checkbox" value=""
-            id="cartProductPackaging-{{ cartProductPackaging.id }}" checked
-            (change)="onCheck($event, cartProductPackaging)">
-          <label class="form-check-label" for="cartProductPackaging-{{ cartProductPackaging.id }}">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="cartProductPackaging-{{ cartProductPackaging.id }}"
+            checked
+            (change)="onCheck($event, cartProductPackaging)"
+          />
+          <label
+            class="form-check-label"
+            for="cartProductPackaging-{{ cartProductPackaging.id }}"
+          >
           </label>
         </td>
         <th class="text-align-center vertical-align-center" scope="row">
@@ -58,14 +68,32 @@
           {{ cartProductPackaging.productPackaging.packaging.capacityUnit }}
         </td>
         <td class="text-align-center vertical-align-center">
-          {{ cartProductPackaging.productQuantity }}
+          <div class="flex-center-center">
+            <div class="m-r-5">
+              {{ cartProductPackaging.productQuantity }}
+            </div>
+            <div class="flex-column-center-center-auto m-l-5">
+              <mat-icon
+                class="arrow-up m-b-5"
+                (click)="addOneProductPackaging(cartProductPackaging)"
+                >expand_less</mat-icon
+              >
+              <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
+            </div>
+          </div>
         </td>
-        <td class="text-align-center vertical-align-center"
-          id="unit-price-{{ cartProductPackaging.productPackaging.product.id }}">
+        <td
+          class="text-align-center vertical-align-center"
+          id="unit-price-{{ cartProductPackaging.productPackaging.product.id }}"
+        >
           {{ cartProductPackaging.amount }} €
         </td>
         <td class="text-align-center vertical-align-center">
-          <mat-icon class="trash" (click)="deleteCartProductPackaging(cartProductPackaging)">delete</mat-icon>
+          <mat-icon
+            class="trash"
+            (click)="deleteCartProductPackaging(cartProductPackaging)"
+            >delete</mat-icon
+          >
         </td>
       </tr>
     </tbody>
@@ -73,7 +101,9 @@
 </div>
 
 <div class="flex-column-center-center-auto">
-  <h2 class="flex-center-center cart-amount">Montant total: {{ getTotalCartAmount() }} EUR</h2>
+  <h2 class="flex-center-center cart-amount">
+    Montant total: {{ getTotalCartAmount() }} EUR
+  </h2>
   <button class="btn btn-primary fit-content">
     <div class="flex-center-center">
       <div class="flex-column-center-center-auto">
