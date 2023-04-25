@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OrderRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -47,12 +48,22 @@ class Order
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?MainOrder $main_order = null;
 
-    #[ORM\OneToMany(mappedBy: 'order_number', targetEntity: OrderProduct::class)]
-    private Collection $orderProducts;
+    #[ORM\OneToMany(mappedBy: 'order_number', targetEntity: OrderCartProductPackaging::class, orphanRemoval: true)]
+    private Collection $orderCartProductPackagings;
+
+
 
     public function __construct()
     {
-        $this->orderProducts = new ArrayCollection();
+        $this->orderCartProductPackagings = new ArrayCollection();
+
+        $now = new DateTime();
+        if ($this->getDate() === null) {
+            $this->date = $now;
+        }
+        if ($this->getReference() === null) {
+            $this->reference = $now->format('Y-m-d H:i:s') . '_' . $this->getId();
+        }
     }
 
     public function getId(): ?int
@@ -121,29 +132,29 @@ class Order
     }
 
     /**
-     * @return Collection<int, OrderProduct>
+     * @return Collection<int, OrderCartProductPackaging>
      */
-    public function getOrderProducts(): Collection
+    public function getOrderCartProductPackagings(): Collection
     {
-        return $this->orderProducts;
+        return $this->orderCartProductPackagings;
     }
 
-    public function addOrderProduct(OrderProduct $orderProduct): self
+    public function addOrderCartProductPackaging(OrderCartProductPackaging $orderCartProductPackaging): self
     {
-        if (!$this->orderProducts->contains($orderProduct)) {
-            $this->orderProducts->add($orderProduct);
-            $orderProduct->setOrderNumber($this);
+        if (!$this->orderCartProductPackagings->contains($orderCartProductPackaging)) {
+            $this->orderCartProductPackagings->add($orderCartProductPackaging);
+            $orderCartProductPackaging->setOrderNumber($this);
         }
 
         return $this;
     }
 
-    public function removeOrderProduct(OrderProduct $orderProduct): self
+    public function removeOrderCartProductPackaging(OrderCartProductPackaging $orderCartProductPackaging): self
     {
-        if ($this->orderProducts->removeElement($orderProduct)) {
+        if ($this->orderCartProductPackagings->removeElement($orderCartProductPackaging)) {
             // set the owning side to null (unless already changed)
-            if ($orderProduct->getOrderNumber() === $this) {
-                $orderProduct->setOrderNumber(null);
+            if ($orderCartProductPackaging->getOrderNumber() === $this) {
+                $orderCartProductPackaging->setOrderNumber(null);
             }
         }
 

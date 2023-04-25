@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Entity\Range;
-use App\Entity\OrderProduct;
 use ApiPlatform\Metadata\Get;
 use App\Entity\ProductPackaging;
 use Doctrine\ORM\Mapping as ORM;
@@ -61,9 +60,6 @@ class Product
     #[Groups(['product:read', 'cartProductPackaging:read'])]
     private ?Gender $gender = null;
 
-    #[ORM\OneToMany(mappedBy: 'product', targetEntity: OrderProduct::class)]
-    private Collection $orderProducts;
-
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductPackaging::class)]
     #[Groups(['product:read'])]
     private Collection $productPackagings;
@@ -80,7 +76,6 @@ class Product
 
     public function __construct()
     {
-        $this->orderProducts = new ArrayCollection();
         $this->productPackagings = new ArrayCollection();
     }
 
@@ -122,36 +117,6 @@ class Product
     public function setGender(?Gender $gender): self
     {
         $this->gender = $gender;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, OrderProduct>
-     */
-    public function getOrderProducts(): Collection
-    {
-        return $this->orderProducts;
-    }
-
-    public function addOrderProduct(OrderProduct $orderProduct): self
-    {
-        if (!$this->orderProducts->contains($orderProduct)) {
-            $this->orderProducts->add($orderProduct);
-            $orderProduct->setProduct($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderProduct(OrderProduct $orderProduct): self
-    {
-        if ($this->orderProducts->removeElement($orderProduct)) {
-            // set the owning side to null (unless already changed)
-            if ($orderProduct->getProduct() === $this) {
-                $orderProduct->setProduct(null);
-            }
-        }
 
         return $this;
     }
