@@ -28,34 +28,36 @@ export class CatalogComponent implements OnInit {
   }
 
   addToCart(product: Product): void {
-    const cartIri = '/api/carts/';
-    const productPackagingIri = '/api/product_packagings/';
-    const cartProductPackaging: CartProductPackagingIri = {
-      amount: product.selectedProductPackaging.unitPrice,
-      cart: `${cartIri}${this.currentUser.cart.id}`,
-      productPackaging: `${productPackagingIri}${product.selectedProductPackaging.id}`,
-      productQuantity: 1,
-    };
-
-    if (this.getCartProductPackagingId(product) > -1) {
-      const cartProductPackagingId = this.getCartProductPackagingId(product);
-      const cartProductQuantity =
-        this.getCartProductPackagingQuantity(product) + 1;
-      const cartProductPrice =
-        cartProductQuantity * product.selectedProductPackaging.unitPrice;
-      const PatchQuantityPrice = {
-        productQuantity: cartProductQuantity,
-        amount: cartProductPrice,
+    if (this.currentUser) {
+      const cartIri = '/api/carts/';
+      const productPackagingIri = '/api/product_packagings/';
+      const cartProductPackaging: CartProductPackagingIri = {
+        amount: product.selectedProductPackaging.unitPrice,
+        cart: `${cartIri}${this.currentUser.cart.id}`,
+        productPackaging: `${productPackagingIri}${product.selectedProductPackaging.id}`,
+        productQuantity: 1,
       };
 
-      this.apiService.addOneCartProductPackaging(
-        cartProductPackagingId,
-        PatchQuantityPrice
-      );
-    } else {
-      this.apiService.postCartProductPackaging(cartProductPackaging);
+      if (this.getCartProductPackagingId(product) > -1) {
+        const cartProductPackagingId = this.getCartProductPackagingId(product);
+        const cartProductQuantity =
+          this.getCartProductPackagingQuantity(product) + 1;
+        const cartProductPrice =
+          cartProductQuantity * product.selectedProductPackaging.unitPrice;
+        const PatchQuantityPrice = {
+          productQuantity: cartProductQuantity,
+          amount: cartProductPrice,
+        };
+
+        this.apiService.addOneCartProductPackaging(
+          cartProductPackagingId,
+          PatchQuantityPrice
+        );
+      } else {
+        this.apiService.postCartProductPackaging(cartProductPackaging);
+      }
+      this.hasAddedCartProductEvent.emit();
     }
-    this.hasAddedCartProductEvent.emit();
   }
 
   getCartProductQuantity(product: Product): number {
