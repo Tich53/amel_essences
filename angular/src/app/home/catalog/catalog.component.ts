@@ -13,19 +13,14 @@ import { ApiService } from 'src/app/_services/api/api.service';
 export class CatalogComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
 
+  @Input() currentUser?: CurrentUser;
   @Input() products?: Product[];
   @Input() cartProductPackagings?: CartProductPackaging[];
   @Output() hasAddedCartProductEvent = new EventEmitter();
 
-  currentUser!: CurrentUser;
-
   constructor(private apiService: ApiService) {}
 
-  ngOnInit(): void {
-    this.apiService
-      .getCurrentUser()
-      .then((currentUser) => (this.currentUser = currentUser));
-  }
+  ngOnInit(): void {}
 
   addToCart(product: Product): void {
     if (this.currentUser) {

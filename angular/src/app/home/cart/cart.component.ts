@@ -8,6 +8,8 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
+import { CurrentUser } from 'src/app/_interfaces/_abstracts/user/current-user';
+import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,6 +17,7 @@ import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-produc
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit, OnChanges {
+  @Input() currentUser!: CurrentUser;
   @Input() cartProductPackagings?: CartProductPackaging[];
   @Output() hasDeletedEvent = new EventEmitter<CartProductPackaging>();
   @Output() hasAddedOneEvent = new EventEmitter<CartProductPackaging>();
@@ -22,7 +25,7 @@ export class CartComponent implements OnInit, OnChanges {
 
   selectedCartProductPackagings?: CartProductPackaging[];
 
-  constructor() {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {}
 
@@ -60,15 +63,39 @@ export class CartComponent implements OnInit, OnChanges {
     }
   }
 
-  addOne(cartProductPackaging: CartProductPackaging) {
+  addOne(cartProductPackaging: CartProductPackaging): void {
     this.hasAddedOneEvent.emit(cartProductPackaging);
   }
 
-  deleteOne(cartProductPackaging: CartProductPackaging) {
+  deleteOne(cartProductPackaging: CartProductPackaging): void {
     this.hasDeletedOneEvent.emit(cartProductPackaging);
   }
 
   delete(cartProductPackaging: CartProductPackaging): void {
     this.hasDeletedEvent.emit(cartProductPackaging);
+  }
+
+  async validateCart() {
+    const userIri = 'https://localhost:8000/api/users/';
+    const currentUserId = this.currentUser.id;
+    const order = {
+      amount: 0,
+      userAccount: `${userIri}${currentUserId}`,
+    };
+    await this.apiService.createOrder(order);
+
+    // Filter order collection
+    // Voter / isGranted for order
+    // Await & Get the order to get its id
+    // Once all cartProductPackaging added, compute the total amount & patch the order Amount
+
+    if (this.selectedCartProductPackagings) {
+      for (const selectedCartProductPackaging of this
+        .selectedCartProductPackagings) {
+        const orderIri = 'https://localhost:8000/api/orders/';
+        // const
+        // this.apiService.validateCartProductPackaging();
+      }
+    }
   }
 }

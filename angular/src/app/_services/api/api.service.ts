@@ -11,6 +11,8 @@ import { HydraCartProductPackaging } from 'src/app/_interfaces/_hydras/hydra-car
 import { CartProductPackagingIri } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging-iri';
 import { PatchQuantityPrice } from 'src/app/_interfaces/_patches/patch-quantity-price';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
+import { OrderIri } from 'src/app/_interfaces/order-iri';
+import { OrderCartProductPackagingIri } from 'src/app/_interfaces/order-cart-product-packaging-iri';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +24,8 @@ export class ApiService {
   readonly categoryUrl = 'https://localhost:8000/api/categories';
   readonly genderUrl = 'https://localhost:8000/api/genders';
   readonly mainOrderUrl = 'https://localhost:8000/api/main_orders';
-  readonly orderProductUrl = 'https://localhost:8000/api/order_products';
+  readonly orderCartProductPackagingUrl =
+    'https://localhost:8000/api/order_cart_product_packagings';
   readonly orderUrl = 'https://localhost:8000/api/orders';
   readonly packagingUrl = 'https://localhost:8000/api/packagings';
   readonly productPackagingUrl =
@@ -127,6 +130,8 @@ export class ApiService {
     );
   }
 
+  getOrders() {}
+
   /**
    * Http POST methods
    */
@@ -152,9 +157,23 @@ export class ApiService {
     );
   }
 
-  // createOrder(){
+  createOrder(order: OrderIri): Promise<OrderIri> {
+    return lastValueFrom(
+      this.httpClient.post<OrderIri>(this.orderUrl, order, this.httpOptionsJson)
+    );
+  }
 
-  // }
+  validateCartProductPackaging(
+    orderCartProductPackaging: OrderCartProductPackagingIri
+  ): Promise<OrderCartProductPackagingIri> {
+    return lastValueFrom(
+      this.httpClient.post<OrderCartProductPackagingIri>(
+        this.orderCartProductPackagingUrl,
+        orderCartProductPackaging,
+        this.httpOptionsJson
+      )
+    );
+  }
 
   /**
    * Http PATCH methods

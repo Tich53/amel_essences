@@ -7,6 +7,7 @@ import { HydraCartProductPackaging } from '../_interfaces/_hydras/hydra-cart-pro
 import { HydraProduct } from '../_interfaces/_hydras/hydra-product';
 import { ApiService } from '../_services/api/api.service';
 import { PatchQuantityPrice } from '../_interfaces/_patches/patch-quantity-price';
+import { CurrentUser } from '../_interfaces/_abstracts/user/current-user';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,8 @@ import { PatchQuantityPrice } from '../_interfaces/_patches/patch-quantity-price
 export class HomeComponent implements OnInit, OnDestroy {
   readonly hydraMember = 'hydra:member';
   readonly hydraTotalItem = 'hydra:totalItems';
+
+  currentUser!: CurrentUser;
 
   productSubscription?: Subscription;
 
@@ -39,6 +42,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.apiService
+      .getCurrentUser()
+      .then((currentUser) => (this.currentUser = currentUser));
     this.getProducts();
     this.getCartProductPackagings();
   }
