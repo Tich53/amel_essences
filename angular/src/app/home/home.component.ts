@@ -97,20 +97,45 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  hasAddedOneCartProductPackaging(cartProductPackaging: CartProductPackaging) {
+  async addOneCartProductPackaging(cartProductPackaging: CartProductPackaging) {
     const cartProductPackagingQuantity =
       cartProductPackaging.productQuantity + 1;
+
     const cartProductPackagingAmount =
       cartProductPackagingQuantity *
       cartProductPackaging.productPackaging.unitPrice;
+    console.log(cartProductPackagingAmount);
     const patchQuantityPrice: PatchQuantityPrice = {
       productQuantity: cartProductPackagingQuantity,
       amount: cartProductPackagingAmount,
     };
-    this.apiService.addOneCartProductPackaging(
+    await this.apiService.addOneCartProductPackaging(
       cartProductPackaging.id,
       patchQuantityPrice
     );
+    this.getCartProductPackagings();
+  }
+
+  async deleteOneCartProductPackaging(
+    cartProductPackaging: CartProductPackaging
+  ) {
+    if (cartProductPackaging.productQuantity > 0) {
+      const cartProductPackagingQuantity =
+        cartProductPackaging.productQuantity - 1;
+
+      const cartProductPackagingAmount =
+        cartProductPackagingQuantity *
+        cartProductPackaging.productPackaging.unitPrice;
+      const patchQuantityPrice: PatchQuantityPrice = {
+        productQuantity: cartProductPackagingQuantity,
+        amount: cartProductPackagingAmount,
+      };
+      await this.apiService.addOneCartProductPackaging(
+        cartProductPackaging.id,
+        patchQuantityPrice
+      );
+      this.getCartProductPackagings();
+    }
   }
 
   async deleteCartProductPackaging(cartProductPackaging: CartProductPackaging) {

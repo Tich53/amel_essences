@@ -24,7 +24,8 @@
   *ngIf="menuItemSelection.cartActive"
   class="m-20"
   [cartProductPackagings]="cartProductPackagings"
-  (hasDeletedCartProductEvent)="deleteCartProductPackaging($event)"
-  (hasAddedOneCartProductEvent)="hasAddedOneCartProductPackaging($event)"
+  (hasAddedOneEvent)="addOneCartProductPackaging($event)"
+  (hasDeletedOneEvent)="deleteOneCartProductPackaging($event)"
+  (hasDeletedEvent)="deleteCartProductPackaging($event)"
 >
 </app-cart>

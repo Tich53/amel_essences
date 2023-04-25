@@ -26,6 +26,9 @@
           Quantité
         </th>
         <th class="text-align-center vertical-align-center" scope="col">
+          Prix unitaire
+        </th>
+        <th class="text-align-center vertical-align-center" scope="col">
           Montant
         </th>
         <th class="text-align-center vertical-align-center" scope="col"></th>
@@ -75,12 +78,19 @@
             <div class="flex-column-center-center-auto m-l-5">
               <mat-icon
                 class="arrow-up m-b-5"
-                (click)="addOneProductPackaging(cartProductPackaging)"
+                (click)="addOne(cartProductPackaging)"
                 >expand_less</mat-icon
               >
-              <mat-icon class="arrow-down">keyboard_arrow_down</mat-icon>
+              <mat-icon
+                class="arrow-down"
+                (click)="deleteOne(cartProductPackaging)"
+                >keyboard_arrow_down</mat-icon
+              >
             </div>
           </div>
+        </td>
+        <td class="text-align-center vertical-align-center">
+          {{ cartProductPackaging.productPackaging.unitPrice }} €
         </td>
         <td
           class="text-align-center vertical-align-center"
@@ -89,9 +99,7 @@
           {{ cartProductPackaging.amount }} €
         </td>
         <td class="text-align-center vertical-align-center">
-          <mat-icon
-            class="trash"
-            (click)="deleteCartProductPackaging(cartProductPackaging)"
+          <mat-icon class="trash" (click)="delete(cartProductPackaging)"
             >delete</mat-icon
           >
         </td>

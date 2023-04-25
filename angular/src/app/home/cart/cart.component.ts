@@ -16,12 +16,9 @@ import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-produc
 })
 export class CartComponent implements OnInit, OnChanges {
   @Input() cartProductPackagings?: CartProductPackaging[];
-  @Output() hasDeletedCartProductEvent =
-    new EventEmitter<CartProductPackaging>();
-  @Output() hasAddedOneCartProductEvent =
-    new EventEmitter<CartProductPackaging>();
-  @Output() hasdeletedOneCartProductEvent =
-    new EventEmitter<CartProductPackaging>();
+  @Output() hasDeletedEvent = new EventEmitter<CartProductPackaging>();
+  @Output() hasAddedOneEvent = new EventEmitter<CartProductPackaging>();
+  @Output() hasDeletedOneEvent = new EventEmitter<CartProductPackaging>();
 
   selectedCartProductPackagings?: CartProductPackaging[];
 
@@ -63,16 +60,15 @@ export class CartComponent implements OnInit, OnChanges {
     }
   }
 
-  addOneProductPackaging(cartProductPackaging: CartProductPackaging) {
-    this.hasAddedOneCartProductEvent.emit(cartProductPackaging);
-    console.log('test');
+  addOne(cartProductPackaging: CartProductPackaging) {
+    this.hasAddedOneEvent.emit(cartProductPackaging);
   }
 
-  deleteOneProductPackaging(cartProductPackaging: CartProductPackaging) {
-    this.hasdeletedOneCartProductEvent.emit(cartProductPackaging);
+  deleteOne(cartProductPackaging: CartProductPackaging) {
+    this.hasDeletedOneEvent.emit(cartProductPackaging);
   }
 
-  deleteCartProductPackaging(cartProductPackaging: CartProductPackaging): void {
-    this.hasDeletedCartProductEvent.emit(cartProductPackaging);
+  delete(cartProductPackaging: CartProductPackaging): void {
+    this.hasDeletedEvent.emit(cartProductPackaging);
   }
 }
