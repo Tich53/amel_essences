@@ -35,16 +35,19 @@ class Order
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column]
+  #[Groups(['order:read'])]
   private ?int $id = null;
 
   #[ORM\Column(length: 255)]
+  #[Groups(['order:read'])]
   private ?string $reference = null;
 
   #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+  #[Groups(['order:read'])]
   private ?\DateTimeInterface $date = null;
 
   #[ORM\Column]
-  #[Groups(['order:write'])]
+  #[Groups(['order:read', 'order:write'])]
   private ?float $amount = null;
 
   #[ORM\ManyToOne(inversedBy: 'orders')]
@@ -114,6 +117,7 @@ class Order
     return $this;
   }
 
+  #[Groups(['order:read'])]
   public function getUserAccount(): ?User
   {
     return $this->user_account;
@@ -127,6 +131,7 @@ class Order
     return $this;
   }
 
+  #[Groups(['order:read'])]
   public function getMainOrder(): ?MainOrder
   {
     return $this->main_order;
