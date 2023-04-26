@@ -10,9 +10,8 @@ use Symfony\Component\Security\Core\Security;
 
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
-use App\Entity\Order;
 
-final class OrderExtension implements QueryCollectionExtensionInterface
+final class OrderCartProductPackagingExtension implements QueryCollectionExtensionInterface
 {
 
     /**
@@ -44,7 +43,7 @@ final class OrderExtension implements QueryCollectionExtensionInterface
         $user = $this->security->getUser();
 
         if (
-            Order::class !== $resourceClass
+            OrderCartProductPackaging::class !== $resourceClass
             || null === $user
         ) {
             return;
@@ -52,7 +51,7 @@ final class OrderExtension implements QueryCollectionExtensionInterface
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder
-            ->andWhere("$rootAlias.user_account = :user")
+            ->andWhere("$rootAlias.cart.cart_product_packaging.cart.user_account = :user")
             ->setParameter('user', $user->getId());
     }
 }

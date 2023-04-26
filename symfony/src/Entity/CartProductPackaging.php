@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     normalizationContext: ['groups' => ['cartProductPackaging:read']],
     denormalizationContext: ['groups' => ['cartProductPackaging:write']],
     operations: [
-        new Get(),
+        new Get(security: "is_granted('CART_PRODUCT_PACKAGING_VIEW', object)"),
         new GetCollection(),
         new Post(),
         new Patch(),

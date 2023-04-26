@@ -6,21 +6,21 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class CartProductVoter extends Voter
+class CartProductPackagingVoter extends Voter
 {
-    public const CART_PRODUCT_VIEW = 'CART_PRODUCT_VIEW';
-    public const CART_PRODUCT_EDIT = 'CART_PRODUCT_EDIT';
-    public const CART_PRODUCT_DELETE = 'CART_PRODUCT_DELETE';
+    public const CART_PRODUCT_PACKAGING_VIEW = 'CART_PRODUCT_PACKAGING_VIEW';
+    public const CART_PRODUCT_PACKAGING_EDIT = 'CART_PRODUCT_PACKAGING_EDIT';
+    public const CART_PRODUCT_PACKAGING_DELETE = 'CART_PRODUCT_PACKAGING_DELETE';
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::CART_PRODUCT_VIEW, self::CART_PRODUCT_EDIT, self::CART_PRODUCT_DELETE])
+        return in_array($attribute, [self::CART_PRODUCT_PACKAGING_VIEW, self::CART_PRODUCT_PACKAGING_EDIT, self::CART_PRODUCT_PACKAGING_DELETE])
             && $subject instanceof \App\Entity\CartProductPackaging;
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $cartProduct, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $cartProductPackaging, TokenInterface $token): bool
     {
         $user = $token->getUser();
 
@@ -29,11 +29,11 @@ class CartProductVoter extends Voter
             return false;
         }
 
-        // Check if the $cartProduct has a cart
-        if (null === $cartProduct->getCart()) {
+        // Check if the $cartProductPackaging has a cart
+        if (null === $cartProductPackaging->getCart()) {
             return false;
         } else {
-            $cart = $cartProduct->getCart();
+            $cart = $cartProductPackaging->getCart();
         }
 
         // Check if $cart owns to a user

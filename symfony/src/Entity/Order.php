@@ -22,7 +22,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
   normalizationContext: ['groups' => ['order:read']],
   denormalizationContext: ['groups' => ['order:write']],
   operations: [
-    new Get(),
+    new Get(security: "is_granted('ORDER_VIEW', object)"),
     new GetCollection(),
     new Post()
   ]

@@ -17,7 +17,7 @@ use App\Repository\OrderCartProductPackagingRepository;
     normalizationContext: ['groups' => ['orderCartProductPackaging:read']],
     denormalizationContext: ['groups' => ['orderCartProductPackaging:write']],
     operations: [
-        new Get(),
+        new Get(security: "is_granted('ORDER_CART_PRODUCT_PACKAGING_VIEW', object)"),
         new GetCollection(),
         new Post()
     ]

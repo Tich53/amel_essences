@@ -13,6 +13,7 @@ import { PatchQuantityPrice } from 'src/app/_interfaces/_patches/patch-quantity-
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
 import { OrderIri } from 'src/app/_interfaces/order-iri';
 import { OrderCartProductPackagingIri } from 'src/app/_interfaces/order-cart-product-packaging-iri';
+import { HydraOrder } from 'src/app/_interfaces/_hydras/hydra-order';
 
 @Injectable({
   providedIn: 'root',
@@ -130,7 +131,9 @@ export class ApiService {
     );
   }
 
-  getOrders() {}
+  getOrders(): Promise<HydraOrder> {
+    return lastValueFrom(this.httpClient.get<HydraOrder>(this.orderUrl));
+  }
 
   /**
    * Http POST methods
@@ -163,7 +166,7 @@ export class ApiService {
     );
   }
 
-  validateCartProductPackaging(
+  validateSelectedCartProductPackagings(
     orderCartProductPackaging: OrderCartProductPackagingIri
   ): Promise<OrderCartProductPackagingIri> {
     return lastValueFrom(

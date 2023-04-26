@@ -84,18 +84,25 @@ export class CartComponent implements OnInit, OnChanges {
     };
     await this.apiService.createOrder(order);
 
-    // Filter order collection
-    // Voter / isGranted for order
-    // Await & Get the order to get its id
-    // Once all cartProductPackaging added, compute the total amount & patch the order Amount
+    const hydraOrders = await this.apiService.getOrders();
+    const orders = hydraOrders['hydra:member'];
+    const currentOrderId = orders.at(-1)?.id;
 
     if (this.selectedCartProductPackagings) {
       for (const selectedCartProductPackaging of this
         .selectedCartProductPackagings) {
-        const orderIri = 'https://localhost:8000/api/orders/';
-        // const
-        // this.apiService.validateCartProductPackaging();
+        const orderIri = `https://localhost:8000/api/orders/${currentOrderId}`;
+        const cartProductPackagingIri = `https://localhost:8000/api/cart_product_packagings/${selectedCartProductPackaging.id}`;
+        const orderCartProductPackaging = {
+          orderNumber: orderIri,
+          cartProductPackaging: cartProductPackagingIri,
+        };
+        this.apiService.validateSelectedCartProductPackagings(
+          orderCartProductPackaging
+        );
       }
     }
+    // Once all cartProductPackaging added, compute the total amount & patch the order Amount
+    // Once order created, delete the cartProductPackaging
   }
 }
