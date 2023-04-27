@@ -8,6 +8,8 @@ import { HydraProduct } from '../_interfaces/_hydras/hydra-product';
 import { ApiService } from '../_services/api/api.service';
 import { PatchQuantityPrice } from '../_interfaces/_patches/patch-quantity-price';
 import { CurrentUser } from '../_interfaces/_abstracts/user/current-user';
+import { HydraOrder } from '../_interfaces/_hydras/hydra-order';
+import { Order } from '../_interfaces/order';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +17,6 @@ import { CurrentUser } from '../_interfaces/_abstracts/user/current-user';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  readonly hydraMember = 'hydra:member';
-  readonly hydraTotalItem = 'hydra:totalItems';
-
   currentUser!: CurrentUser;
 
   productSubscription?: Subscription;
@@ -27,6 +26,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   cartProductPackagings?: CartProductPackaging[];
   cartProductQuantity = 0;
+
+  orders?: Order[];
 
   hasAddedCartProductPackaging?: boolean;
 
@@ -47,6 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then((currentUser) => (this.currentUser = currentUser));
     this.getProducts();
     this.getCartProductPackagings();
+    this.getOrders();
   }
 
   ngOnDestroy(): void {
@@ -71,8 +73,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.apiService
           .getProducts(name, preference, categories, genders, capacities)
           .then((hydraProduct: HydraProduct) => {
-            this.products = hydraProduct[this.hydraMember];
-            this.productNumber = hydraProduct[this.hydraTotalItem];
+            this.products = hydraProduct['hydra:member'];
+            this.productNumber = hydraProduct['hydra:totalItems'];
             this.products.forEach(
               (product) =>
                 (product.selectedProductPackaging =
@@ -88,7 +90,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getCartProductPackagings()
       .then((HydraCartProductPackaging: HydraCartProductPackaging) => {
         this.cartProductPackagings = HydraCartProductPackaging[
-          this.hydraMember
+          'hydra:member'
         ].sort((a: CartProductPackaging, b: CartProductPackaging) =>
           a.productPackaging.product.name.localeCompare(
             b.productPackaging.product.name
@@ -101,6 +103,13 @@ export class HomeComponent implements OnInit, OnDestroy {
           }
         );
       });
+  }
+
+  getOrders() {
+    this.apiService.getOrders().then((hydraOrder: HydraOrder) => {
+      this.orders = hydraOrder['hydra:member'];
+      console.log(this.orders);
+    });
   }
 
   async addOneCartProductPackaging(cartProductPackaging: CartProductPackaging) {

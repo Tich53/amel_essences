@@ -55,6 +55,7 @@ class Order
   private ?MainOrder $main_order = null;
 
   #[ORM\OneToMany(mappedBy: 'order_number', targetEntity: OrderItem::class)]
+  #[Groups(['order:read'])]
   private Collection $orderItems;
 
   public function __construct()

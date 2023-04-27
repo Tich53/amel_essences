@@ -22,6 +22,7 @@ import { LoginDialogComponent } from './login/login-dialog/login-dialog.componen
 import { CatalogComponent } from './home/catalog/catalog.component';
 import { FilterComponent } from './home/filter/filter.component';
 import { CartComponent } from './home/cart/cart.component';
+import { OrderComponent } from './home/order/order.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CartComponent } from './home/cart/cart.component';
     CatalogComponent,
     FilterComponent,
     CartComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,

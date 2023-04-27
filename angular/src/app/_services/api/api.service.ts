@@ -130,7 +130,6 @@ export class ApiService {
       )
     );
   }
-
   getOrders(): Promise<HydraOrder> {
     return lastValueFrom(this.httpClient.get<HydraOrder>(this.orderUrl));
   }

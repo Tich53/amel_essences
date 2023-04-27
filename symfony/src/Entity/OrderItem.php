@@ -40,7 +40,7 @@ class OrderItem
     private ?int $product_quantity = null;
 
     #[ORM\Column]
-    #[Groups(['orderItem:read', 'orderItem:write'])]
+    #[Groups(['orderItem:read', 'orderItem:write', 'order:read'])]
     private ?float $amount = null;
 
     public function getId(): ?int
@@ -62,7 +62,7 @@ class OrderItem
         return $this;
     }
 
-    #[Groups(['orderItem:read'])]
+    #[Groups(['orderItem:read', 'order:read'])]
     public function getProductPackaging(): ?ProductPackaging
     {
         return $this->product_packaging;
@@ -76,7 +76,7 @@ class OrderItem
         return $this;
     }
 
-    #[Groups(['orderItem:read'])]
+    #[Groups(['orderItem:read', 'order:read'])]
     public function getProductQuantity(): ?int
     {
         return $this->product_quantity;

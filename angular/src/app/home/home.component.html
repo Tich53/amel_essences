@@ -11,3 +11,4 @@
   [cartProductPackagings]="cartProductPackagings" (hasAddedOneEvent)="addOneCartProductPackaging($event)"
   (hasDeletedOneEvent)="deleteOneCartProductPackaging($event)" (hasDeletedEvent)="deleteCartProductPackaging($event)">
 </app-cart>
+<app-order *ngIf="menuItemSelection.orderActive" class="m-20" [orders]="orders"></app-order>
