@@ -50,12 +50,9 @@ class CartProductPackaging
     #[Groups(['cartProductPackaging:read', 'cartProductPackaging:write'])]
     private ?float $amount = null;
 
-    #[ORM\OneToMany(mappedBy: 'cart_product_packaging', targetEntity: OrderCartProductPackaging::class, orphanRemoval: true)]
-    private Collection $orderCartProductPackagings;
 
     public function __construct()
     {
-        $this->orderCartProductPackagings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,36 +108,6 @@ class CartProductPackaging
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, OrderCartProductPackaging>
-     */
-    public function getOrderCartProductPackagings(): Collection
-    {
-        return $this->orderCartProductPackagings;
-    }
-
-    public function addOrderCartProductPackaging(OrderCartProductPackaging $orderCartProductPackaging): self
-    {
-        if (!$this->orderCartProductPackagings->contains($orderCartProductPackaging)) {
-            $this->orderCartProductPackagings->add($orderCartProductPackaging);
-            $orderCartProductPackaging->setCartProductPackaging($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderCartProductPackaging(OrderCartProductPackaging $orderCartProductPackaging): self
-    {
-        if ($this->orderCartProductPackagings->removeElement($orderCartProductPackaging)) {
-            // set the owning side to null (unless already changed)
-            if ($orderCartProductPackaging->getCartProductPackaging() === $this) {
-                $orderCartProductPackaging->setCartProductPackaging(null);
-            }
-        }
 
         return $this;
     }

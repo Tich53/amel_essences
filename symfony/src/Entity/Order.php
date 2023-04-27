@@ -5,7 +5,6 @@ namespace App\Entity;
 use DateTime;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OrderRepository;
 use ApiPlatform\Metadata\ApiResource;
@@ -42,10 +41,6 @@ class Order
   #[Groups(['order:read'])]
   private ?string $reference = null;
 
-  #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-  #[Groups(['order:read'])]
-  private ?\DateTimeInterface $date = null;
-
   #[ORM\Column]
   #[Groups(['order:read', 'order:write'])]
   private ?float $amount = null;
@@ -57,23 +52,22 @@ class Order
   #[ORM\ManyToOne(inversedBy: 'orders')]
   private ?MainOrder $main_order = null;
 
-  #[ORM\OneToMany(mappedBy: 'order_number', targetEntity: OrderCartProductPackaging::class, orphanRemoval: true)]
-  private Collection $orderCartProductPackagings;
-
-
+  #[ORM\OneToMany(mappedBy: 'order_number', targetEntity: OrderItem::class)]
+  private Collection $orderItems;
 
   public function __construct()
   {
-    $this->orderCartProductPackagings = new ArrayCollection();
+
 
     $now = new DateTime();
-    if ($this->getDate() === null) {
-      $this->date = $now;
+    if ($this->getCreatedAt() === null) {
+      $this->createdAt = $now;
     }
     if ($this->getReference() === null) {
       $randomNumber = rand(0, 1000);
       $this->reference = $now->format('Ymd-His') . '-' . $randomNumber;
     }
+    $this->orderItems = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -89,18 +83,6 @@ class Order
   public function setReference(string $reference): self
   {
     $this->reference = $reference;
-
-    return $this;
-  }
-
-  public function getDate(): ?\DateTimeInterface
-  {
-    return $this->date;
-  }
-
-  public function setDate(\DateTimeInterface $date): self
-  {
-    $this->date = $date;
 
     return $this;
   }
@@ -145,32 +127,32 @@ class Order
   }
 
   /**
-   * @return Collection<int, OrderCartProductPackaging>
+   * @return Collection<int, OrderItem>
    */
-  public function getOrderCartProductPackagings(): Collection
+  public function getOrderItems(): Collection
   {
-    return $this->orderCartProductPackagings;
+      return $this->orderItems;
   }
 
-  public function addOrderCartProductPackaging(OrderCartProductPackaging $orderCartProductPackaging): self
+  public function addOrderItem(OrderItem $orderItem): self
   {
-    if (!$this->orderCartProductPackagings->contains($orderCartProductPackaging)) {
-      $this->orderCartProductPackagings->add($orderCartProductPackaging);
-      $orderCartProductPackaging->setOrderNumber($this);
-    }
-
-    return $this;
-  }
-
-  public function removeOrderCartProductPackaging(OrderCartProductPackaging $orderCartProductPackaging): self
-  {
-    if ($this->orderCartProductPackagings->removeElement($orderCartProductPackaging)) {
-      // set the owning side to null (unless already changed)
-      if ($orderCartProductPackaging->getOrderNumber() === $this) {
-        $orderCartProductPackaging->setOrderNumber(null);
+      if (!$this->orderItems->contains($orderItem)) {
+          $this->orderItems->add($orderItem);
+          $orderItem->setOrderNumber($this);
       }
-    }
 
-    return $this;
+      return $this;
+  }
+
+  public function removeOrderItem(OrderItem $orderItem): self
+  {
+      if ($this->orderItems->removeElement($orderItem)) {
+          // set the owning side to null (unless already changed)
+          if ($orderItem->getOrderNumber() === $this) {
+              $orderItem->setOrderNumber(null);
+          }
+      }
+
+      return $this;
   }
 }
