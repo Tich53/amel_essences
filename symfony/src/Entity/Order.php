@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTime;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OrderRepository;
 use ApiPlatform\Metadata\ApiResource;
@@ -23,7 +24,8 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
   operations: [
     new Get(security: "is_granted('ORDER_VIEW', object)"),
     new GetCollection(),
-    new Post()
+    new Post(),
+    new Patch()
   ]
 )]
 class Order
@@ -131,28 +133,28 @@ class Order
    */
   public function getOrderItems(): Collection
   {
-      return $this->orderItems;
+    return $this->orderItems;
   }
 
   public function addOrderItem(OrderItem $orderItem): self
   {
-      if (!$this->orderItems->contains($orderItem)) {
-          $this->orderItems->add($orderItem);
-          $orderItem->setOrderNumber($this);
-      }
+    if (!$this->orderItems->contains($orderItem)) {
+      $this->orderItems->add($orderItem);
+      $orderItem->setOrderNumber($this);
+    }
 
-      return $this;
+    return $this;
   }
 
   public function removeOrderItem(OrderItem $orderItem): self
   {
-      if ($this->orderItems->removeElement($orderItem)) {
-          // set the owning side to null (unless already changed)
-          if ($orderItem->getOrderNumber() === $this) {
-              $orderItem->setOrderNumber(null);
-          }
+    if ($this->orderItems->removeElement($orderItem)) {
+      // set the owning side to null (unless already changed)
+      if ($orderItem->getOrderNumber() === $this) {
+        $orderItem->setOrderNumber(null);
       }
+    }
 
-      return $this;
+    return $this;
   }
 }

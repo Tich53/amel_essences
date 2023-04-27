@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
 import { CurrentUser } from 'src/app/_interfaces/_abstracts/user/current-user';
+import { PatchOrderAmount } from 'src/app/_interfaces/_patches/patch-order-amount';
 import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
@@ -86,23 +87,26 @@ export class CartComponent implements OnInit, OnChanges {
 
     const hydraOrders = await this.apiService.getOrders();
     const orders = hydraOrders['hydra:member'];
-    const currentOrderId = orders.at(-1)?.id;
+    const currentOrderId = orders.at(-1)!.id;
 
+    let orderAmount = 0;
     if (this.selectedCartProductPackagings) {
       for (const selectedCartProductPackaging of this
         .selectedCartProductPackagings) {
         const orderIri = `https://localhost:8000/api/orders/${currentOrderId}`;
-        const cartProductPackagingIri = `https://localhost:8000/api/cart_product_packagings/${selectedCartProductPackaging.id}`;
-        const orderCartProductPackaging = {
+        const productPackagingIri = `https://localhost:8000/api/product_packagings/${selectedCartProductPackaging.productPackaging.id}`;
+        const orderItem = {
+          amount: selectedCartProductPackaging.amount,
           orderNumber: orderIri,
-          cartProductPackaging: cartProductPackagingIri,
+          productPackaging: productPackagingIri,
+          productQuantity: selectedCartProductPackaging.productQuantity,
         };
-        this.apiService.validateSelectedCartProductPackagings(
-          orderCartProductPackaging
-        );
+        await this.apiService.validateSelectedCartProductPackagings(orderItem);
+        orderAmount += selectedCartProductPackaging.amount;
+        this.delete(selectedCartProductPackaging);
       }
+      const patchOrderAmount: PatchOrderAmount = { amount: orderAmount };
+      await this.apiService.patchOrderAmount(currentOrderId, patchOrderAmount);
     }
-    // Once all cartProductPackaging added, compute the total amount & patch the order Amount
-    // Once order created, delete the cartProductPackaging
   }
 }

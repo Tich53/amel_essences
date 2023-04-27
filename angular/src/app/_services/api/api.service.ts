@@ -12,8 +12,9 @@ import { CartProductPackagingIri } from 'src/app/_interfaces/_abstracts/cart-pro
 import { PatchQuantityPrice } from 'src/app/_interfaces/_patches/patch-quantity-price';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
 import { OrderIri } from 'src/app/_interfaces/order-iri';
-import { OrderCartProductPackagingIri } from 'src/app/_interfaces/order-cart-product-packaging-iri';
 import { HydraOrder } from 'src/app/_interfaces/_hydras/hydra-order';
+import { OrderItemIri } from 'src/app/_interfaces/order-item-iri';
+import { PatchOrderAmount } from 'src/app/_interfaces/_patches/patch-order-amount';
 
 @Injectable({
   providedIn: 'root',
@@ -25,9 +26,8 @@ export class ApiService {
   readonly categoryUrl = 'https://localhost:8000/api/categories';
   readonly genderUrl = 'https://localhost:8000/api/genders';
   readonly mainOrderUrl = 'https://localhost:8000/api/main_orders';
-  readonly orderCartProductPackagingUrl =
-    'https://localhost:8000/api/order_cart_product_packagings';
   readonly orderUrl = 'https://localhost:8000/api/orders';
+  readonly orderItemUrl = 'https://localhost:8000/api/order_items';
   readonly packagingUrl = 'https://localhost:8000/api/packagings';
   readonly productPackagingUrl =
     'https://localhost:8000/api/product_packagings';
@@ -167,12 +167,12 @@ export class ApiService {
   }
 
   validateSelectedCartProductPackagings(
-    orderCartProductPackaging: OrderCartProductPackagingIri
-  ): Promise<OrderCartProductPackagingIri> {
+    orderItem: OrderItemIri
+  ): Promise<OrderItemIri> {
     return lastValueFrom(
-      this.httpClient.post<OrderCartProductPackagingIri>(
-        this.orderCartProductPackagingUrl,
-        orderCartProductPackaging,
+      this.httpClient.post<OrderItemIri>(
+        this.orderItemUrl,
+        orderItem,
         this.httpOptionsJson
       )
     );
@@ -183,12 +183,25 @@ export class ApiService {
    */
   addOneCartProductPackaging(
     cartProductPackagingId: number,
-    PatchQuantityPrice: PatchQuantityPrice
+    patchQuantityPrice: PatchQuantityPrice
   ): Promise<PatchQuantityPrice> {
     return lastValueFrom(
       this.httpClient.patch<PatchQuantityPrice>(
         `${this.cartProductPackagingUrl}/${cartProductPackagingId}`,
-        PatchQuantityPrice,
+        patchQuantityPrice,
+        this.httpOptionsPatchJson
+      )
+    );
+  }
+
+  patchOrderAmount(
+    orderId: number,
+    patchOrderAmount: PatchOrderAmount
+  ): Promise<PatchOrderAmount> {
+    return lastValueFrom(
+      this.httpClient.patch<PatchOrderAmount>(
+        `${this.orderUrl}/${orderId}`,
+        patchOrderAmount,
         this.httpOptionsPatchJson
       )
     );
