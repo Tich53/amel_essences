@@ -9,7 +9,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { StatusEnum } from '../_enums/status';
-import { CurrentUser } from '../_interfaces/_abstracts/user/current-user';
+import { User } from '../_interfaces/_abstracts/user/user';
 import { ApiService } from '../_services/api/api.service';
 
 import { AuthService } from '../_services/authentication/auth.service';
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   emailSubscription?: Subscription;
   passwordSubscription?: Subscription;
 
-  currentUser?: CurrentUser;
+  currentUser?: User;
 
   currentUserStatus?: string;
 
@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       });
 
     this.currentUser = await this.apiService.getCurrentUser();
-    this.currentUserStatus = this.currentUser.status.name;
+    this.currentUserStatus = this.currentUser?.status.name;
 
     if (this.currentUserStatus === this.status.validated) {
       this.router.navigate(['/home']);

@@ -23,6 +23,7 @@ import { CatalogComponent } from './home/catalog/catalog.component';
 import { FilterComponent } from './home/filter/filter.component';
 import { CartComponent } from './home/cart/cart.component';
 import { OrderComponent } from './home/order/order.component';
+import { WaitingListComponent } from './home/waiting-list/waiting-list.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { OrderComponent } from './home/order/order.component';
     FilterComponent,
     CartComponent,
     OrderComponent,
+    WaitingListComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,23 @@
+<h1 *ngIf="!waitingList || waitingList.length===0" class="flex-center-center font-weight-bold">
+  Personne en liste d'attente
+</h1>
+<ng-container *ngIf="waitingList && waitingList.length>0">
+  <h1 class="text-align-start m-l-35 font-weight-bold">Liste d'attente</h1>
+  <div class="card bg-light mb-3 w-95 margin-auto">
+    <tr *ngFor="let user of waitingList" class="flex-center-center font-size-25 m-t-5 m-b-5">
+      <td width="40%">
+        {{ user.name }} {{ user.surname }}
+      </td>
+      <td width="30px">
+        <mat-icon class="m-l-5 text-success icon pointer" title="Valider l'inscription de {{ user.name }}"
+          (click)="patchUser(user, true)">check_circle
+        </mat-icon>
+      </td>
+      <td width="30px">
+        <mat-icon class="m-l-5 text-danger icon pointer" title="Refuser l'inscription de {{ user.name }}"
+          (click)="patchUser(user, false)">do_not_disturb_on
+        </mat-icon>
+      </td>
+    </tr>
+  </div>
+</ng-container>

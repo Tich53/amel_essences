@@ -28,6 +28,26 @@
           </a>
         </li>
         <mat-divider [vertical]="true"></mat-divider>
+        <li *ngIf="isAdmin()" class="nav-item" (click)="onClickAdmin()">
+          <a class="pointer" [ngClass]="adminActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
+            display: 'flex',
+            'justify-content': 'center',
+            'align-items': 'center'
+          }" href="{{ adminPanel }}" target="_blank">
+            <mat-icon class="m-r-5">admin_panel_settings</mat-icon>Administrer
+
+          </a>
+        </li>
+        <li *ngIf="isAdmin()" class="nav-item" (click)="onClickWaitingList()">
+          <a class="pointer" [ngClass]="waitingListActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
+            display: 'flex',
+            'justify-content': 'center',
+            'align-items': 'center'
+          }">
+            <mat-icon class="m-r-5">pending</mat-icon>Liste d'attente
+            <span class="badge bg-secondary rounded-pill m-l-5"> {{ waitingListNumber }}</span>
+          </a>
+        </li>
         <li class="nav-item" (click)="onClickCatalog()">
           <a class="pointer" [ngClass]="catalogActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
               display: 'flex',
@@ -37,7 +57,6 @@
             <mat-icon class="m-r-5">auto_stories</mat-icon>Catalogue
           </a>
         </li>
-
       </ul>
     </div>
     <div class="m-r-20">

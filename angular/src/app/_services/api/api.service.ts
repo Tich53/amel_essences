@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom, Observable } from 'rxjs';
-import { CurrentUser } from 'src/app/_interfaces/_abstracts/user/current-user';
+import { User } from 'src/app/_interfaces/_abstracts/user/user';
 import { RegistratingUser } from 'src/app/_interfaces/_abstracts/user/registrating-user';
 import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
 import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
@@ -16,6 +16,8 @@ import { HydraOrder } from 'src/app/_interfaces/_hydras/hydra-order';
 import { OrderItemIri } from 'src/app/_interfaces/order-item-iri';
 import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
 import { Order } from 'src/app/_interfaces/order';
+import { HydraUser } from 'src/app/_interfaces/_hydras/hydra-user';
+import { PatchUser } from 'src/app/_interfaces/patches/patch-user';
 
 @Injectable({
   providedIn: 'root',
@@ -64,16 +66,20 @@ export class ApiService {
   /**
    * Http GET methods
    */
-  checkIfEmailExists(page = 1, email: string): Promise<CurrentUser> {
+  checkIfEmailExists(page = 1, email: string): Promise<User> {
     let params = new HttpParams();
     params = params.set('page', page);
     params = params.set('email', email.trim());
     return lastValueFrom(
-      this.httpClient.get<CurrentUser>(`${this.userUrl}?${params}`)
+      this.httpClient.get<User>(`${this.userUrl}?${params}`)
     );
   }
-  getCurrentUser(): Promise<CurrentUser> {
-    return lastValueFrom(this.httpClient.get<CurrentUser>(this.meUrl));
+  getCurrentUser(): Promise<User> {
+    return lastValueFrom(this.httpClient.get<User>(this.meUrl));
+  }
+
+  getUsers(): Promise<HydraUser> {
+    return lastValueFrom(this.httpClient.get<HydraUser>(this.userUrl));
   }
 
   getCategory(): Promise<HydraCategory> {
@@ -202,6 +208,16 @@ export class ApiService {
       this.httpClient.patch<PatchOrder>(
         `${this.orderUrl}/${orderId}`,
         patchOrder,
+        this.httpOptionsPatchJson
+      )
+    );
+  }
+
+  patchUserStatus(user: User, patchUser: PatchUser): Promise<PatchUser> {
+    return lastValueFrom(
+      this.httpClient.patch<PatchUser>(
+        `${this.userUrl}/${user.id}`,
+        patchUser,
         this.httpOptionsPatchJson
       )
     );

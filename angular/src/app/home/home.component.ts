@@ -7,9 +7,10 @@ import { HydraCartProductPackaging } from '../_interfaces/_hydras/hydra-cart-pro
 import { HydraProduct } from '../_interfaces/_hydras/hydra-product';
 import { ApiService } from '../_services/api/api.service';
 import { PatchQuantityPrice } from '../_interfaces/_patches/patch-quantity-price';
-import { CurrentUser } from '../_interfaces/_abstracts/user/current-user';
+import { User } from '../_interfaces/_abstracts/user/user';
 import { HydraOrder } from '../_interfaces/_hydras/hydra-order';
 import { Order } from '../_interfaces/order';
+import { HydraUser } from '../_interfaces/_hydras/hydra-user';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,12 @@ import { Order } from '../_interfaces/order';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  currentUser!: CurrentUser;
+  readonly pending = 'En attente';
+
+  currentUser!: User;
+
+  waitingList!: User[];
+  waitingListNumber = 0;
 
   productSubscription?: Subscription;
 
@@ -33,9 +39,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   hasAddedCartProductPackaging?: boolean;
 
   menuItemSelection = {
+    adminActive: false,
     catalogActive: false,
     orderActive: false,
     cartActive: false,
+    waitingListActive: false,
   };
 
   constructor(
@@ -47,6 +55,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.apiService
       .getCurrentUser()
       .then((currentUser) => (this.currentUser = currentUser));
+    this.getUsers();
     this.getProducts();
     this.getCartProductPackagings();
     this.getOrders();
@@ -54,6 +63,21 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.productSubscription?.unsubscribe();
+  }
+
+  getUsers(): void {
+    let users: User[];
+    this.apiService.getUsers().then((hydraUser: HydraUser) => {
+      users = hydraUser['hydra:member'];
+      this.waitingList = [];
+      this.waitingListNumber = 0;
+      users.forEach((user: User) => {
+        if (user.status.name === this.pending) {
+          this.waitingList?.push(user);
+          this.waitingListNumber++;
+        }
+      });
+    });
   }
 
   getProducts() {

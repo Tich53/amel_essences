@@ -2,6 +2,7 @@
   Vous n'avez pas encore effectué de commande
 </h1>
 <ng-container *ngIf="orders && orders.length>0">
+  <h1 class="text-align-start m-l-35 font-weight-bold">Vos commandes</h1>
   <div class="card bg-light mb-3 w-95 margin-auto">
     <div *ngFor="let order of orders" class="flex-center-center">
       <div class="accordion w-100" id="accordion-order-{{ order.id }}">

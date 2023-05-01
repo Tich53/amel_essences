@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CurrentUser } from 'src/app/_interfaces/_abstracts/user/current-user';
+import { User } from 'src/app/_interfaces/_abstracts/user/user';
 import { ApiService } from 'src/app/_services/api/api.service';
 import { StorageService } from 'src/app/_services/authentication/storage.service';
 import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
@@ -14,17 +14,25 @@ import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
 export class NavbarComponent implements OnInit {
   @Input() cartProductQuantity = 0;
   @Input() pendingOrderNumber = 0;
+  @Input() waitingListNumber = 0;
   @Output() menuItemSelectionEmitter = new EventEmitter<{
+    adminActive: boolean;
     catalogActive: boolean;
     orderActive: boolean;
     cartActive: boolean;
+    waitingListActive: boolean;
   }>();
 
+  readonly roleAdmin = 'ROLE_ADMIN';
+  readonly adminPanel = 'https://localhost:8000/admin';
+
+  adminActive = false;
   catalogActive = true;
   orderActive = false;
   cartActive = false;
+  waitingListActive = false;
 
-  currentUser?: CurrentUser;
+  currentUser?: User;
   name!: string;
 
   constructor(
@@ -37,9 +45,11 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentUser();
     this.menuItemSelectionEmitter.emit({
+      adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
       cartActive: this.cartActive,
+      waitingListActive: this.waitingListActive,
     });
   }
 
@@ -57,6 +67,7 @@ export class NavbarComponent implements OnInit {
 
   async getCurrentUser(): Promise<string> {
     this.currentUser = await this.apiService.getCurrentUser().then();
+    console.log(this.currentUser);
     return (this.name = this.currentUser?.name);
   }
 
@@ -65,36 +76,85 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  onClickCatalog() {
-    this.catalogActive = true;
+  onClickAdmin() {
+    this.adminActive = true;
+    this.catalogActive = false;
     this.orderActive = false;
     this.cartActive = false;
+    this.waitingListActive = false;
     this.menuItemSelectionEmitter.emit({
+      adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
       cartActive: this.cartActive,
+      waitingListActive: this.waitingListActive,
+    });
+  }
+
+  onClickCatalog() {
+    this.adminActive = false;
+    this.catalogActive = true;
+    this.orderActive = false;
+    this.cartActive = false;
+    this.waitingListActive = false;
+    this.menuItemSelectionEmitter.emit({
+      adminActive: this.adminActive,
+      catalogActive: this.catalogActive,
+      orderActive: this.orderActive,
+      cartActive: this.cartActive,
+      waitingListActive: this.waitingListActive,
+    });
+  }
+
+  onClickWaitingList() {
+    this.adminActive = false;
+    this.catalogActive = false;
+    this.orderActive = false;
+    this.cartActive = false;
+    this.waitingListActive = true;
+    this.menuItemSelectionEmitter.emit({
+      adminActive: this.adminActive,
+      catalogActive: this.catalogActive,
+      orderActive: this.orderActive,
+      cartActive: this.cartActive,
+      waitingListActive: this.waitingListActive,
     });
   }
 
   onClickMyOrders() {
+    this.adminActive = false;
     this.catalogActive = false;
     this.orderActive = true;
     this.cartActive = false;
+    this.waitingListActive = false;
     this.menuItemSelectionEmitter.emit({
+      adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
       cartActive: this.cartActive,
+      waitingListActive: this.waitingListActive,
     });
   }
 
-  onClickMyCart() {
+  onClickMyCart(): void {
+    this.adminActive = false;
     this.catalogActive = false;
     this.orderActive = false;
     this.cartActive = true;
+    this.waitingListActive = false;
     this.menuItemSelectionEmitter.emit({
+      adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
       cartActive: this.cartActive,
+      waitingListActive: this.waitingListActive,
     });
+  }
+
+  isAdmin(): boolean {
+    if (this.currentUser?.roles.includes(this.roleAdmin)) {
+      return true;
+    }
+    return false;
   }
 }

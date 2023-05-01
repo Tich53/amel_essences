@@ -8,7 +8,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
-import { CurrentUser } from 'src/app/_interfaces/_abstracts/user/current-user';
+import { User } from 'src/app/_interfaces/_abstracts/user/user';
 import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
 import { ApiService } from 'src/app/_services/api/api.service';
 
@@ -18,7 +18,7 @@ import { ApiService } from 'src/app/_services/api/api.service';
   styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent implements OnInit, OnChanges {
-  @Input() currentUser!: CurrentUser;
+  @Input() currentUser!: User;
   @Input() cartProductPackagings?: CartProductPackaging[];
   @Output() hasDeletedEvent = new EventEmitter<CartProductPackaging>();
   @Output() hasAddedOneEvent = new EventEmitter<CartProductPackaging>();

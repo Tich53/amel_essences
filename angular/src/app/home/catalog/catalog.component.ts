@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
 import { CartProductPackagingIri } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging-iri';
-import { CurrentUser } from 'src/app/_interfaces/_abstracts/user/current-user';
+import { User } from 'src/app/_interfaces/_abstracts/user/user';
 import { Product } from 'src/app/_interfaces/product';
 import { ApiService } from 'src/app/_services/api/api.service';
 
@@ -13,7 +13,7 @@ import { ApiService } from 'src/app/_services/api/api.service';
 export class CatalogComponent implements OnInit {
   readonly hydraMember = 'hydra:member';
 
-  @Input() currentUser?: CurrentUser;
+  @Input() currentUser?: User;
   @Input() products?: Product[];
   @Input() cartProductPackagings?: CartProductPackaging[];
   @Output() hasAddedCartProductEvent = new EventEmitter();
