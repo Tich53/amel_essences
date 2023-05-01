@@ -1,5 +1,5 @@
 import { NodeWithI18n } from '@angular/compiler';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Order } from 'src/app/_interfaces/order';
 
 @Component({
@@ -9,6 +9,7 @@ import { Order } from 'src/app/_interfaces/order';
 })
 export class OrderComponent implements OnInit {
   @Input() orders?: Order[];
+  @Output() hasDeletedOrderEvent = new EventEmitter<Order>();
 
   constructor() {}
 
@@ -24,5 +25,9 @@ export class OrderComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  delete(order: Order) {
+    this.hasDeletedOrderEvent.emit(order);
   }
 }

@@ -28,8 +28,8 @@ class OrderItem
     #[Groups(['orderItem:read'])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'orderItems')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'orderItems',)]
+    #[ORM\JoinColumn(nullable: false, onDelete: "CASCADE")]
     private ?Order $order_number = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderItems')]

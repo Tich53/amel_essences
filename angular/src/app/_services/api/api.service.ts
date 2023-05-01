@@ -15,6 +15,7 @@ import { OrderIri } from 'src/app/_interfaces/order-iri';
 import { HydraOrder } from 'src/app/_interfaces/_hydras/hydra-order';
 import { OrderItemIri } from 'src/app/_interfaces/order-item-iri';
 import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
+import { Order } from 'src/app/_interfaces/order';
 
 @Injectable({
   providedIn: 'root',
@@ -216,6 +217,12 @@ export class ApiService {
       this.httpClient.delete<number>(
         `${this.cartProductPackagingUrl}/${cartProductPackaging.id}`
       )
+    );
+  }
+
+  deleteOrder(order: Order): Promise<Order> {
+    return lastValueFrom(
+      this.httpClient.delete<Order>(`${this.orderUrl}/${order.id}`)
     );
   }
 }

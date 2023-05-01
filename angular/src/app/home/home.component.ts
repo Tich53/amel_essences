@@ -120,6 +120,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
+  async deleteOrder(order: Order) {
+    await this.apiService.deleteOrder(order);
+    this.getOrders();
+  }
+
   async addOneCartProductPackaging(cartProductPackaging: CartProductPackaging) {
     const cartProductPackagingQuantity =
       cartProductPackaging.productQuantity + 1;
