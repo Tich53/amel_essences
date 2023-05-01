@@ -11,4 +11,5 @@ export interface Order {
   orderItems: OrderItem[];
   mainOrder: MainOrder;
   show: boolean;
+  createdAt: Date;
 }

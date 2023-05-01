@@ -66,8 +66,6 @@ class Order
 
   public function __construct()
   {
-
-
     $now = new DateTime();
     if ($this->getCreatedAt() === null) {
       $this->createdAt = $now;

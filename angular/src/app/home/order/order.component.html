@@ -10,11 +10,12 @@
             <button class="accordion-button" type="button" (click)="showOrder(order)"
               [ngClass]="order.show===true? 'not-collapsed':'collapsed'">
               <div class="w-100 flex-space-around-center">
-                <div class="w-33">
+                <div class="w-25">
                   <strong>Référence</strong> : {{ order.reference }}
                 </div>
-                <div class="w-33"><strong>Quantité</strong> : {{ order.productQuantity }} </div>
-                <div class="w-33"><strong>Montant</strong> : {{ order.amount }} € </div>
+                <div class="w-25"><strong>Commandé le</strong> : {{ order.createdAt | date:"dd/MM/yyy" }} </div>
+                <div class="w-25"><strong>Quantité</strong> : {{ order.productQuantity }} </div>
+                <div class="w-25"><strong>Montant</strong> : {{ order.amount }} € </div>
 
               </div>
             </button>
