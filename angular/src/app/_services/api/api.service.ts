@@ -14,7 +14,7 @@ import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-produc
 import { OrderIri } from 'src/app/_interfaces/order-iri';
 import { HydraOrder } from 'src/app/_interfaces/_hydras/hydra-order';
 import { OrderItemIri } from 'src/app/_interfaces/order-item-iri';
-import { PatchOrderAmount } from 'src/app/_interfaces/_patches/patch-order-amount';
+import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
 
 @Injectable({
   providedIn: 'root',
@@ -195,12 +195,12 @@ export class ApiService {
 
   patchOrderAmount(
     orderId: number,
-    patchOrderAmount: PatchOrderAmount
-  ): Promise<PatchOrderAmount> {
+    patchOrder: PatchOrder
+  ): Promise<PatchOrder> {
     return lastValueFrom(
-      this.httpClient.patch<PatchOrderAmount>(
+      this.httpClient.patch<PatchOrder>(
         `${this.orderUrl}/${orderId}`,
-        patchOrderAmount,
+        patchOrder,
         this.httpOptionsPatchJson
       )
     );

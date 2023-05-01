@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
 import { CurrentUser } from 'src/app/_interfaces/_abstracts/user/current-user';
-import { PatchOrderAmount } from 'src/app/_interfaces/_patches/patch-order-amount';
+import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
 import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({
@@ -23,6 +23,7 @@ export class CartComponent implements OnInit, OnChanges {
   @Output() hasDeletedEvent = new EventEmitter<CartProductPackaging>();
   @Output() hasAddedOneEvent = new EventEmitter<CartProductPackaging>();
   @Output() hasDeletedOneEvent = new EventEmitter<CartProductPackaging>();
+  @Output() hasValidatedCartEvent = new EventEmitter();
 
   selectedCartProductPackagings?: CartProductPackaging[];
 
@@ -80,6 +81,7 @@ export class CartComponent implements OnInit, OnChanges {
     const userIri = 'https://localhost:8000/api/users/';
     const currentUserId = this.currentUser.id;
     const order = {
+      productQuantity: 0,
       amount: 0,
       userAccount: `${userIri}${currentUserId}`,
     };
@@ -90,6 +92,7 @@ export class CartComponent implements OnInit, OnChanges {
     const currentOrderId = orders.at(-1)!.id;
 
     let orderAmount = 0;
+    let orderProductQuantity = 0;
     if (this.selectedCartProductPackagings) {
       for (const selectedCartProductPackaging of this
         .selectedCartProductPackagings) {
@@ -103,10 +106,15 @@ export class CartComponent implements OnInit, OnChanges {
         };
         await this.apiService.validateSelectedCartProductPackagings(orderItem);
         orderAmount += selectedCartProductPackaging.amount;
+        orderProductQuantity += selectedCartProductPackaging.productQuantity;
         this.delete(selectedCartProductPackaging);
       }
-      const patchOrderAmount: PatchOrderAmount = { amount: orderAmount };
-      await this.apiService.patchOrderAmount(currentOrderId, patchOrderAmount);
+      const patchOrder: PatchOrder = {
+        productQuantity: orderProductQuantity,
+        amount: orderAmount,
+      };
+      await this.apiService.patchOrderAmount(currentOrderId, patchOrder);
+      this.hasValidatedCartEvent.emit();
     }
   }
 }

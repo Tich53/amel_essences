@@ -108,7 +108,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   getOrders() {
     this.apiService.getOrders().then((hydraOrder: HydraOrder) => {
       this.orders = hydraOrder['hydra:member'];
-      console.log(this.orders);
+      this.orders.forEach((order: Order) => {
+        order.show = false;
+      });
     });
   }
 

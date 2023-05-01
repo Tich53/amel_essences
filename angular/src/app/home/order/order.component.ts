@@ -12,4 +12,8 @@ export class OrderComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  showOrder(order: Order) {
+    order.show = !order.show;
+  }
 }

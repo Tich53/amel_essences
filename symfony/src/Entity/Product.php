@@ -47,17 +47,17 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['product:read', 'cartProductPackaging:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read'])]
     private ?string $name = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['product:read', 'cartProductPackaging:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read'])]
     private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['product:read', 'cartProductPackaging:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read'])]
     private ?Gender $gender = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: ProductPackaging::class)]
@@ -66,7 +66,7 @@ class Product
 
 
     #[ORM\Column(length: 255)]
-    #[Groups(['product:read', 'cartProductPackaging:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read'])]
     private ?string $preference = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -163,7 +163,7 @@ class Product
         return $this;
     }
 
-    #[Groups(['product:read', 'cartProductPackaging:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read'])]
     public function getRangeAccount(): ?range
     {
         return $this->range_account;

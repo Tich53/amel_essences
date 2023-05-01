@@ -9,6 +9,8 @@
 
 <app-cart *ngIf="menuItemSelection.cartActive" class="m-20" [currentUser]="currentUser"
   [cartProductPackagings]="cartProductPackagings" (hasAddedOneEvent)="addOneCartProductPackaging($event)"
-  (hasDeletedOneEvent)="deleteOneCartProductPackaging($event)" (hasDeletedEvent)="deleteCartProductPackaging($event)">
+  (hasDeletedOneEvent)="deleteOneCartProductPackaging($event)" (hasDeletedEvent)="deleteCartProductPackaging($event)"
+  (hasValidatedCartEvent)="getOrders()">
 </app-cart>
-<app-order *ngIf="menuItemSelection.orderActive" class="m-20" [orders]="orders"></app-order>
+<app-order *ngIf="menuItemSelection.orderActive" class="m-20" [orders]="orders">
+</app-order>

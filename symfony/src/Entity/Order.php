@@ -58,6 +58,10 @@ class Order
   #[Groups(['order:read'])]
   private Collection $orderItems;
 
+  #[ORM\Column]
+  #[Groups(['order:read', 'order:write'])]
+  private ?int $productQuantity = null;
+
   public function __construct()
   {
 
@@ -155,6 +159,18 @@ class Order
         $orderItem->setOrderNumber(null);
       }
     }
+
+    return $this;
+  }
+
+  public function getProductQuantity(): ?int
+  {
+    return $this->productQuantity;
+  }
+
+  public function setProductQuantity(int $productQuantity): self
+  {
+    $this->productQuantity = $productQuantity;
 
     return $this;
   }

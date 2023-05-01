@@ -1,4 +1,87 @@
-<h1 class="text-align-start m-l-35 font-weight-bold">Vos commandes</h1>
-<div *ngFor="let order of orders">
-  <h2>Référence : {{ order.reference }}</h2>
+<div class="card bg-light mb-3 w-95 margin-auto">
+  <div *ngFor="let order of orders" class="accordion" id="accordion-order-{{ order.id }}">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="heading-order-{{ order.id }}">
+        <button class="accordion-button" type="button" (click)="showOrder(order)"
+          [ngClass]="order.show===true? 'not-collapsed':'collapsed'">
+          <div class="w-100 flex-space-around-center">
+            <div class="w-33">
+              <strong>Référence</strong> : {{ order.reference }}
+            </div>
+            <div class="w-33"><strong>Quantité</strong> : {{ order.productQuantity }} </div>
+            <div class="w-33"><strong>Montant</strong> : {{ order.amount }} € </div>
+          </div>
+        </button>
+      </h2>
+      <div class="accordion-collapse collapse" [ngClass]="order.show===true? 'show':'hide'"
+        aria-labelledby="headingOne">
+        <div class="accordion-body flex-space-around-center">
+          <table class="w-100">
+            <thead>
+              <tr>
+                <th class="text-align-center vertical-align-center" scope="col">
+                  Numéros
+                </th>
+                <th class="text-align-center vertical-align-center" scope="col">
+                  Catégorie
+                </th>
+                <th class="text-align-center vertical-align-center" scope="col">
+                  Gamme
+                </th>
+                <th class="text-align-center vertical-align-center" scope="col">
+                  Si vous aimez
+                </th>
+                <th class="text-align-center vertical-align-center" scope="col">
+                  Genre
+                </th>
+                <th class="text-align-center vertical-align-center" scope="col">
+                  Conditionnement
+                </th>
+                <th class="text-align-center vertical-align-center" scope="col">
+                  Quantité
+                </th>
+                <th class="text-align-center vertical-align-center" scope="col">
+                  Montant
+                </th>
+                <th class="text-align-center vertical-align-center" scope="col"></th>
+                <th class="text-align-center vertical-align-center" scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let orderItem of order.orderItems">
+                <th class="text-align-center vertical-align-center" scope="row">
+                  {{ orderItem.productPackaging.product.name }}
+                </th>
+                <td class="text-align-center vertical-align-center">
+                  {{ orderItem.productPackaging.product.category.name }}
+                </td>
+                <td class="text-align-center vertical-align-center">
+                  {{ orderItem.productPackaging.product.rangeAccount.name }}
+                </td>
+                <td class="text-align-center vertical-align-center">
+                  {{ orderItem.productPackaging.product.preference }}
+                </td>
+                <td class="text-align-center vertical-align-center">
+                  {{ orderItem.productPackaging.product.gender.name }}
+                </td>
+                <td class="text-align-center vertical-align-center">
+
+                  {{ orderItem.productPackaging.packaging.capacity }}
+                  {{ orderItem.productPackaging.packaging.capacityUnit }}
+
+                </td>
+                <td class="text-align-center vertical-align-center">
+                  {{ orderItem.productQuantity }}
+                </td>
+                <td class="text-align-center vertical-align-center">
+                  {{ orderItem.amount }} €
+                </td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
