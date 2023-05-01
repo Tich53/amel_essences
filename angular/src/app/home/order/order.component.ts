@@ -1,3 +1,4 @@
+import { NodeWithI18n } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { Order } from 'src/app/_interfaces/order';
 
@@ -15,5 +16,13 @@ export class OrderComponent implements OnInit {
 
   showOrder(order: Order) {
     order.show = !order.show;
+  }
+
+  isPendingOrder(order: Order): boolean {
+    const now = new Date();
+    if (!order.mainOrder || now < order.mainOrder.closingDate) {
+      return true;
+    }
+    return false;
   }
 }

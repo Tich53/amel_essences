@@ -96,7 +96,13 @@
   flex-wrap: wrap;
 }
 
-.flex-center-center {
+.flex-center-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center-center-wrap {
   display: flex;
   justify-content: center;
   align-items: center;

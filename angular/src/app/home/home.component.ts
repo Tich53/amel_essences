@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   cartProductQuantity = 0;
 
   orders?: Order[];
+  pendingOrderNumber = 0;
 
   hasAddedCartProductPackaging?: boolean;
 
@@ -105,11 +106,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getOrders() {
-    this.apiService.getOrders().then((hydraOrder: HydraOrder) => {
+  async getOrders() {
+    const now = new Date();
+    await this.apiService.getOrders().then((hydraOrder: HydraOrder) => {
       this.orders = hydraOrder['hydra:member'];
+      this.pendingOrderNumber = 0;
       this.orders.forEach((order: Order) => {
         order.show = false;
+        if (!order.mainOrder || now < order.mainOrder.closingDate) {
+          this.pendingOrderNumber++;
+        }
       });
     });
   }

@@ -13,6 +13,7 @@ import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
 })
 export class NavbarComponent implements OnInit {
   @Input() cartProductQuantity = 0;
+  @Input() pendingOrderNumber = 0;
   @Output() menuItemSelectionEmitter = new EventEmitter<{
     catalogActive: boolean;
     orderActive: boolean;

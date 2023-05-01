@@ -37,15 +37,6 @@
             <mat-icon class="m-r-5">auto_stories</mat-icon>Catalogue
           </a>
         </li>
-        <li class="nav-item" (click)="onClickMyOrders()">
-          <a class="pointer" [ngClass]="orderActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
-              display: 'flex',
-              'justify-content': 'center',
-              'align-items': 'center'
-            }">
-            <mat-icon class="m-r-5">list_alt</mat-icon>Mes commandes
-          </a>
-        </li>
         <li class="nav-item" (click)="onClickMyCart()">
           <a class="pointer" [ngClass]="cartActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
               display: 'flex',
@@ -55,6 +46,16 @@
             <mat-icon class="m-r-5">shopping_cart</mat-icon>Mon panier
             <span class="badge bg-secondary rounded-pill m-l-5"> {{ cartProductQuantity }}</span>
 
+          </a>
+        </li>
+        <li class="nav-item" (click)="onClickMyOrders()">
+          <a class="pointer" [ngClass]="orderActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
+              display: 'flex',
+              'justify-content': 'center',
+              'align-items': 'center'
+            }">
+            <mat-icon class="m-r-5">list_alt</mat-icon>Mes commandes
+            <span class="badge bg-secondary rounded-pill m-l-5"> {{ pendingOrderNumber }}</span>
           </a>
         </li>
       </ul>
