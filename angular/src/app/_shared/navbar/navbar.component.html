@@ -37,6 +37,11 @@
             <mat-icon class="m-r-5">auto_stories</mat-icon>Catalogue
           </a>
         </li>
+
+      </ul>
+    </div>
+    <div class="m-r-20">
+      <ul class="navbar-nav me-auto">
         <li class="nav-item" (click)="onClickMyCart()">
           <a class="pointer" [ngClass]="cartActive ? 'nav-link active' : 'nav-link'" [ngStyle]="{
               display: 'flex',
@@ -58,11 +63,8 @@
             <span class="badge bg-secondary rounded-pill m-l-5"> {{ pendingOrderNumber }}</span>
           </a>
         </li>
-      </ul>
-    </div>
-    <div class="m-r-20">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item m-r-5">
+        <mat-divider [vertical]="true"></mat-divider>
+        <li class="nav-item m-l-5 m-r-5">
           <mat-icon class="icon-button" (click)="openDialog()">info</mat-icon>
         </li>
         <li class="nav-item m-l-5">
