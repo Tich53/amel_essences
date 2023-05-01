@@ -8,13 +8,13 @@
       <td width="40%">
         {{ user.name }} {{ user.surname }}
       </td>
-      <td width="30px">
-        <mat-icon class="m-l-5 text-success icon pointer" title="Valider l'inscription de {{ user.name }}"
+      <td width="50px m-l-20 m-r-20">
+        <mat-icon class="m-l-5 m-r-5 text-success icon pointer" title="Valider l'inscription de {{ user.name }}"
           (click)="patchUser(user, true)">check_circle
         </mat-icon>
       </td>
-      <td width="30px">
-        <mat-icon class="m-l-5 text-danger icon pointer" title="Refuser l'inscription de {{ user.name }}"
+      <td width="50px m-l-20 m-r-20">
+        <mat-icon class="m-l-5 m-r-5 text-danger icon pointer" title="Refuser l'inscription de {{ user.name }}"
           (click)="patchUser(user, false)">do_not_disturb_on
         </mat-icon>
       </td>

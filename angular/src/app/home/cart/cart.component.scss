@@ -25,22 +25,14 @@
   cursor: pointer;
 }
 
-.arrow-up {
+.arrow {
   border-radius: 5px;
-  background-color: lightgray;
+  background-color: var(--bs-secondary);
 }
 
-.arrow-up:hover {
+.arrow:hover {
   color: white;
-  background-color: #22b24c;
+  background-color: var(--bs-primary);
 }
 
-.arrow-down {
-  border-radius: 5px;
-  background-color: lightgray;
-}
 
-.arrow-down:hover {
-  color: white;
-  background-color: red;
-}
