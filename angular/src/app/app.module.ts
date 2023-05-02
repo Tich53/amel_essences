@@ -24,6 +24,7 @@ import { FilterComponent } from './home/filter/filter.component';
 import { CartComponent } from './home/cart/cart.component';
 import { OrderComponent } from './home/order/order.component';
 import { WaitingListComponent } from './home/waiting-list/waiting-list.component';
+import { MainOrderComponent } from './_shared/main-order/main-order.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { WaitingListComponent } from './home/waiting-list/waiting-list.component
     CartComponent,
     OrderComponent,
     WaitingListComponent,
+    MainOrderComponent,
   ],
   imports: [
     BrowserModule,

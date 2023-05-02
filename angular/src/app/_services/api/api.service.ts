@@ -18,6 +18,8 @@ import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
 import { Order } from 'src/app/_interfaces/order';
 import { HydraUser } from 'src/app/_interfaces/_hydras/hydra-user';
 import { PatchUser } from 'src/app/_interfaces/patches/patch-user';
+import { HydraMainOrder } from 'src/app/_interfaces/_hydras/hydra-main-order';
+import { MainOrder } from 'src/app/_interfaces/main-order';
 
 @Injectable({
   providedIn: 'root',
@@ -141,6 +143,10 @@ export class ApiService {
     return lastValueFrom(this.httpClient.get<HydraOrder>(this.orderUrl));
   }
 
+  getMainOrders(): Promise<HydraMainOrder> {
+    return lastValueFrom(this.httpClient.get<HydraMainOrder>(this.mainOrderUrl));
+  }
+
   /**
    * Http POST methods
    */
@@ -181,6 +187,12 @@ export class ApiService {
         orderItem,
         this.httpOptionsJson
       )
+    );
+  }
+
+  createMainOrder(mainOrder: MainOrder): Promise<MainOrder> {
+    return lastValueFrom(
+      this.httpClient.post<MainOrder>(this.orderUrl, mainOrder, this.httpOptionsJson)
     );
   }
 

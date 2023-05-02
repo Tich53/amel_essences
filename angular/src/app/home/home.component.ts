@@ -11,6 +11,8 @@ import { User } from '../_interfaces/_abstracts/user/user';
 import { HydraOrder } from '../_interfaces/_hydras/hydra-order';
 import { Order } from '../_interfaces/order';
 import { HydraUser } from '../_interfaces/_hydras/hydra-user';
+import { MainOrder } from '../_interfaces/main-order';
+import { HydraMainOrder } from '../_interfaces/_hydras/hydra-main-order';
 
 @Component({
   selector: 'app-home',
@@ -36,6 +38,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   orders?: Order[];
   pendingOrderNumber = 0;
 
+  mainOrders?: MainOrder[];
+
   hasAddedCartProductPackaging?: boolean;
 
   menuItemSelection = {
@@ -59,6 +63,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getProducts();
     this.getCartProductPackagings();
     this.getOrders();
+    this.getMainOrders();
   }
 
   ngOnDestroy(): void {
@@ -193,5 +198,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   async deleteCartProductPackaging(cartProductPackaging: CartProductPackaging) {
     await this.apiService.deleteCartProductPackaging(cartProductPackaging);
     this.getCartProductPackagings();
+  }
+
+  getMainOrders() {
+    this.apiService.getMainOrders().then((hydraMainOrder: HydraMainOrder) => {
+      this.mainOrders = hydraMainOrder['hydra:member'];
+      console.log(this.mainOrders);
+    });
   }
 }
