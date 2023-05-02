@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\MainOrderRepository;
+use DateTime;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -40,10 +41,6 @@ class MainOrder
     #[Groups(['mainOrder:read'])]
     private ?string $reference = null;
 
-    #[ORM\Column]
-    #[Groups(['mainOrder:read', 'mainOrder:write'])]
-    private ?float $amount = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
 
     private ?\DateTimeInterface $closing_date = null;
@@ -55,6 +52,15 @@ class MainOrder
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+
+        $now = new DateTime();
+        if ($this->getCreatedAt() === null) {
+            $this->createdAt = $now;
+        }
+        if ($this->getReference() === null) {
+            $randomNumber = rand(0, 1000);
+            $this->reference = $now->format('Ymd-His') . '-' . $randomNumber;
+        }
     }
 
     public function getId(): ?int
@@ -70,18 +76,6 @@ class MainOrder
     public function setReference(string $reference): self
     {
         $this->reference = $reference;
-
-        return $this;
-    }
-
-    public function getAmount(): ?float
-    {
-        return $this->amount;
-    }
-
-    public function setAmount(float $amount): self
-    {
-        $this->amount = $amount;
 
         return $this;
     }

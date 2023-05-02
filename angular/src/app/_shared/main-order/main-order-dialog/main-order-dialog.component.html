@@ -1,0 +1,9 @@
+<div class="demo-inline-calendar-card">
+  <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+</div>
+<p>Selected date: {{ selectedDate | date:"dd/MM/yyy"}}</p>
+<div class="flex-end">
+  <button class="btn btn-secondary m-r-5" mat-dialog-close>Annuler</button>
+  <button class="btn btn-primary" [disabled]="!selectedDate || isInvalidDate()" (click)="onValidate()"
+    mat-dialog-close>Valider</button>
+</div>

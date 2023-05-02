@@ -24,7 +24,7 @@
               'align-items': 'center'
             }">
             <mat-icon>person</mat-icon>
-            Bonjour {{ name }}
+            Bonjour {{ currentUser?.name }}
           </a>
         </li>
         <mat-divider [vertical]="true"></mat-divider>
@@ -33,7 +33,7 @@
             display: 'flex',
             'justify-content': 'center',
             'align-items': 'center'
-          }" href="{{ adminPanel }}" target="_blank">
+          }" href="{{ easyAdminUrl }}" target="_blank">
             <mat-icon class="m-r-5">admin_panel_settings</mat-icon>Administrer
 
           </a>

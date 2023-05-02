@@ -66,6 +66,8 @@ class Order
 
   public function __construct()
   {
+    $this->orderItems = new ArrayCollection();
+
     $now = new DateTime();
     if ($this->getCreatedAt() === null) {
       $this->createdAt = $now;
@@ -74,7 +76,6 @@ class Order
       $randomNumber = rand(0, 1000);
       $this->reference = $now->format('Ymd-His') . '-' . $randomNumber;
     }
-    $this->orderItems = new ArrayCollection();
   }
 
   public function getId(): ?int

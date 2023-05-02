@@ -6,6 +6,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +27,7 @@ import { CartComponent } from './home/cart/cart.component';
 import { OrderComponent } from './home/order/order.component';
 import { WaitingListComponent } from './home/waiting-list/waiting-list.component';
 import { MainOrderComponent } from './_shared/main-order/main-order.component';
+import { MainOrderDialogComponent } from './_shared/main-order/main-order-dialog/main-order-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,7 @@ import { MainOrderComponent } from './_shared/main-order/main-order.component';
     OrderComponent,
     WaitingListComponent,
     MainOrderComponent,
+    MainOrderDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +56,8 @@ import { MainOrderComponent } from './_shared/main-order/main-order.component';
     MatDialogModule,
     MatIconModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     BrowserAnimationsModule,
     RouterModule,
   ],

@@ -55,8 +55,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     private apiService: ApiService
   ) {}
 
-  ngOnInit(): void {
-    this.apiService
+  async ngOnInit(): Promise<void> {
+    await this.apiService
       .getCurrentUser()
       .then((currentUser) => (this.currentUser = currentUser));
     this.getUsers();
@@ -85,7 +85,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  getProducts() {
+  getProducts(): void {
     this.productSubscription = this.activatedRoute.queryParamMap.subscribe(
       (params) => {
         const name = params.get('name');
@@ -115,7 +115,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  getCartProductPackagings() {
+  getCartProductPackagings(): void {
     this.apiService
       .getCartProductPackagings()
       .then((HydraCartProductPackaging: HydraCartProductPackaging) => {
@@ -135,7 +135,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  async getOrders() {
+  async getOrders(): Promise<void> {
     const now = new Date();
     await this.apiService.getOrders().then((hydraOrder: HydraOrder) => {
       this.orders = hydraOrder['hydra:member'];
@@ -149,12 +149,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  async deleteOrder(order: Order) {
+  async deleteOrder(order: Order): Promise<void> {
     await this.apiService.deleteOrder(order);
     this.getOrders();
   }
 
-  async addOneCartProductPackaging(cartProductPackaging: CartProductPackaging) {
+  async addOneCartProductPackaging(
+    cartProductPackaging: CartProductPackaging
+  ): Promise<void> {
     const cartProductPackagingQuantity =
       cartProductPackaging.productQuantity + 1;
 
@@ -175,7 +177,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   async deleteOneCartProductPackaging(
     cartProductPackaging: CartProductPackaging
-  ) {
+  ): Promise<void> {
     if (cartProductPackaging.productQuantity > 0) {
       const cartProductPackagingQuantity =
         cartProductPackaging.productQuantity - 1;
@@ -195,15 +197,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  async deleteCartProductPackaging(cartProductPackaging: CartProductPackaging) {
+  async deleteCartProductPackaging(
+    cartProductPackaging: CartProductPackaging
+  ): Promise<void> {
     await this.apiService.deleteCartProductPackaging(cartProductPackaging);
     this.getCartProductPackagings();
   }
 
-  getMainOrders() {
+  getMainOrders(): void {
     this.apiService.getMainOrders().then((hydraMainOrder: HydraMainOrder) => {
       this.mainOrders = hydraMainOrder['hydra:member'];
-      console.log(this.mainOrders);
     });
   }
 }

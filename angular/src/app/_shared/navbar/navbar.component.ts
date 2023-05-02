@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { User } from 'src/app/_interfaces/_abstracts/user/user';
-import { ApiService } from 'src/app/_services/api/api.service';
 import { StorageService } from 'src/app/_services/authentication/storage.service';
 import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
 
@@ -15,6 +14,7 @@ export class NavbarComponent implements OnInit {
   @Input() cartProductQuantity = 0;
   @Input() pendingOrderNumber = 0;
   @Input() waitingListNumber = 0;
+  @Input() currentUser?: User;
   @Output() menuItemSelectionEmitter = new EventEmitter<{
     adminActive: boolean;
     catalogActive: boolean;
@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
   }>();
 
   readonly roleAdmin = 'ROLE_ADMIN';
-  readonly adminPanel = 'https://localhost:8000/admin';
+  readonly easyAdminUrl = 'https://localhost:8000/admin';
 
   adminActive = false;
   catalogActive = true;
@@ -32,18 +32,13 @@ export class NavbarComponent implements OnInit {
   cartActive = false;
   waitingListActive = false;
 
-  currentUser?: User;
-  name!: string;
-
   constructor(
-    private apiService: ApiService,
     private storageService: StorageService,
     private dialog: MatDialog,
     public router: Router
   ) {}
 
   ngOnInit(): void {
-    this.getCurrentUser();
     this.menuItemSelectionEmitter.emit({
       adminActive: this.adminActive,
       catalogActive: this.catalogActive,
@@ -63,12 +58,6 @@ export class NavbarComponent implements OnInit {
     dialogConfig.enterAnimationDuration;
     dialogConfig.exitAnimationDuration;
     this.dialog.open(NavbarDialogComponent, dialogConfig);
-  }
-
-  async getCurrentUser(): Promise<string> {
-    this.currentUser = await this.apiService.getCurrentUser().then();
-    console.log(this.currentUser);
-    return (this.name = this.currentUser?.name);
   }
 
   logout() {
