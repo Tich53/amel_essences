@@ -39,6 +39,17 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @return Order[] Returns an array of Order objects
+     */
+    public function getOrders(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.main_order IS NULL')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Order[] Returns an array of Order objects
     //     */
