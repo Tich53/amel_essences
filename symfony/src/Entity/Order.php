@@ -127,6 +127,7 @@ class Order
     return $this->main_order;
   }
 
+  #[Groups(['order:write'])]
   public function setMainOrder(?MainOrder $main_order): self
   {
     $this->main_order = $main_order;

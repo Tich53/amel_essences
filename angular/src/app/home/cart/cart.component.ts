@@ -7,8 +7,10 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { MainOrder } from 'src/app/_interfaces/main-order';
 import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
 import { User } from 'src/app/_interfaces/_abstracts/user/user';
+import { HydraMainOrder } from 'src/app/_interfaces/_hydras/hydra-main-order';
 import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
 import { ApiService } from 'src/app/_services/api/api.service';
 
@@ -26,6 +28,7 @@ export class CartComponent implements OnInit, OnChanges {
   @Output() hasValidatedCartEvent = new EventEmitter();
 
   selectedCartProductPackagings?: CartProductPackaging[];
+  mainOrders?: MainOrder[];
 
   constructor(private apiService: ApiService) {}
 
@@ -78,14 +81,47 @@ export class CartComponent implements OnInit, OnChanges {
   }
 
   async validateCart() {
-    const userIri = 'https://localhost:8000/api/users/';
+    const userIri = 'https://localhost:8000/api/users';
     const currentUserId = this.currentUser.id;
-    const order = {
-      productQuantity: 0,
-      amount: 0,
-      userAccount: `${userIri}${currentUserId}`,
-    };
-    await this.apiService.createOrder(order);
+
+    // Get mainOrders
+    await this.apiService
+      .getMainOrders()
+      .then((hydraMainOrder: HydraMainOrder) => {
+        this.mainOrders = hydraMainOrder['hydra:member'];
+      });
+
+    // Get the pending main order if exists
+    const now = new Date();
+    const pendingMainOrders = this.mainOrders?.filter(
+      (mainOrder) =>
+        Date.parse(mainOrder.closingDate.toString()) >
+        Date.parse(now.toString())
+    );
+
+    if (pendingMainOrders) {
+      console.log('pendingMainOrders :', pendingMainOrders);
+      const pendingMainOrder = pendingMainOrders?.at(-1);
+
+      if (pendingMainOrder) {
+        const mainOrderIri = 'https://localhost:8000/api/main_orders';
+        const mainOrderId = pendingMainOrder.id;
+        const order = {
+          productQuantity: 0,
+          amount: 0,
+          userAccount: `${userIri}/${currentUserId}`,
+          mainOrder: `${mainOrderIri}/${mainOrderId}`,
+        };
+        await this.apiService.createOrder(order);
+      }
+    } else {
+      const order = {
+        productQuantity: 0,
+        amount: 0,
+        userAccount: `${userIri}${currentUserId}`,
+      };
+      await this.apiService.createOrder(order);
+    }
 
     const hydraOrders = await this.apiService.getOrders();
     const orders = hydraOrders['hydra:member'];
