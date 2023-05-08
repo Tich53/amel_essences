@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({

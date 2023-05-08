@@ -99,8 +99,7 @@ export class CartComponent implements OnInit, OnChanges {
         Date.parse(now.toString())
     );
 
-    if (pendingMainOrders) {
-      console.log('pendingMainOrders :', pendingMainOrders);
+    if (pendingMainOrders && pendingMainOrders.length > 0) {
       const pendingMainOrder = pendingMainOrders?.at(-1);
 
       if (pendingMainOrder) {
@@ -118,7 +117,7 @@ export class CartComponent implements OnInit, OnChanges {
       const order = {
         productQuantity: 0,
         amount: 0,
-        userAccount: `${userIri}${currentUserId}`,
+        userAccount: `${userIri}/${currentUserId}`,
       };
       await this.apiService.createOrder(order);
     }

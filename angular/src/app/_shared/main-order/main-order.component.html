@@ -1,2 +1,10 @@
-<h2 *ngIf="mainOrderPending()" class="text-info">Clôture de la prochaine commande dans :</h2>
-<button *ngIf="isAdmin() && !mainOrderPending()" class="btn btn-info" (click)="openDialog()">Nouvelle clôture</button>
+<h2 *ngIf="pendingMainOrder" class="text-info">
+  <h4 class="margin-0">Clôture de la prochaine commande dans :</h4>
+  <div class="timer">
+    <span id="days"> {{daysToClosingDate}} </span>jour(s)
+    <span id="hours"> {{hoursToClosingDate}} </span>heure(s)
+    <span id="minutes"> {{minutesToClosingDate}} </span>minute(s)
+    <span id="seconds"> {{secondsToClosingDate}} </span>seconde(s)
+  </div>
+</h2>
+<button *ngIf="isAdmin() && !pendingMainOrder" class="btn btn-info" (click)="openDialog()">Nouvelle clôture</button>

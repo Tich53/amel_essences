@@ -3,7 +3,8 @@
   (menuItemSelectionEmitter)="menuItemSelection = $event">
 </app-navbar>
 <div class="text-align-center m-l-20 m-t-20 m-r-20">
-  <app-main-order class="w-100" [currentUser]="currentUser" [mainOrders]="mainOrders"></app-main-order>
+  <app-main-order class="w-100" [currentUser]="currentUser" [mainOrders]="mainOrders"
+    (refreshMainOrdersEvent)="getMainOrders()"></app-main-order>
 </div>
 <div class="m-20">
   <app-waiting-list *ngIf="menuItemSelection.waitingListActive" [waitingList]="waitingList"
