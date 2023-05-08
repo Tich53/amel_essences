@@ -19,7 +19,7 @@ export class OrderComponent implements OnInit {
     order.show = !order.show;
   }
 
-  isPendingOrder(order: Order): boolean {
+  isPending(order: Order): boolean {
     const now = new Date();
     if (
       !order.mainOrder ||

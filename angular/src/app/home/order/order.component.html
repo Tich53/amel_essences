@@ -8,16 +8,18 @@
       <div class="accordion w-100" id="accordion-order-{{ order.id }}">
         <div class="accordion-item">
           <h2 class="accordion-header" id="heading-order-{{ order.id }}">
-            <button class="accordion-button" type="button" (click)="showOrderItems(order)"
-              [ngClass]="order.show===true? 'not-collapsed':'collapsed'">
+            <button class="accordion-button" [ngStyle]="{'backgroundColor':isPending(order)?'none':'lightgrey'}"
+              type="button" (click)="showOrderItems(order)" [ngClass]="order.show===true? 'not-collapsed':'collapsed'">
               <div class="w-100 flex-space-around-center">
-                <div class="w-25">
+                <div class="w-20">
                   <strong>Référence</strong> : {{ order.reference }}
                 </div>
-                <div class="w-25"><strong>Commandé le</strong> : {{ order.createdAt | date:"dd/MM/yyy" }} </div>
-                <div class="w-25"><strong>Quantité</strong> : {{ order.productQuantity }} </div>
-                <div class="w-25"><strong>Montant</strong> : {{ order.amount }} € </div>
+                <div class="w-20"><strong>Commandé le</strong> : {{ order.createdAt | date:"dd/MM/yyy" }} </div>
+                <div class="w-20"><strong>Quantité</strong> : {{ order.productQuantity }} </div>
+                <div class="w-20"><strong>Montant</strong> : {{ order.amount }} € </div>
 
+                <div *ngIf="isPending(order)" class="w-20"><strong>Statut</strong> : En cours </div>
+                <div *ngIf="!isPending(order)" class="w-20"><strong>Statut</strong> : Clôturée </div>
               </div>
             </button>
 
@@ -93,7 +95,7 @@
           </div>
         </div>
       </div>
-      <div *ngIf="isPendingOrder(order)" class="w-30px pointer" (click)="delete(order)">
+      <div *ngIf="isPending(order)" class="w-30px pointer" (click)="delete(order)">
         <mat-icon>delete</mat-icon>
       </div>
     </div>
