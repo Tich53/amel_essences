@@ -17,6 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: MainOrderRepository::class)]
+#[ORM\EntityListeners(['App\EntityListener\MainOrderListener'])]
 #[ApiResource(
     normalizationContext: ['groups' => ['mainOrder:read']],
     denormalizationContext: ['groups' => ['mainOrder:write']],

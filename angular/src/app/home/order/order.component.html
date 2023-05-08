@@ -8,7 +8,7 @@
       <div class="accordion w-100" id="accordion-order-{{ order.id }}">
         <div class="accordion-item">
           <h2 class="accordion-header" id="heading-order-{{ order.id }}">
-            <button class="accordion-button" type="button" (click)="showOrder(order)"
+            <button class="accordion-button" type="button" (click)="showOrderItems(order)"
               [ngClass]="order.show===true? 'not-collapsed':'collapsed'">
               <div class="w-100 flex-space-around-center">
                 <div class="w-25">

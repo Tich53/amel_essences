@@ -138,11 +138,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   async getOrders(): Promise<void> {
     const now = new Date();
     await this.apiService.getOrders().then((hydraOrder: HydraOrder) => {
-      this.orders = hydraOrder['hydra:member'];
+      this.orders = hydraOrder['hydra:member'].sort(
+        (a: Order, b: Order) => b.id - a.id
+      );
       this.pendingOrderNumber = 0;
       this.orders.forEach((order: Order) => {
         order.show = false;
-        if (!order.mainOrder || now < order.mainOrder.closingDate) {
+        if (
+          !order.mainOrder ||
+          Date.parse(now.toString()) <
+            Date.parse(order.mainOrder.closingDate.toString())
+        ) {
           this.pendingOrderNumber++;
         }
       });
@@ -208,5 +214,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.apiService.getMainOrders().then((hydraMainOrder: HydraMainOrder) => {
       this.mainOrders = hydraMainOrder['hydra:member'];
     });
+  }
+
+  onRefreshMainOrdersEvent() {
+    this.getMainOrders();
+    this.getOrders();
   }
 }

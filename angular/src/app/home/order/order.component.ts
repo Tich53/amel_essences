@@ -15,13 +15,17 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  showOrder(order: Order) {
+  showOrderItems(order: Order) {
     order.show = !order.show;
   }
 
   isPendingOrder(order: Order): boolean {
     const now = new Date();
-    if (!order.mainOrder || now < order.mainOrder.closingDate) {
+    if (
+      !order.mainOrder ||
+      Date.parse(now.toString()) <
+        Date.parse(order.mainOrder.closingDate.toString())
+    ) {
       return true;
     }
     return false;
