@@ -37,7 +37,7 @@ export class MainOrderComponent implements OnInit, OnChanges, OnDestroy {
   minutesInAnHour = 60;
   SecondsInAMinute = 60;
 
-  timeDifference: any;
+  timeDifference = 0;
   secondsToClosingDate = 0;
   minutesToClosingDate = 0;
   hoursToClosingDate = 0;
@@ -45,11 +45,7 @@ export class MainOrderComponent implements OnInit, OnChanges, OnDestroy {
 
   constructor(public dialog: MatDialog) {}
 
-  ngOnInit(): void {
-    this.timeDifferenceSubscription = interval(1000).subscribe((x) => {
-      this.getTimeDifference();
-    });
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['mainOrders']) {
@@ -62,6 +58,15 @@ export class MainOrderComponent implements OnInit, OnChanges, OnDestroy {
         )
         .at(-1);
       this.closingDate = this.pendingMainOrder?.closingDate;
+
+      // Subscribe au countdown uniquement si une commande principale existe et unsubscribe dès que le compteur arrive à zéro.
+      if (this.pendingMainOrder) {
+        this.timeDifferenceSubscription = interval(1000).subscribe((x) => {
+          this.getTimeDifference();
+        });
+      } else {
+        this.timeDifferenceSubscription?.unsubscribe();
+      }
     }
   }
 
@@ -76,8 +81,10 @@ export class MainOrderComponent implements OnInit, OnChanges, OnDestroy {
         Date.parse(this.closingDate.toString()) -
         Date.parse(new Date().toString());
     }
-
     this.allocateTimeUnits(this.timeDifference);
+    if (this.timeDifference <= 0) {
+      this.refreshMainOrdersEvent.emit();
+    }
   }
 
   private allocateTimeUnits(timeDifference: number) {
