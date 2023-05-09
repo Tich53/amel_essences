@@ -28,17 +28,17 @@ class ProductPackaging
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'productPackagings')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['cartProductPackaging:read', 'order:read'])]
+    #[Groups(['cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     private ?Product $product = null;
 
     #[ORM\ManyToOne(inversedBy: 'productPackagings')]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     private ?Packaging $packaging = null;
 
     #[ORM\Column]
@@ -85,7 +85,7 @@ class ProductPackaging
         return $this;
     }
 
-    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read'])]
+    #[Groups(['product:read', 'cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     public function getUnitPrice(): ?float
     {
         return $this->unit_price;

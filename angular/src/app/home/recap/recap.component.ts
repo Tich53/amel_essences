@@ -27,4 +27,8 @@ export class RecapComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {}
+
+  showOrderItems(order: Order) {
+    order.show = !order.show;
+  }
 }

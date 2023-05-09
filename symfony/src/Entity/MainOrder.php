@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
+use DateTime;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\MainOrderRepository;
-use DateTime;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Serializer\Filter\GroupFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -27,6 +29,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
         new Post()
     ]
 )]
+#[ApiFilter(GroupFilter::class, arguments: ['parameterName' => 'groupBy'])]
 class MainOrder
 {
     use TimestampableEntity;

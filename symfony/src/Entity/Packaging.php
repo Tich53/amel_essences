@@ -29,15 +29,15 @@ class Packaging
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['packaging:read'])]
+    #[Groups(['packaging:read', 'mainOrder:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['packaging:read', 'product:read', 'cartProductPackaging:read', 'order:read'])]
+    #[Groups(['packaging:read', 'product:read', 'cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     private ?string $type = null;
 
     #[ORM\Column]
-    #[Groups(['packaging:read', 'product:read', 'cartProductPackaging:read', 'order:read'])]
+    #[Groups(['packaging:read', 'product:read', 'cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     private ?float $capacity = null;
 
     #[ORM\Column(length: 10)]
@@ -80,7 +80,7 @@ class Packaging
         return $this;
     }
 
-    #[Groups(['packaging:read', 'product:read', 'cartProductPackaging:read', 'order:read'])]
+    #[Groups(['packaging:read', 'product:read', 'cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     public function getCapacityUnit(): ?string
     {
         return $this->capacity_unit;
