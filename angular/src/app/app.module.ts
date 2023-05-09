@@ -28,6 +28,7 @@ import { OrderComponent } from './home/order/order.component';
 import { WaitingListComponent } from './home/waiting-list/waiting-list.component';
 import { MainOrderComponent } from './_shared/main-order/main-order.component';
 import { MainOrderDialogComponent } from './_shared/main-order/main-order-dialog/main-order-dialog.component';
+import { RecapComponent } from './home/recap/recap.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MainOrderDialogComponent } from './_shared/main-order/main-order-dialog
     WaitingListComponent,
     MainOrderComponent,
     MainOrderDialogComponent,
+    RecapComponent,
   ],
   imports: [
     BrowserModule,

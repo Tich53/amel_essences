@@ -48,6 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     orderActive: false,
     cartActive: false,
     waitingListActive: false,
+    recapActive: false,
   };
 
   constructor(

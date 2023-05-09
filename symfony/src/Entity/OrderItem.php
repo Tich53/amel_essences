@@ -25,7 +25,7 @@ class OrderItem
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['orderItem:read'])]
+    #[Groups(['orderItem:read', 'mainOrder:read'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderItems',)]
@@ -40,7 +40,7 @@ class OrderItem
     private ?int $product_quantity = null;
 
     #[ORM\Column]
-    #[Groups(['orderItem:read', 'orderItem:write', 'order:read'])]
+    #[Groups(['orderItem:read', 'orderItem:write', 'order:read', 'mainOrder:read'])]
     private ?float $amount = null;
 
     public function getId(): ?int
@@ -62,7 +62,7 @@ class OrderItem
         return $this;
     }
 
-    #[Groups(['orderItem:read', 'order:read'])]
+    #[Groups(['orderItem:read', 'order:read', 'mainOrder:read'])]
     public function getProductPackaging(): ?ProductPackaging
     {
         return $this->product_packaging;
@@ -76,7 +76,7 @@ class OrderItem
         return $this;
     }
 
-    #[Groups(['orderItem:read', 'order:read'])]
+    #[Groups(['orderItem:read', 'order:read', 'mainOrder:read'])]
     public function getProductQuantity(): ?int
     {
         return $this->product_quantity;

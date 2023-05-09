@@ -50,11 +50,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user:read', 'order:read'])]
+    #[Groups(['user:read', 'order:read', 'mainOrder:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -71,31 +71,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $surname = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $address = null;
 
     #[ORM\Column(length: 5)]
-    #[Groups(['user:write', 'user:read'])]
     private ?string $post_code = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $city = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $country = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $phone = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
@@ -234,7 +233,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+    #[Groups(['user:read', 'mainOrder:read'])]
     public function getPostCode(): ?string
     {
         return $this->post_code;

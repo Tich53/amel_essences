@@ -38,15 +38,15 @@ class Order
   #[ORM\Id]
   #[ORM\GeneratedValue]
   #[ORM\Column]
-  #[Groups(['order:read'])]
+  #[Groups(['order:read', 'mainOrder:read'])]
   private ?int $id = null;
 
   #[ORM\Column(length: 255)]
-  #[Groups(['order:read'])]
+  #[Groups(['order:read', 'mainOrder:read'])]
   private ?string $reference = null;
 
   #[ORM\Column]
-  #[Groups(['order:read', 'order:write'])]
+  #[Groups(['order:read', 'order:write', 'mainOrder:read'])]
   private ?float $amount = null;
 
   #[ORM\ManyToOne(inversedBy: 'orders')]
@@ -57,11 +57,11 @@ class Order
   private ?MainOrder $main_order = null;
 
   #[ORM\OneToMany(mappedBy: 'order_number', targetEntity: OrderItem::class)]
-  #[Groups(['order:read'])]
+  #[Groups(['order:read', 'mainOrder:read'])]
   private Collection $orderItems;
 
   #[ORM\Column]
-  #[Groups(['order:read', 'order:write'])]
+  #[Groups(['order:read', 'order:write', 'mainOrder:read'])]
   private ?int $productQuantity = null;
 
   public function __construct()
@@ -107,7 +107,7 @@ class Order
     return $this;
   }
 
-  #[Groups(['order:read'])]
+  #[Groups(['order:read', 'mainOrder:read'])]
   public function getUserAccount(): ?User
   {
     return $this->user_account;
@@ -121,7 +121,7 @@ class Order
     return $this;
   }
 
-  #[Groups(['order:read'])]
+  #[Groups(['order:read', 'mainOrder:read'])]
   public function getMainOrder(): ?MainOrder
   {
     return $this->main_order;

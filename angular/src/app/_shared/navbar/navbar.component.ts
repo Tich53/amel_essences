@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
     orderActive: boolean;
     cartActive: boolean;
     waitingListActive: boolean;
+    recapActive: boolean;
   }>();
 
   readonly roleAdmin = 'ROLE_ADMIN';
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit {
   orderActive = false;
   cartActive = false;
   waitingListActive = false;
+  recapActive = false;
 
   constructor(
     private storageService: StorageService,
@@ -45,6 +47,7 @@ export class NavbarComponent implements OnInit {
       orderActive: this.orderActive,
       cartActive: this.cartActive,
       waitingListActive: this.waitingListActive,
+      recapActive: this.recapActive,
     });
   }
 
@@ -71,12 +74,14 @@ export class NavbarComponent implements OnInit {
     this.orderActive = false;
     this.cartActive = false;
     this.waitingListActive = false;
+    this.recapActive = false;
     this.menuItemSelectionEmitter.emit({
       adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
       cartActive: this.cartActive,
       waitingListActive: this.waitingListActive,
+      recapActive: this.recapActive,
     });
   }
 
@@ -86,12 +91,14 @@ export class NavbarComponent implements OnInit {
     this.orderActive = false;
     this.cartActive = false;
     this.waitingListActive = false;
+    this.recapActive = false;
     this.menuItemSelectionEmitter.emit({
       adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
       cartActive: this.cartActive,
       waitingListActive: this.waitingListActive,
+      recapActive: this.recapActive,
     });
   }
 
@@ -101,12 +108,14 @@ export class NavbarComponent implements OnInit {
     this.orderActive = false;
     this.cartActive = false;
     this.waitingListActive = true;
+    this.recapActive = false;
     this.menuItemSelectionEmitter.emit({
       adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
       cartActive: this.cartActive,
       waitingListActive: this.waitingListActive,
+      recapActive: this.recapActive,
     });
   }
 
@@ -116,12 +125,14 @@ export class NavbarComponent implements OnInit {
     this.orderActive = true;
     this.cartActive = false;
     this.waitingListActive = false;
+    this.recapActive = false;
     this.menuItemSelectionEmitter.emit({
       adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
       cartActive: this.cartActive,
       waitingListActive: this.waitingListActive,
+      recapActive: this.recapActive,
     });
   }
 
@@ -131,12 +142,31 @@ export class NavbarComponent implements OnInit {
     this.orderActive = false;
     this.cartActive = true;
     this.waitingListActive = false;
+    this.recapActive = false;
     this.menuItemSelectionEmitter.emit({
       adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
       cartActive: this.cartActive,
       waitingListActive: this.waitingListActive,
+      recapActive: this.recapActive,
+    });
+  }
+
+  onClickRecap(): void {
+    this.adminActive = false;
+    this.catalogActive = false;
+    this.orderActive = false;
+    this.cartActive = false;
+    this.waitingListActive = false;
+    this.recapActive = true;
+    this.menuItemSelectionEmitter.emit({
+      adminActive: this.adminActive,
+      catalogActive: this.catalogActive,
+      orderActive: this.orderActive,
+      cartActive: this.cartActive,
+      waitingListActive: this.waitingListActive,
+      recapActive: this.recapActive,
     });
   }
 
