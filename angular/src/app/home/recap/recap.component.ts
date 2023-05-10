@@ -17,7 +17,8 @@ import { OrderItem } from 'src/app/_interfaces/order-item';
 export class RecapComponent implements OnInit, OnChanges {
   @Input() mainOrders?: MainOrder[];
 
-  orderItemsByUser: OrderItem[] = [];
+  showUser = true;
+  showProduct = false;
 
   constructor() {}
 
@@ -39,6 +40,21 @@ export class RecapComponent implements OnInit, OnChanges {
     return false;
   }
 
+  onClickShowUser(mainOrder: MainOrder) {
+    mainOrder.showByUser = true;
+    mainOrder.showByProduct = false;
+  }
+
+  onClickShowProduct(mainOrder: MainOrder) {
+    mainOrder.showByUser = false;
+    mainOrder.showByProduct = true;
+  }
+
+  onClickHide(mainOrder: MainOrder) {
+    mainOrder.showByUser = false;
+    mainOrder.showByProduct = false;
+  }
+
   getOrderItemsByUser(mainOrder: MainOrder): Map<User, OrderItem[]> {
     const userByOrderItem = new Map<User, OrderItem[]>();
     for (const order of mainOrder.orders) {
@@ -57,7 +73,6 @@ export class RecapComponent implements OnInit, OnChanges {
         orderItems.push(orderItem);
       }
     }
-    console.log(userByOrderItem);
     return userByOrderItem;
   }
 }

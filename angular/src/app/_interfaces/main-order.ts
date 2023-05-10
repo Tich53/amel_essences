@@ -6,4 +6,6 @@ export interface MainOrder {
   amount: number;
   closingDate: Date;
   orders: Order[];
+  showByUser: boolean;
+  showByProduct: boolean;
 }

@@ -1,50 +1,41 @@
-<div *ngFor="let mainOrder of mainOrders" class="m-t-20 m-b-20 p-b-20">
+<div *ngFor="let mainOrder of mainOrders" class="m-t-20 m-b-20 p-t-20 p-b-20">
   <h2 class="m-0 font-weight-bold">
     Récapitulatif de la commande globale n° {{ mainOrder.reference }}
     <span *ngIf="!isPending(mainOrder)">
-      (clôturée le {{ mainOrder.closingDate | date : "dd-MM-yyyy" }})</span
-    >
+      (clôturée le {{ mainOrder.closingDate | date : "dd-MM-yyyy" }})</span>
   </h2>
   <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item" role="presentation">
-      <a
-        class="nav-link active"
-        data-bs-toggle="tab"
-        aria-selected="true"
-        role="tab"
-        >Par client</a
-      >
+    <li class="nav-item nav-link active pointer" [class.bg-primary]="mainOrder.showByUser" role="presentation"
+      data-bs-toggle="tab" aria-selected="true" role="tab" title="Vue par client" (click)="onClickShowUser(mainOrder)">
+      Par client
     </li>
-    <li class="nav-item" role="presentation">
-      <a
-        class="nav-link active"
-        data-bs-toggle="tab"
-        aria-selected="true"
-        role="tab"
-        >Par produit</a
-      >
+    <li class="nav-item nav-link active pointer" [class.bg-primary]="mainOrder.showByProduct" role="presentation"
+      data-bs-toggle="tab" aria-selected="true" role="tab" title="Vue par produit"
+      (click)="onClickShowProduct(mainOrder)">
+      Par produit
+    </li>
+    <li class="nav-item nav-link active pointer"
+      [class.bg-secondary]="!mainOrder.showByProduct && !mainOrder.showByUser" role="presentation" data-bs-toggle="tab"
+      aria-selected="true" role="tab" title="Masquer" (click)="onClickHide(mainOrder)">
+      <mat-icon>hide_source</mat-icon>
     </li>
   </ul>
   <div id="myTabContent" class="tab-content">
-    <div class="tab-pane fade active show" id="home" role="tabpanel">
-      <div
-        *ngFor="let entry of getOrderItemsByUser(mainOrder) | keyvalue"
-        class="m-t-5 m-b-5 m-l-20"
-      >
-        <span class="text-primary font-weight-bold"
-          >{{ entry.key.name }} {{ entry.key.surname }}</span
-        >
+    <div *ngIf="mainOrder.showByUser" class="tab-pane fade active show" id="home" role="tabpanel">
+      <div *ngFor="let entry of getOrderItemsByUser(mainOrder) | keyvalue" class="m-t-5 m-b-20 m-l-20">
+        <span class="text-primary font-weight-bold">{{ entry.key.name }} {{ entry.key.surname }}</span>
         <div *ngFor="let value of entry.value">
-          <span
-            ><strong>Référence produit:</strong>
+          <span class="m-r-5"><strong>Référence produit:</strong>
             {{ value.productPackaging.product.name }}
           </span>
-          <span><strong>Quantité:</strong> {{ value.productQuantity }} </span>
-          <span><strong>Montant:</strong> {{ value.amount }} EUR </span>
+          <span class="m-r-5"> <strong>Quantité:</strong> {{ value.productQuantity }} </span>
+          <span class="m-r-5"><strong>Packaging:</strong> {{ value.productPackaging.packaging.capacity }} {{
+            value.productPackaging.packaging.capacityUnit }} </span>
+          <span class="m-r-5"><strong>Montant:</strong> {{ value.amount }} EUR </span>
         </div>
       </div>
     </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel">
+    <div *ngIf="mainOrder.showByProduct" class="tab-pane fade show" id="profile" role="tabpanel">
       <p>
         Food truck fixie locavore, accusamus mcsweeney's marfa nulla
         single-origin coffee squid. Exercitation +1 labore velit, blog sartorial
