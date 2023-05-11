@@ -8,6 +8,7 @@ import {
 import { User } from 'src/app/_interfaces/_abstracts/user/user';
 import { MainOrder } from 'src/app/_interfaces/main-order';
 import { OrderItem } from 'src/app/_interfaces/order-item';
+import { Product } from 'src/app/_interfaces/product';
 
 @Component({
   selector: 'app-recap',
@@ -25,6 +26,7 @@ export class RecapComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['mainOrders']) {
       this.mainOrders?.sort((a, b) => b.id - a.id);
+      console.log(this.mainOrders);
     }
   }
 
@@ -55,6 +57,24 @@ export class RecapComponent implements OnInit, OnChanges {
     mainOrder.showByProduct = false;
   }
 
+  setShowUserClasses(mainOrder: MainOrder): string | void {
+    if (mainOrder.showByUser) {
+      return 'bg-primary white';
+    }
+  }
+
+  setShowProductClasses(mainOrder: MainOrder): string | void {
+    if (mainOrder.showByProduct) {
+      return 'bg-primary white';
+    }
+  }
+
+  setHideClasses(mainOrder: MainOrder): string | void {
+    if (!mainOrder.showByUser && !mainOrder.showByProduct) {
+      return 'bg-secondary white';
+    }
+  }
+
   getOrderItemsByUser(mainOrder: MainOrder): Map<User, OrderItem[]> {
     const userByOrderItem = new Map<User, OrderItem[]>();
     for (const order of mainOrder.orders) {
@@ -74,5 +94,29 @@ export class RecapComponent implements OnInit, OnChanges {
       }
     }
     return userByOrderItem;
+  }
+
+  getOrderItemsByProduct(mainOrder: MainOrder): Map<Product, OrderItem[]> {
+    const productByOrderItem = new Map<Product, OrderItem[]>();
+    for (const order of mainOrder.orders) {
+      for (const orderItem of order.orderItems) {
+        const product = Array.from(productByOrderItem.keys()).find(
+          (p) => p.id === orderItem.productPackaging.product.id
+        );
+        let orderItems: OrderItem[] | undefined;
+        if (product) {
+          orderItems = productByOrderItem.get(product);
+        }
+        if (!orderItems) {
+          orderItems = [];
+          productByOrderItem.set(
+            orderItem.productPackaging.product,
+            orderItems
+          );
+        }
+        orderItems.push(orderItem);
+      }
+    }
+    return productByOrderItem;
   }
 }
