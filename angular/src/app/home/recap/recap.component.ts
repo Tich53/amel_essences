@@ -43,18 +43,13 @@ export class RecapComponent implements OnInit, OnChanges {
   }
 
   onClickShowUser(mainOrder: MainOrder) {
-    mainOrder.showByUser = true;
+    mainOrder.showByUser = !mainOrder.showByUser;
     mainOrder.showByProduct = false;
   }
 
   onClickShowProduct(mainOrder: MainOrder) {
     mainOrder.showByUser = false;
-    mainOrder.showByProduct = true;
-  }
-
-  onClickHide(mainOrder: MainOrder) {
-    mainOrder.showByUser = false;
-    mainOrder.showByProduct = false;
+    mainOrder.showByProduct = !mainOrder.showByProduct;
   }
 
   setShowUserClasses(mainOrder: MainOrder): string | void {
@@ -66,12 +61,6 @@ export class RecapComponent implements OnInit, OnChanges {
   setShowProductClasses(mainOrder: MainOrder): string | void {
     if (mainOrder.showByProduct) {
       return 'bg-primary white';
-    }
-  }
-
-  setHideClasses(mainOrder: MainOrder): string | void {
-    if (!mainOrder.showByUser && !mainOrder.showByProduct) {
-      return 'bg-secondary white';
     }
   }
 
