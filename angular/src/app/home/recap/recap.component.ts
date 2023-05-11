@@ -79,7 +79,20 @@ export class RecapComponent implements OnInit, OnChanges {
           orderItems = [];
           userByOrderItem.set(order.userAccount, orderItems);
         }
-        orderItems.push(orderItem);
+
+        // Si la ligne de commande est déjà présente dans le tableau, mettre à jour:
+        // Quantité
+        // Montant
+        const foundOrderItem = orderItems.find(
+          (o) => o.productPackaging.id === orderItem.productPackaging.id
+        );
+        if (foundOrderItem) {
+          const index = orderItems.indexOf(foundOrderItem);
+          orderItems[index].productQuantity += orderItem.productQuantity;
+          orderItems[index].amount += orderItem.amount;
+        } else {
+          orderItems.push({ ...orderItem });
+        }
       }
     }
     return userByOrderItem;
@@ -103,7 +116,20 @@ export class RecapComponent implements OnInit, OnChanges {
             orderItems
           );
         }
-        orderItems.push(orderItem);
+
+        // Si la ligne de commande est déjà présente dans le tableau, mettre à jour:
+        // Quantité
+        // Montant
+        const foundOrderItem = orderItems.find(
+          (o) => o.productPackaging.id === orderItem.productPackaging.id
+        );
+        if (foundOrderItem) {
+          const index = orderItems.indexOf(foundOrderItem);
+          orderItems[index].productQuantity += orderItem.productQuantity;
+          orderItems[index].amount += orderItem.amount;
+        } else {
+          orderItems.push({ ...orderItem });
+        }
       }
     }
     return productByOrderItem;
