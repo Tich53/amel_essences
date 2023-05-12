@@ -101,6 +101,13 @@
   flex-wrap: wrap;
 }
 
+.flex-end-center {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .flex-center-center {
   display: flex;
   justify-content: center;

@@ -1,9 +1,8 @@
-.container-fluid {
-  justify-content: end;
+.navbar-nav {
+  flex-direction: row;
 }
 
-// Soit class="badge bg-secondary rounded-pill" ou :
-.cart-circle{
+.cart-circle {
   border: 1px solid;
   border-radius: 50%;
   padding: 4px;

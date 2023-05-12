@@ -29,6 +29,7 @@ import { WaitingListComponent } from './home/waiting-list/waiting-list.component
 import { MainOrderComponent } from './_shared/main-order/main-order.component';
 import { MainOrderDialogComponent } from './_shared/main-order/main-order-dialog/main-order-dialog.component';
 import { RecapComponent } from './home/recap/recap.component';
+import { FooterComponent } from './_shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { RecapComponent } from './home/recap/recap.component';
     MainOrderComponent,
     MainOrderDialogComponent,
     RecapComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
