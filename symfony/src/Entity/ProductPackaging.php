@@ -2,16 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\OrderItem;
 use ApiPlatform\Metadata\Get;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\CartProductPackaging;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use Doctrine\Common\Collections\Collection;
 use App\Repository\ProductPackagingRepository;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use App\Entity\Trait\TimestampableEntityGroups;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: ProductPackagingRepository::class)]
 #[ApiResource(
@@ -22,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class ProductPackaging
 {
-    use TimestampableEntity;
+    use TimestampableEntityGroups;
     use SoftDeleteableEntity;
 
     #[ORM\Id]

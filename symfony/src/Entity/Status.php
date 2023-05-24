@@ -8,10 +8,10 @@ use App\Repository\StatusRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: StatusRepository::class)]
 #[ApiResource(
@@ -22,7 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Status
 {
-    use TimestampableEntity;
+    use TimestampableEntityGroups;
     use SoftDeleteableEntity;
 
     #[ORM\Id]

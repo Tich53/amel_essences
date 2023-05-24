@@ -4,15 +4,15 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Patch;
+use App\Entity\Trait\TimestampableEntityGroups;
 use App\Repository\CartProductPackagingRepository;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: CartProductPackagingRepository::class)]
 #[ApiResource(
@@ -28,6 +28,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class CartProductPackaging
 {
+    use TimestampableEntityGroups;
+    use SoftDeleteableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

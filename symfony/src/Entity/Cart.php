@@ -3,13 +3,15 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\Get;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CartRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
 #[ApiResource(
@@ -20,6 +22,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 )]
 class Cart
 {
+    use TimestampableEntityGroups;
+    use SoftDeleteableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

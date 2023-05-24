@@ -8,7 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\OrderItemRepository;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: OrderItemRepository::class)]
 #[ApiResource(
@@ -22,6 +24,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class OrderItem
 {
+    use TimestampableEntityGroups;
+    use SoftDeleteableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

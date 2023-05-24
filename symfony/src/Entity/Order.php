@@ -6,14 +6,14 @@ use DateTime;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OrderRepository;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
@@ -32,7 +32,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 )]
 class Order
 {
-  use TimestampableEntity;
+  use TimestampableEntityGroups;
   use SoftDeleteableEntity;
 
   #[ORM\Id]

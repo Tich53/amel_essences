@@ -13,8 +13,8 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Repository\MainOrderRepository;
 use Doctrine\Common\Collections\Collection;
 use ApiPlatform\Serializer\Filter\GroupFilter;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
@@ -32,7 +32,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 #[ApiFilter(GroupFilter::class, arguments: ['parameterName' => 'groupBy'])]
 class MainOrder
 {
-    use TimestampableEntity;
+    use TimestampableEntityGroups;
     use SoftDeleteableEntity;
 
     #[ORM\Id]

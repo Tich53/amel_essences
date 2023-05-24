@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CategoryRepository;
 use ApiPlatform\Metadata\GetCollection;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
@@ -23,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Category
 {
-    use TimestampableEntity;
+    use TimestampableEntityGroups;
     use SoftDeleteableEntity;
 
     #[ORM\Id]

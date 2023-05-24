@@ -11,9 +11,9 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductRepository;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
@@ -37,7 +37,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 class Product
 {
-    use TimestampableEntity;
+    use TimestampableEntityGroups;
     use SoftDeleteableEntity;
 
     #[ORM\Id]

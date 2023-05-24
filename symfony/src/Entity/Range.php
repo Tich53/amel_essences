@@ -8,8 +8,10 @@ use App\Repository\RangeRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: RangeRepository::class)]
 #[ORM\Table(name: '`range`')]
@@ -21,6 +23,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Range
 {
+    use TimestampableEntityGroups;
+    use SoftDeleteableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
