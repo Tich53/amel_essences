@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
-import { CartProductPackagingIri } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging-iri';
-import { User } from 'src/app/_interfaces/_abstracts/user/user';
+import { CartProductPackaging } from 'src/app/_interfaces/cart-product-packaging';
+import { PostCartProductPackaging } from 'src/app/_interfaces/_posts/post-cart-product-packaging';
+import { User } from 'src/app/_interfaces/user';
 import { Product } from 'src/app/_interfaces/product';
 import { ApiService } from 'src/app/_services/api/api.service';
 
@@ -26,7 +26,7 @@ export class CatalogComponent implements OnInit {
     if (this.currentUser) {
       const cartIri = '/api/carts/';
       const productPackagingIri = '/api/product_packagings/';
-      const cartProductPackaging: CartProductPackagingIri = {
+      const cartProductPackaging: PostCartProductPackaging = {
         amount: product.selectedProductPackaging.unitPrice,
         cart: `${cartIri}${this.currentUser.cart.id}`,
         productPackaging: `${productPackagingIri}${product.selectedProductPackaging.id}`,

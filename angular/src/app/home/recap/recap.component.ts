@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
-import { User } from 'src/app/_interfaces/_abstracts/user/user';
+import { User } from 'src/app/_interfaces/user';
 import { MainOrder } from 'src/app/_interfaces/main-order';
 import { OrderItem } from 'src/app/_interfaces/order-item';
 import { Product } from 'src/app/_interfaces/product';

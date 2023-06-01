@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { User } from 'src/app/_interfaces/_abstracts/user/user';
+import { User } from 'src/app/_interfaces/user';
 import { ApiService } from 'src/app/_services/api/api.service';
 
 @Component({

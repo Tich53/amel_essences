@@ -1,6 +1,6 @@
 import { MainOrder } from './main-order';
 import { OrderItem } from './order-item';
-import { User } from './_abstracts/user/user';
+import { User } from './user';
 
 export interface Order {
   id: number;

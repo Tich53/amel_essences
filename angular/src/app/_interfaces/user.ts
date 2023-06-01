@@ -1,5 +1,5 @@
-import { Cart } from '../../cart';
-import { AbstractUser } from './abstract-user';
+import { Cart } from './cart';
+import { AbstractUser } from './_abstracts/abstract-user';
 
 export interface User extends AbstractUser {
   id: number;

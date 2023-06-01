@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { lastValueFrom, Observable } from 'rxjs';
-import { User } from 'src/app/_interfaces/_abstracts/user/user';
-import { RegistratingUser } from 'src/app/_interfaces/_abstracts/user/registrating-user';
+import { User } from 'src/app/_interfaces/user';
+import { PostUser } from 'src/app/_interfaces/_posts/post-user';
 import { HydraProduct } from 'src/app/_interfaces/_hydras/hydra-product';
 import { HydraCategory } from 'src/app/_interfaces/_hydras/hydra-category';
 import { HydraGender } from 'src/app/_interfaces/_hydras/hydra-gender';
 import { HydraPackaging } from 'src/app/_interfaces/_hydras/hydra-packaging';
 import { HydraCartProductPackaging } from 'src/app/_interfaces/_hydras/hydra-cart-product-packaging';
-import { CartProductPackagingIri } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging-iri';
+import { PostCartProductPackaging } from 'src/app/_interfaces/_posts/post-cart-product-packaging';
 import { PatchQuantityPrice } from 'src/app/_interfaces/_patches/patch-quantity-price';
-import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
-import { OrderIri } from 'src/app/_interfaces/order-iri';
+import { CartProductPackaging } from 'src/app/_interfaces/cart-product-packaging';
+import { PostOrder } from 'src/app/_interfaces/_posts/post-order';
 import { HydraOrder } from 'src/app/_interfaces/_hydras/hydra-order';
-import { OrderItemIri } from 'src/app/_interfaces/order-item-iri';
+import { PostOrderItem } from 'src/app/_interfaces/_posts/post-order-item';
 import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
 import { Order } from 'src/app/_interfaces/order';
 import { HydraUser } from 'src/app/_interfaces/_hydras/hydra-user';
 import { PatchUser } from 'src/app/_interfaces/_patches/patch-user';
 import { HydraMainOrder } from 'src/app/_interfaces/_hydras/hydra-main-order';
-import { PostMainOrder } from 'src/app/_interfaces/posts/post-main-order';
+import { PostMainOrder } from 'src/app/_interfaces/_posts/post-main-order';
 
 @Injectable({
   providedIn: 'root',
@@ -152,9 +152,9 @@ export class ApiService {
   /**
    * Http POST methods
    */
-  addUser(registratingUser: RegistratingUser): Promise<RegistratingUser> {
+  addUser(registratingUser: PostUser): Promise<PostUser> {
     return lastValueFrom(
-      this.httpClient.post<RegistratingUser>(
+      this.httpClient.post<PostUser>(
         this.userUrl,
         registratingUser,
         this.httpOptionsJson
@@ -163,10 +163,10 @@ export class ApiService {
   }
 
   postCartProductPackaging(
-    cartProductPackaging: CartProductPackagingIri
-  ): Promise<CartProductPackagingIri> {
+    cartProductPackaging: PostCartProductPackaging
+  ): Promise<PostCartProductPackaging> {
     return lastValueFrom(
-      this.httpClient.post<CartProductPackagingIri>(
+      this.httpClient.post<PostCartProductPackaging>(
         this.cartProductPackagingUrl,
         cartProductPackaging,
         this.httpOptionsJson
@@ -174,17 +174,21 @@ export class ApiService {
     );
   }
 
-  createOrder(order: OrderIri): Promise<OrderIri> {
+  createOrder(order: PostOrder): Promise<PostOrder> {
     return lastValueFrom(
-      this.httpClient.post<OrderIri>(this.orderUrl, order, this.httpOptionsJson)
+      this.httpClient.post<PostOrder>(
+        this.orderUrl,
+        order,
+        this.httpOptionsJson
+      )
     );
   }
 
   validateSelectedCartProductPackagings(
-    orderItem: OrderItemIri
-  ): Promise<OrderItemIri> {
+    orderItem: PostOrderItem
+  ): Promise<PostOrderItem> {
     return lastValueFrom(
-      this.httpClient.post<OrderItemIri>(
+      this.httpClient.post<PostOrderItem>(
         this.orderItemUrl,
         orderItem,
         this.httpOptionsJson

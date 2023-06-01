@@ -1,4 +1,4 @@
-import { CartProductPackaging } from '../_abstracts/cart-product-packaging/cart-product-packaging';
+import { CartProductPackaging } from '../cart-product-packaging';
 
 export interface HydraCartProductPackaging {
   'hydra:member': CartProductPackaging[];

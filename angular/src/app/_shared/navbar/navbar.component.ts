@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { User } from 'src/app/_interfaces/_abstracts/user/user';
+import { User } from 'src/app/_interfaces/user';
 import { StorageService } from 'src/app/_services/authentication/storage.service';
 import { NavbarDialogComponent } from './navbar-dialog/navbar-dialog.component';
 

@@ -11,7 +11,7 @@ import {
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { interval, Subscription } from 'rxjs';
 import { MainOrder } from 'src/app/_interfaces/main-order';
-import { User } from 'src/app/_interfaces/_abstracts/user/user';
+import { User } from 'src/app/_interfaces/user';
 import { MainOrderDialogComponent } from './main-order-dialog/main-order-dialog.component';
 
 @Component({

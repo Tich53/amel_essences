@@ -1,6 +1,4 @@
-import { MainOrder } from './main-order';
-
-export interface OrderIri {
+export interface PostOrder {
   productQuantity: number;
   amount: number;
   userAccount: string;

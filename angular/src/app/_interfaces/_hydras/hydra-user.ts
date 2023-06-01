@@ -1,4 +1,4 @@
-import { User } from '../_abstracts/user/user';
+import { User } from '../user';
 
 export interface HydraUser {
   'hydra:member': User[];

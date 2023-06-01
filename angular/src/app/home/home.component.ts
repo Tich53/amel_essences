@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CartProductPackaging } from '../_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
+import { CartProductPackaging } from '../_interfaces/cart-product-packaging';
 import { Product } from '../_interfaces/product';
 import { HydraCartProductPackaging } from '../_interfaces/_hydras/hydra-cart-product-packaging';
 import { HydraProduct } from '../_interfaces/_hydras/hydra-product';
 import { ApiService } from '../_services/api/api.service';
 import { PatchQuantityPrice } from '../_interfaces/_patches/patch-quantity-price';
-import { User } from '../_interfaces/_abstracts/user/user';
+import { User } from '../_interfaces/user';
 import { HydraOrder } from '../_interfaces/_hydras/hydra-order';
 import { Order } from '../_interfaces/order';
 import { HydraUser } from '../_interfaces/_hydras/hydra-user';

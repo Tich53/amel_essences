@@ -8,8 +8,8 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { MainOrder } from 'src/app/_interfaces/main-order';
-import { CartProductPackaging } from 'src/app/_interfaces/_abstracts/cart-product-packaging/cart-product-packaging';
-import { User } from 'src/app/_interfaces/_abstracts/user/user';
+import { CartProductPackaging } from 'src/app/_interfaces/cart-product-packaging';
+import { User } from 'src/app/_interfaces/user';
 import { HydraMainOrder } from 'src/app/_interfaces/_hydras/hydra-main-order';
 import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
 import { ApiService } from 'src/app/_services/api/api.service';
