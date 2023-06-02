@@ -26,7 +26,6 @@ export class RecapComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['mainOrders']) {
       this.mainOrders?.sort((a, b) => b.id - a.id);
-      console.log(this.mainOrders);
     }
   }
 

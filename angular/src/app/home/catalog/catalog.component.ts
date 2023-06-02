@@ -22,18 +22,11 @@ export class CatalogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  addToCart(product: Product): void {
+  async addToCart(product: Product): Promise<void> {
     if (this.currentUser) {
       const cartIri = '/api/carts/';
       const productPackagingIri = '/api/product_packagings/';
-      const cartProductPackaging: PostCartProductPackaging = {
-        amount: product.selectedProductPackaging.unitPrice,
-        cart: `${cartIri}${this.currentUser.cart.id}`,
-        productPackaging: `${productPackagingIri}${product.selectedProductPackaging.id}`,
-        productQuantity: 1,
-      };
-
-      if (this.getCartProductPackagingId(product) > -1) {
+      if (this.getCartProductPackagingId(product)) {
         const cartProductPackagingId = this.getCartProductPackagingId(product);
         const cartProductQuantity =
           this.getCartProductPackagingQuantity(product) + 1;
@@ -44,11 +37,17 @@ export class CatalogComponent implements OnInit {
           amount: cartProductPrice,
         };
 
-        this.apiService.addOneCartProductPackaging(
-          cartProductPackagingId,
+        await this.apiService.addOneCartProductPackaging(
+          cartProductPackagingId as number,
           PatchQuantityPrice
         );
       } else {
+        const cartProductPackaging: PostCartProductPackaging = {
+          amount: product.selectedProductPackaging.unitPrice,
+          cart: `${cartIri}${this.currentUser.cart.id}`,
+          productPackaging: `${productPackagingIri}${product.selectedProductPackaging.id}`,
+          productQuantity: 1,
+        };
         this.apiService.postCartProductPackaging(cartProductPackaging);
       }
       this.hasAddedCartProductEvent.emit();
@@ -70,8 +69,7 @@ export class CatalogComponent implements OnInit {
     return 0;
   }
 
-  getCartProductPackagingId(product: Product): number {
-    let id = -1;
+  getCartProductPackagingId(product: Product): number | void {
     if (this.cartProductPackagings) {
       const filteredCartProductPackagings = this.cartProductPackagings.filter(
         (cartProductPackaging) =>
@@ -79,10 +77,9 @@ export class CatalogComponent implements OnInit {
           product.selectedProductPackaging.id
       );
       if (filteredCartProductPackagings.length > 0) {
-        id = filteredCartProductPackagings[0].id;
+        return filteredCartProductPackagings[0].id;
       }
     }
-    return id;
   }
 
   getCartProductPackagingQuantity(product: Product): number {
@@ -94,7 +91,7 @@ export class CatalogComponent implements OnInit {
           product.selectedProductPackaging.id
       );
       for (const filteredCartProductPackaging of filteredCartProductPackagings) {
-        quantity += filteredCartProductPackaging.productQuantity;
+        quantity = filteredCartProductPackaging.productQuantity;
       }
       return quantity;
     }
