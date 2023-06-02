@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { BehaviorSubject } from 'rxjs';
 import { SpinnerDialogComponent } from 'src/app/_shared/spinner-dialog/spinner-dialog.component';
 
 @Injectable({
@@ -29,8 +30,9 @@ export class SpinnerService {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.hasBackdrop = true;
-    dialogConfig.height = '180px';
-    dialogConfig.width = '180px';
+    dialogConfig.height = '160px';
+    dialogConfig.width = '160px';
+    dialogConfig.maxWidth = '100vw';
     dialogConfig.panelClass = 'spinner-dialog';
     dialogConfig.enterAnimationDuration;
     dialogConfig.exitAnimationDuration;
