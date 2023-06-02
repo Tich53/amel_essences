@@ -255,3 +255,18 @@ h-100 {
   background-color: var(--bs-primary);
   color: #fff;
 }
+
+/**
+* Spinner
+*/
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.spinner-dialog .mat-dialog-container {
+  background-color: white;
+  border-radius: 25%;
+
+}

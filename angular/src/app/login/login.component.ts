@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private storageService: StorageService,
     private router: Router,
-    private dialog: MatDialog // private status:StatusEnum
+    private dialog: MatDialog
   ) {}
 
   async ngOnInit(): Promise<void> {

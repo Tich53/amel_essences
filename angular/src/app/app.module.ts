@@ -29,6 +29,8 @@ import { WaitingListComponent } from './home/waiting-list/waiting-list.component
 import { MainOrderComponent } from './_shared/main-order/main-order.component';
 import { MainOrderDialogComponent } from './_shared/main-order/main-order-dialog/main-order-dialog.component';
 import { RecapComponent } from './home/recap/recap.component';
+import { SpinnerComponent } from './_shared/spinner-dialog/spinner/spinner.component';
+import { SpinnerDialogComponent } from './_shared/spinner-dialog/spinner-dialog.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { RecapComponent } from './home/recap/recap.component';
     MainOrderComponent,
     MainOrderDialogComponent,
     RecapComponent,
+    SpinnerComponent,
+    SpinnerDialogComponent,
   ],
   imports: [
     BrowserModule,
