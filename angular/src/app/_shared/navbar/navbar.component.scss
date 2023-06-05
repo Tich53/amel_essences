@@ -8,3 +8,51 @@
   border-radius: 50%;
   padding: 4px;
 }
+
+.nav-text{
+  font-size: 27px;
+  }
+
+.menu-icon{
+  width:60px;
+  height:60px;
+  line-height: 60px;
+  font-size: 60px;
+}
+
+
+
+.white{
+  color: white;
+}
+
+ul{
+  list-style-type: none;
+  width: fit-content;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+.h-40{
+height: 40px;
+}
+
+@media only screen and (max-width: 1179px) {
+  /* For mobile phones: */
+  nav{
+    display: none;
+  }
+
+  header{
+    background-color: var(--bs-primary);
+  }
+
+}
+
+@media only screen and (min-width: 1180px) {
+  /* For mobile phones: */
+  header{
+    display: none;
+  }
+}

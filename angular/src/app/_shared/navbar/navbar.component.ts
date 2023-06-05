@@ -27,6 +27,8 @@ export class NavbarComponent implements OnInit {
   readonly roleAdmin = 'ROLE_ADMIN';
   readonly easyAdminUrl = 'https://localhost:8000/admin';
 
+  showMenu = false;
+
   adminActive = false;
   catalogActive = true;
   orderActive = false;
@@ -83,6 +85,7 @@ export class NavbarComponent implements OnInit {
       waitingListActive: this.waitingListActive,
       recapActive: this.recapActive,
     });
+    this.showMenu = false;
   }
 
   onClickCatalog() {
@@ -100,6 +103,7 @@ export class NavbarComponent implements OnInit {
       waitingListActive: this.waitingListActive,
       recapActive: this.recapActive,
     });
+    this.showMenu = false;
   }
 
   onClickWaitingList() {
@@ -117,6 +121,7 @@ export class NavbarComponent implements OnInit {
       waitingListActive: this.waitingListActive,
       recapActive: this.recapActive,
     });
+    this.showMenu = false;
   }
 
   onClickMyOrders() {
@@ -134,6 +139,7 @@ export class NavbarComponent implements OnInit {
       waitingListActive: this.waitingListActive,
       recapActive: this.recapActive,
     });
+    this.showMenu = false;
   }
 
   onClickMyCart(): void {
@@ -151,6 +157,7 @@ export class NavbarComponent implements OnInit {
       waitingListActive: this.waitingListActive,
       recapActive: this.recapActive,
     });
+    this.showMenu = false;
   }
 
   onClickRecap(): void {
@@ -168,6 +175,7 @@ export class NavbarComponent implements OnInit {
       waitingListActive: this.waitingListActive,
       recapActive: this.recapActive,
     });
+    this.showMenu = false;
   }
 
   isAdmin(): boolean {

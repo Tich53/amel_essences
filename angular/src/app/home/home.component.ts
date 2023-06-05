@@ -136,9 +136,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  async getOrders(): Promise<void> {
+  getOrders(): void {
     const now = new Date();
-    await this.apiService.getOrders().then((hydraOrder: HydraOrder) => {
+    this.apiService.getOrders().then((hydraOrder: HydraOrder) => {
       this.orders = hydraOrder['hydra:member'].sort(
         (a: Order, b: Order) => b.id - a.id
       );

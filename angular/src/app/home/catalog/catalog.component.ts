@@ -48,7 +48,7 @@ export class CatalogComponent implements OnInit {
           productPackaging: `${productPackagingIri}${product.selectedProductPackaging.id}`,
           productQuantity: 1,
         };
-        this.apiService.postCartProductPackaging(cartProductPackaging);
+        await this.apiService.postCartProductPackaging(cartProductPackaging);
       }
       this.hasAddedCartProductEvent.emit();
     }
