@@ -1,76 +1,54 @@
 <div class="card bg-light mb-3">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th class="text-align-center vertical-align-center" scope="col">
-          Désignation
-        </th>
-        <th class="text-align-center vertical-align-center" scope="col">
-          Catégorie
-        </th>
-        <th class="text-align-center vertical-align-center" scope="col">
-          Gamme
-        </th>
-        <th class="text-align-center vertical-align-center" scope="col">
-          Si vous aimez
-        </th>
-        <th class="text-align-center vertical-align-center" scope="col">
-          Genre
-        </th>
-        <th class="text-align-center vertical-align-center" scope="col">
-          Conditionnement
-        </th>
-        <th class="text-align-center vertical-align-center" scope="col">
-          Prix unitaire
-        </th>
-        <th class="text-align-center vertical-align-center" scope="col"></th>
-        <th class="text-align-center vertical-align-center" scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products">
-        <th class="text-align-center vertical-align-center" scope="row">
-          {{ product.name }}
-        </th>
-        <td class="text-align-center vertical-align-center">
-          {{ product.category.name }}
-        </td>
-        <td class="text-align-center vertical-align-center">
-          {{ product.rangeAccount.name }}
-        </td>
-        <td class="text-align-center vertical-align-center">
-          {{ product.preference }}
-        </td>
-        <td class="text-align-center vertical-align-center">
-          {{ product.gender.name }}
-        </td>
-        <td class="text-align-center vertical-align-center">
-          <select class="form-select text-align-center" [(ngModel)]="product.selectedProductPackaging"
-            id="product-packaging-{{ product.id }}">
-            <option *ngFor="let productPackaging of product.productPackagings" [ngValue]="productPackaging">
-              {{ productPackaging.packaging.capacity }}
-              {{ productPackaging.packaging.capacityUnit }}
-            </option>
-          </select>
-        </td>
-        <td class="text-align-center vertical-align-center" id="unit-price-{{ product.id }}">
-          {{ product.selectedProductPackaging.unitPrice }} €
-        </td>
-        <td class="text-align-center vertical-align-center" width="160px">
-          <button class="btn btn-primary" (click)="addToCart(product)">
-            <div class="flex-center-center">
-              <mat-icon>add_shopping_cart</mat-icon>
-              Ajouter au panier
-            </div>
-          </button>
-        </td>
-        <td *ngIf="getCartProductQuantity(product) > 0" class="text-align-center vertical-align-center text-danger"
-          width="100px">
-          Déjà {{ getCartProductQuantity(product) }} dans le panier
-        </td>
-        <td *ngIf="getCartProductQuantity(product) <= 0" class="text-align-center vertical-align-center text-danger"
-          width="100px"></td>
-      </tr>
-    </tbody>
-  </table>
+
+
+  <div *ngFor="let product of products" class="flex-space-around-center  m-t-20 p-b-20 m-b-5 border-bottom">
+
+    <div class="m-r-20 m-b-5">
+      <div class="vertical-align-center" scope="row">
+        <strong>Référence : </strong>{{ product.name }}
+      </div>
+      <div class="vertical-align-center">
+        <strong>Catégorie : </strong> {{ product.category.name }}
+      </div>
+      <div class="vertical-align-center">
+        <strong>Gamme : </strong>{{ product.rangeAccount.name }}
+      </div>
+      <div class="vertical-align-center">
+        <strong>Si vous aimez : </strong>{{ product.preference }}
+      </div>
+      <div class="vertical-align-center">
+        <strong>Genre : </strong>{{ product.gender.name }}
+      </div>
+    </div>
+    <div class="vertical-align-center" class="m-r-20 m-t-5 m-b-5">
+      <select class="form-select text-align-center" [(ngModel)]="product.selectedProductPackaging"
+        id="product-packaging-{{ product.id }}">
+        <option *ngFor="let productPackaging of product.productPackagings" [ngValue]="productPackaging">
+          {{ productPackaging.packaging.capacity }}
+          {{ productPackaging.packaging.capacityUnit }}
+        </option>
+      </select>
+    </div>
+    <div class="text-align-center vertical-align-center" class="m-r-20 m-t-5 m-b-5" id="unit-price-{{ product.id }}">
+      <strong>Prix unitaire : </strong>{{ product.selectedProductPackaging.unitPrice }} €
+    </div>
+    <div>
+      <div class="text-align-center vertical-align-center m-t-5 m-b-5" width="160px">
+        <button class="btn btn-primary" (click)="addToCart(product)">
+          <div class="flex-center-center">
+            <mat-icon>add_shopping_cart</mat-icon>
+            Ajouter au panier
+          </div>
+        </button>
+      </div>
+      <div *ngIf="getCartProductQuantity(product) > 0"
+        class="text-align-center vertical-align-center text-danger m-t-5 m-b-5" width="100px">
+        Déjà {{ getCartProductQuantity(product) }} dans le panier
+      </div>
+      <div *ngIf="getCartProductQuantity(product) <= 0" class="text-align-center vertical-align-center text-danger"
+        width="100px"></div>
+    </div>
+
+
+  </div>
 </div>
