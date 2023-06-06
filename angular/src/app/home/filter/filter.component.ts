@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/_interfaces/category';
 import { Gender } from 'src/app/_interfaces/gender';
@@ -28,7 +29,13 @@ export class FilterComponent implements OnInit {
   filteredGenders: number[] = [];
   filteredPackagingCapacities: number[] = [];
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  showFilters = false;
+
+  constructor(
+    private apiService: ApiService,
+    private router: Router,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.apiService.getCategory().then((hydraCategory: HydraCategory) => {
@@ -106,6 +113,7 @@ export class FilterComponent implements OnInit {
           : undefined,
       },
     });
+    this.showFilters = false;
   }
 
   onReset(): void {
@@ -119,5 +127,10 @@ export class FilterComponent implements OnInit {
       checkbox.checked = false;
     }
     this.router.navigate(['/home']);
+    this.showFilters = false;
+  }
+
+  showHideFilters() {
+    this.showFilters = !this.showFilters;
   }
 }

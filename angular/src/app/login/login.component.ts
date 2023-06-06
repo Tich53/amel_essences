@@ -114,6 +114,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   getPasswordCtrl(): AbstractControl<string | null, string | null> | null {
     return this.loginForm.get('password');
   }
+
   openDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;

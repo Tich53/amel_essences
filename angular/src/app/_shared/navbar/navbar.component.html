@@ -119,7 +119,7 @@
 
 <!-- header au lieu de navbar si écran inférieur à 1179px-->
 <header *ngIf="router.url.includes('/home')" class="flex-end white m-b-20">
-  <mat-icon *ngIf="!showMenu" class="m-r-20 menu-icon menu " (click)="showMenu=!showMenu"> menu</mat-icon>
+  <mat-icon *ngIf="!showMenu" class="m-r-20 menu-icon menu " (click)="showMenu=!showMenu">menu</mat-icon>
   <mat-icon *ngIf="showMenu" class="m-r-20 menu-icon menu " (click)="showMenu=!showMenu"> close</mat-icon>
   <div *ngIf="showMenu" class="flex-center-center-wrap w-100 m-t-20">
     <ul class="nav-text m-r-20">

@@ -13,3 +13,22 @@
 .form-check-input{
   padding: 8px;
 }
+
+.flex{
+  display: flex;
+}
+
+@media only screen and (max-width: 1280px) {
+  /* For mobile phones: */
+  #large-screen-filter{
+    display: none;
+  }
+
+}
+
+@media only screen and (min-width: 1281px) {
+  /* For mobile phones: */
+  #small-screen-filter{
+    display: none;
+  }
+}
