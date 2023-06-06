@@ -11,92 +11,57 @@
             <button class="accordion-button" [ngStyle]="{'backgroundColor':isPending(order)?'none':'lightgrey'}"
               type="button" (click)="showOrderItems(order)" [ngClass]="order.show===true? 'not-collapsed':'collapsed'">
               <div class="w-100 flex-space-around-center">
-                <div class="w-20">
+                <div>
                   <strong>Référence</strong> : {{ order.reference }}
                 </div>
-                <div class="w-20"><strong>Commandé le</strong> : {{ order.createdAt | date:"dd/MM/yyy" }} </div>
-                <div class="w-20"><strong>Quantité</strong> : {{ order.productQuantity }} </div>
-                <div class="w-20"><strong>Montant</strong> : {{ order.amount }} € </div>
+                <div><strong>Commandé le</strong> : {{ order.createdAt | date:"dd/MM/yyy" }} </div>
+                <div><strong>Quantité</strong> : {{ order.productQuantity }} </div>
+                <div><strong>Montant</strong> : {{ order.amount }} € </div>
 
-                <div *ngIf="isPending(order)" class="w-20"><strong>Statut</strong> : En cours </div>
-                <div *ngIf="!isPending(order)" class="w-20"><strong>Statut</strong> : Clôturée </div>
+                <div *ngIf="isPending(order)"><strong>Statut</strong> : En cours </div>
+                <div *ngIf="!isPending(order)"><strong>Statut</strong> : Clôturée </div>
               </div>
             </button>
 
           </h2>
           <div class="accordion-collapse collapse" [ngClass]="order.show===true? 'show':'hide'"
             aria-labelledby="headingOne">
-            <div class="accordion-body flex-space-around-center">
-              <table class="w-100">
-                <thead>
-                  <tr>
-                    <th class="text-align-center vertical-align-center" scope="col">
-                      Désignation
-                    </th>
-                    <th class="text-align-center vertical-align-center" scope="col">
-                      Catégorie
-                    </th>
-                    <th class="text-align-center vertical-align-center" scope="col">
-                      Gamme
-                    </th>
-                    <th class="text-align-center vertical-align-center" scope="col">
-                      Si vous aimez
-                    </th>
-                    <th class="text-align-center vertical-align-center" scope="col">
-                      Genre
-                    </th>
-                    <th class="text-align-center vertical-align-center" scope="col">
-                      Conditionnement
-                    </th>
-                    <th class="text-align-center vertical-align-center" scope="col">
-                      Quantité
-                    </th>
-                    <th class="text-align-center vertical-align-center" scope="col">
-                      Montant
-                    </th>
-                    <th class="text-align-center vertical-align-center" scope="col"></th>
-                    <th class="text-align-center vertical-align-center" scope="col"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let orderItem of order.orderItems">
-                    <th class="text-align-center vertical-align-center" scope="row">
-                      {{ orderItem.productPackaging.product.name }}
-                    </th>
-                    <td class="text-align-center vertical-align-center">
-                      {{ orderItem.productPackaging.product.category.name }}
-                    </td>
-                    <td class="text-align-center vertical-align-center">
-                      {{ orderItem.productPackaging.product.rangeAccount.name }}
-                    </td>
-                    <td class="text-align-center vertical-align-center">
-                      {{ orderItem.productPackaging.product.preference }}
-                    </td>
-                    <td class="text-align-center vertical-align-center">
-                      {{ orderItem.productPackaging.product.gender.name }}
-                    </td>
-                    <td class="text-align-center vertical-align-center">
-
-                      {{ orderItem.productPackaging.packaging.capacity }}
-                      {{ orderItem.productPackaging.packaging.capacityUnit }}
-
-                    </td>
-                    <td class="text-align-center vertical-align-center">
-                      {{ orderItem.productQuantity }}
-                    </td>
-                    <td class="text-align-center vertical-align-center">
-                      {{ orderItem.amount }} €
-                    </td>
-
-                  </tr>
-                </tbody>
-              </table>
+            <div class="accordion-body flex-start-center">
+              <div *ngFor="let orderItem of order.orderItems"
+                class="flex-start-center  m-t-20 p-b-20 m-b-5 border-bottom">
+                <div class="m-r-20 m-b-5">
+                  <div class="vertical-align-center" scope="row">
+                    <strong>Référence : </strong>{{ orderItem.productPackaging.product.name }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Catégorie : </strong> {{ orderItem.productPackaging.product.category.name }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Gamme : </strong>{{ orderItem.productPackaging.product.rangeAccount.name }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Si vous aimez : </strong>{{ orderItem.productPackaging.product.preference }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Genre : </strong>{{ orderItem.productPackaging.product.gender.name }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Capacité : </strong>
+                    {{ orderItem.productPackaging.packaging.capacity }}
+                    {{ orderItem.productPackaging.packaging.capacityUnit }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Quantité : </strong>{{ orderItem.productQuantity }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Montant : </strong>{{
+                    orderItem.amount }} €
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div *ngIf="isPending(order)" class="w-30px pointer" (click)="delete(order)">
-        <mat-icon>delete</mat-icon>
       </div>
     </div>
   </div>
