@@ -1,9 +1,10 @@
-<h1 *ngIf="!waitingList || waitingList.length===0" class="flex-center-center font-weight-bold">
+<h1 *ngIf="!waitingList || waitingList.length===0" class="flex-center-start-wrap font-weight-bold min-h-84vh">
   Personne en liste d'attente
 </h1>
-<ng-container *ngIf="waitingList && waitingList.length>0">
+
+<div *ngIf="waitingList && waitingList.length>0" class=" min-h-84vh">
   <h1 class="text-align-start m-l-35 font-weight-bold">Liste d'attente</h1>
-  <div class="card bg-light mb-3 w-95 margin-auto">
+  <div class="card bg-light mb-3 w-95 margin-auto ">
     <tr *ngFor="let user of waitingList" class="flex-center-center font-size-25 m-t-5 m-b-5">
       <td width="250px">
         {{ user.name }} {{ user.surname }}
@@ -20,4 +21,4 @@
       </td>
     </tr>
   </div>
-</ng-container>
+</div>

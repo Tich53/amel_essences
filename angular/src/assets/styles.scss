@@ -114,6 +114,13 @@
   align-items: center;
 }
 
+.flex-center-start-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-wrap: wrap;
+}
+
 .flex-center-center-wrap {
   display: flex;
   justify-content: center;
