@@ -1,0 +1,38 @@
+.m-l-35 {
+  margin-left: 35px;
+}
+
+.form-check-input {
+  padding: 8px;
+}
+
+.font-20 {
+  font-size: 20px;
+}
+
+.font-25 {
+  font-size: 25px;
+}
+
+.cart-amount {
+  border: 1px solid;
+  width: fit-content;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.trash {
+  cursor: pointer;
+}
+
+.arrow {
+  border-radius: 5px;
+  background-color: var(--bs-secondary);
+}
+
+.arrow:hover {
+  color: white;
+  background-color: var(--bs-primary);
+}
+
+

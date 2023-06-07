@@ -1,10 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { StatusEnum } from '../enums/status';
-import { CurrentUser } from '../_interfaces/current-user';
+import { StatusEnum } from '../_enums/status';
+import { User } from '../_interfaces/user';
 import { ApiService } from '../_services/api/api.service';
 
 import { AuthService } from '../_services/authentication/auth.service';
@@ -26,7 +31,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   emailSubscription?: Subscription;
   passwordSubscription?: Subscription;
 
-  currentUser?: CurrentUser;
+  currentUser?: User;
 
   currentUserStatus?: string;
 
@@ -37,7 +42,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private storageService: StorageService,
     private router: Router,
-    private dialog: MatDialog // private status:StatusEnum
+    private dialog: MatDialog
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -70,10 +75,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   /**
    * Requête envoyant les identifiants de connexion à l'API et retournant un token si corrects et le stockera
-   * dans le "Stockage de session" denotre navigateur.
+   * dans le "Stockage de session" du navigateur.
    * Dans ce cas, redirection vers la page d'accueil
    */
-  async onSubmit() {
+  async onSubmit(): Promise<void> {
     this.storageService.clean();
     await this.authService
       .login(
@@ -87,8 +92,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.loginError = true;
       });
 
-    this.currentUser = await this.apiService.getCurrentUser().then();
-    this.currentUserStatus = this.currentUser.status.name;
+    this.currentUser = await this.apiService.getCurrentUser();
+    this.currentUserStatus = this.currentUser?.status.name;
 
     if (this.currentUserStatus === this.status.validated) {
       this.router.navigate(['/home']);
@@ -102,14 +107,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  getEmailCtrl() {
+  getEmailCtrl(): AbstractControl<string | null, string | null> | null {
     return this.loginForm.get('email');
   }
 
-  getPasswordCtrl() {
+  getPasswordCtrl(): AbstractControl<string | null, string | null> | null {
     return this.loginForm.get('password');
   }
-  openDialog() {
+
+  openDialog(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

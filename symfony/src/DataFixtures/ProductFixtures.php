@@ -11,11 +11,14 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
+
         // 100 Parfums femmes 
         for ($i = 100; $i < 200; $i++) {
             $product = new Product();
             $product->setName($i);
             $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
+            $product->setRangeAccount($this->getReference(RangeFixtures::RANGE[rand(0, 1)]));
+            $product->setPreference("Terre d'hermès");
             $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
             $this->addReference($i, $product);
             $manager->persist($product);
@@ -26,6 +29,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             $product = new Product();
             $product->setName($i);
             $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
+            $product->setRangeAccount($this->getReference(RangeFixtures::RANGE[rand(0, 1)]));
+            $product->setPreference("Terre d'hermès");
             $product->setGender($this->getReference(GenderFixtures::GENDER_MALE));
             $this->addReference($i, $product);
             $manager->persist($product);
@@ -36,6 +41,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             $product = new Product();
             $product->setName($i);
             $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_PERFUME));
+            $product->setRangeAccount($this->getReference(RangeFixtures::RANGE[rand(0, 1)]));
+            $product->setPreference("Terre d'hermès");
             $product->setGender($this->getReference(GenderFixtures::GENDER_MIXED));
             $this->addReference($i, $product);
             $manager->persist($product);
@@ -48,7 +55,8 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             CategoryFixtures::class,
-            GenderFixtures::class
+            GenderFixtures::class,
+            RangeFixtures::class
         ];
     }
 }

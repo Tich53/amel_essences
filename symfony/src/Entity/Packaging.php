@@ -8,13 +8,14 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\PackagingRepository;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 #[ORM\Entity(repositoryClass: PackagingRepository::class)]
 #[ApiResource(
+    normalizationContext: ['groups' => ['packaging:read']],
     operations: [
         new Get(),
         new GetCollection()
@@ -22,24 +23,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Packaging
 {
-    use TimestampableEntity;
+    use TimestampableEntityGroups;
     use SoftDeleteableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['packaging:read', 'mainOrder:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 45)]
-    #[Groups(['product:read'])]
+    #[Groups(['packaging:read', 'product:read', 'cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     private ?string $type = null;
 
     #[ORM\Column]
-    #[Groups(['product:read'])]
+    #[Groups(['packaging:read', 'product:read', 'cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     private ?float $capacity = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['product:read'])]
     private ?string $capacity_unit = null;
 
     #[ORM\OneToMany(mappedBy: 'packaging', targetEntity: ProductPackaging::class)]
@@ -79,6 +80,7 @@ class Packaging
         return $this;
     }
 
+    #[Groups(['packaging:read', 'product:read', 'cartProductPackaging:read', 'order:read', 'mainOrder:read'])]
     public function getCapacityUnit(): ?string
     {
         return $this->capacity_unit;

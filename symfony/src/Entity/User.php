@@ -4,21 +4,22 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Patch;
+use App\Controller\MeController;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Entity\Trait\TimestampableEntityGroups;
 use Doctrine\Common\Collections\ArrayCollection;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use App\Controller\MeController;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
@@ -33,7 +34,8 @@ use App\Controller\MeController;
         new Get(),
         new GetCollection(),
         new GetCollection(name: 'me', uriTemplate: '/me', controller: MeController::class, paginationEnabled: false),
-        new Post()
+        new Post(),
+        new Patch()
     ]
 )]
 #[ApiFilter(SearchFilter::class, properties: [
@@ -42,16 +44,17 @@ use App\Controller\MeController;
 ])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    use TimestampableEntity;
+    use TimestampableEntityGroups;
     use SoftDeleteableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user:read', 'order:read', 'mainOrder:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -68,40 +71,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $name = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $surname = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $address = null;
 
     #[ORM\Column(length: 5)]
-    #[Groups(['user:write', 'user:read'])]
     private ?string $post_code = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $city = null;
 
     #[ORM\Column(length: 60)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $country = null;
 
     #[ORM\Column(length: 10)]
-    #[Groups(['user:write', 'user:read'])]
+    #[Groups(['user:write', 'user:read', 'mainOrder:read'])]
     private ?string $phone = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: true)]
-    #[Groups(['user:read'])]
+    #[Groups(['user:read', 'user:write'])]
     private ?Status $status = null;
 
     #[ORM\OneToMany(mappedBy: 'user_account', targetEntity: Order::class)]
     private Collection $orders;
+
+    #[ORM\OneToOne(mappedBy: 'user_account', cascade: ['persist', 'remove'])]
+    #[Groups(['user:read'])]
+    private ?Cart $cart = null;
 
 
     public function __construct()
@@ -227,7 +233,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
+    #[Groups(['user:read', 'mainOrder:read'])]
     public function getPostCode(): ?string
     {
         return $this->post_code;
@@ -315,6 +321,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $order->setUserAccount(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCart(): ?Cart
+    {
+        return $this->cart;
+    }
+
+    public function setCart(Cart $cart): self
+    {
+        // set the owning side of the relation if necessary
+        if ($cart->getUserAccount() !== $this) {
+            $cart->setUserAccount($this);
+        }
+
+        $this->cart = $cart;
 
         return $this;
     }

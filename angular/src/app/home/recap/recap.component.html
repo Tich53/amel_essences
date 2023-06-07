@@ -1,0 +1,96 @@
+<div *ngFor="let mainOrder of mainOrders" class="m-t-20 m-b-20 p-t-20 p-b-20">
+  <h2 class="m-0 font-weight-bold" [class.text-danger]="isPending(mainOrder)">
+    Récapitulatif de la commande globale n° {{ mainOrder.reference }}
+    <span *ngIf="!isPending(mainOrder)" class="text-secondary">
+      (clôturée le {{ mainOrder.closingDate | date : "dd-MM-yyyy" }})</span
+    >
+  </h2>
+  <ul class="nav nav-tabs" role="tablist">
+    <li
+      class="nav-item nav-link active pointer"
+      [class]="setShowUserClasses(mainOrder)"
+      role="presentation"
+      data-bs-toggle="tab"
+      aria-selected="true"
+      role="tab"
+      title="Vue par client"
+      (click)="onClickShowUser(mainOrder)"
+    >
+      Par client
+    </li>
+    <li
+      class="nav-item nav-link active pointer"
+      [class]="setShowProductClasses(mainOrder)"
+      role="presentation"
+      data-bs-toggle="tab"
+      aria-selected="true"
+      role="tab"
+      title="Vue par produit"
+      (click)="onClickShowProduct(mainOrder)"
+    >
+      Par produit
+    </li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+    <div
+      *ngIf="mainOrder.showByUser"
+      class="tab-pane fade active show"
+      role="tabpanel"
+    >
+      <div
+        *ngFor="let entry of getOrderItemsByUser(mainOrder) | keyvalue"
+        class="m-t-5 m-b-20 m-l-20"
+      >
+        <span class="text-primary font-weight-bold"
+          >{{ entry.key.name }} {{ entry.key.surname }}</span
+        >
+        <div *ngFor="let value of entry.value">
+          <span class="m-r-5"
+            ><strong>Référence produit:</strong>
+            {{ value.productPackaging.product.name }}
+          </span>
+          <span class="m-r-5"
+            ><strong>Packaging:</strong>
+            {{ value.productPackaging.packaging.capacity }}
+            {{ value.productPackaging.packaging.capacityUnit }}
+          </span>
+          <span class="m-r-5">
+            <strong>Quantité:</strong> {{ value.productQuantity }}
+          </span>
+
+          <span class="m-r-5"
+            ><strong>Montant:</strong> {{ value.amount }} €
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      *ngIf="mainOrder.showByProduct"
+      class="tab-pane fade active show"
+      role="tabpanel"
+    >
+      <div
+        *ngFor="let entry of getOrderItemsByProduct(mainOrder) | keyvalue"
+        class="m-t-5 m-b-20 m-l-20"
+      >
+        <span class="text-primary font-weight-bold">
+          Référence: {{ entry.key.name }}</span
+        >
+        <div *ngFor="let value of entry.value">
+          <span class="m-r-5"
+            ><strong>Quantité</strong>
+            {{ value.productQuantity }}
+          </span>
+          <span class="m-r-5"
+            ><strong>Packaging:</strong>
+            {{ value.productPackaging.packaging.capacity }}
+            {{ value.productPackaging.packaging.capacityUnit }}
+          </span>
+          <span class="m-r-5">
+            <strong>Montant:</strong> {{ value.amount }} €
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

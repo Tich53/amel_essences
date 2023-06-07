@@ -1,0 +1,69 @@
+<h1 *ngIf="!orders || orders.length===0" class="flex-center-center font-weight-bold">
+  Vous n'avez pas encore effectué de commande
+</h1>
+<ng-container *ngIf="orders && orders.length>0">
+  <h1 class="text-align-start m-l-35 font-weight-bold">Vos commandes</h1>
+  <div class="card bg-light mb-3 w-95 margin-auto">
+    <div *ngFor="let order of orders" class="flex-center-center">
+      <div class="accordion w-100" id="accordion-order-{{ order.id }}">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="heading-order-{{ order.id }}">
+            <button class="accordion-button" [ngStyle]="{'backgroundColor':isPending(order)?'none':'lightgrey'}"
+              type="button" (click)="showOrderItems(order)" [ngClass]="order.show===true? 'not-collapsed':'collapsed'">
+              <div class="w-100 flex-space-around-center">
+                <div>
+                  <strong>Référence</strong> : {{ order.reference }}
+                </div>
+                <div><strong>Commandé le</strong> : {{ order.createdAt | date:"dd/MM/yyy" }} </div>
+                <div><strong>Quantité</strong> : {{ order.productQuantity }} </div>
+                <div><strong>Montant</strong> : {{ order.amount }} € </div>
+
+                <div *ngIf="isPending(order)"><strong>Statut</strong> : En cours </div>
+                <div *ngIf="!isPending(order)"><strong>Statut</strong> : Clôturée </div>
+              </div>
+            </button>
+
+          </h2>
+          <div class="accordion-collapse collapse" [ngClass]="order.show===true? 'show':'hide'"
+            aria-labelledby="headingOne">
+            <div class="accordion-body flex-start-center">
+              <div *ngFor="let orderItem of order.orderItems"
+                class="flex-start-center  m-t-20 p-b-20 m-b-5 border-bottom">
+                <div class="m-r-20 m-b-5">
+                  <div class="vertical-align-center font-weight-bold" scope="row">
+                    Référence :
+                    <span class="text-primary">{{ orderItem.productPackaging.product.name }}</span>
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Catégorie : </strong> {{ orderItem.productPackaging.product.category.name }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Gamme : </strong>{{ orderItem.productPackaging.product.rangeAccount.name }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Si vous aimez : </strong>{{ orderItem.productPackaging.product.preference }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Genre : </strong>{{ orderItem.productPackaging.product.gender.name }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Capacité : </strong>
+                    {{ orderItem.productPackaging.packaging.capacity }}
+                    {{ orderItem.productPackaging.packaging.capacityUnit }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Quantité : </strong>{{ orderItem.productQuantity }}
+                  </div>
+                  <div class="vertical-align-center">
+                    <strong>Montant : </strong>{{
+                    orderItem.amount }} €
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

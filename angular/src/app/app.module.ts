@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,6 +22,15 @@ import { HomeComponent } from './home/home.component';
 import { NavbarDialogComponent } from './_shared/navbar/navbar-dialog/navbar-dialog.component';
 import { LoginDialogComponent } from './login/login-dialog/login-dialog.component';
 import { CatalogComponent } from './home/catalog/catalog.component';
+import { FilterComponent } from './home/filter/filter.component';
+import { CartComponent } from './home/cart/cart.component';
+import { OrderComponent } from './home/order/order.component';
+import { WaitingListComponent } from './home/waiting-list/waiting-list.component';
+import { MainOrderComponent } from './_shared/main-order/main-order.component';
+import { MainOrderDialogComponent } from './_shared/main-order/main-order-dialog/main-order-dialog.component';
+import { RecapComponent } from './home/recap/recap.component';
+import { SpinnerComponent } from './_shared/spinner-dialog/spinner/spinner.component';
+import { SpinnerDialogComponent } from './_shared/spinner-dialog/spinner-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,15 +43,27 @@ import { CatalogComponent } from './home/catalog/catalog.component';
     NavbarDialogComponent,
     LoginDialogComponent,
     CatalogComponent,
+    FilterComponent,
+    CartComponent,
+    OrderComponent,
+    WaitingListComponent,
+    MainOrderComponent,
+    MainOrderDialogComponent,
+    RecapComponent,
+    SpinnerComponent,
+    SpinnerDialogComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     MatDialogModule,
     MatIconModule,
     MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     BrowserAnimationsModule,
     RouterModule,
   ],

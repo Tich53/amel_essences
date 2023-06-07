@@ -1,6 +1,16 @@
 /**
 * MARGIN
 */
+
+.margin-auto {
+  margin: auto;
+}
+
+// Margins 0 px
+.m-0 {
+  margin: 0px;
+}
+
 // Margins 5 px
 .m-l-5 {
   margin-left: 5px;
@@ -15,7 +25,7 @@
   margin-bottom: 5px;
 }
 .m-5 {
-  margin: 5px 5px;
+  margin: 5px;
 }
 
 // Margins 20 px
@@ -32,7 +42,7 @@
   margin-bottom: 20px;
 }
 .m-20 {
-  margin: 20px 20px;
+  margin: 20px;
 }
 
 /**
@@ -84,10 +94,52 @@
   justify-content: end;
 }
 
+.flex-start-center {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flex-start-start {
+  display: flex;
+  justify-content: start;
+  align-items:flex-start;
+  flex-wrap: wrap;
+}
+
 .flex-center-center {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.flex-center-center-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flex-space-around-center {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flex-space-between-center {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.flex-space-evenly-center {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .flex-center-center-100 {
@@ -126,22 +178,42 @@
 .fit-content {
   width: fit-content;
 }
-.w-50{
-  width:50%;
+
+.w-20 {
+  width: 20%;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-80 {
+  width: 80%;
+}
+
+.w-90 {
+  width: 90%;
+}
+
+.w-95 {
+  width: 95%;
+}
+
+.w-100 {
+  width: 100%;
 }
 
 /**
 * HEIGHT
 */
 
-h-50{
-  height:50%
+h-50 {
+  height: 50%;
 }
 
 h-100 {
   height: 100%;
 }
-
 
 /**
 * LI
@@ -153,25 +225,69 @@ h-100 {
 /**
 * ICONS
 */
-.icon-button{
+.icon-button {
   color: white;
-  font-size:30px;
+  font-size: 30px;
   height: 30px !important;
-  width:30px !important;
-  cursor:pointer;
+  width: 30px !important;
+  cursor: pointer;
 }
 
 /**
 * OTHERS
 */
+.text-align-start {
+  text-align: start;
+}
+
 .text-align-center {
   text-align: center;
 }
 
-.vertical-align-center{
+.vertical-align-center {
   vertical-align: middle;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
+}
+
+.max-h-100-o-y-a {
+  max-height: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.font-weight-bold {
+  font-weight: bold !important;
+}
+
+/**
+* MAT-DIALOG-CALENDAR
+*/
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+    .mat-calendar-body-comparison-identical
+  ) {
+  background-color: var(--bs-primary);
+}
+
+.mat-calendar-body-selected {
+  background-color: var(--bs-primary);
+  color: #fff;
+}
+
+/**
+* Spinner
+*/
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.spinner-dialog .mat-dialog-container {
+  background-color: white;
+  border-radius: 10%;
+
 }
