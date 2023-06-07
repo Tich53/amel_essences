@@ -22,7 +22,6 @@ export class HeadersInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
     this.spinnerService.show();
-
     if (this.storageService.isLoggedIn()) {
       const token = this.storageService.getUserToken().token;
       request = request.clone({

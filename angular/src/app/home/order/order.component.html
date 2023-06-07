@@ -30,8 +30,9 @@
               <div *ngFor="let orderItem of order.orderItems"
                 class="flex-start-center  m-t-20 p-b-20 m-b-5 border-bottom">
                 <div class="m-r-20 m-b-5">
-                  <div class="vertical-align-center" scope="row">
-                    <strong>Référence : </strong>{{ orderItem.productPackaging.product.name }}
+                  <div class="vertical-align-center font-weight-bold" scope="row">
+                    Référence :
+                    <span class="text-primary">{{ orderItem.productPackaging.product.name }}</span>
                   </div>
                   <div class="vertical-align-center">
                     <strong>Catégorie : </strong> {{ orderItem.productPackaging.product.category.name }}

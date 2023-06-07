@@ -4,8 +4,9 @@
   <div *ngFor="let product of products" class="flex-space-around-center  m-t-20 p-b-20 m-b-5 border-bottom">
 
     <div class="m-r-20 m-b-5">
-      <div class="vertical-align-center" scope="row">
-        <strong>Référence : </strong>{{ product.name }}
+      <div class="vertical-align-center font-weight-bold" scope="row">
+        Référence :
+        <span class="text-primary">{{ product.name }}</span>
       </div>
       <div class="vertical-align-center">
         <strong>Catégorie : </strong> {{ product.category.name }}
@@ -30,7 +31,8 @@
       </select>
     </div>
     <div class="text-align-center vertical-align-center" class="m-r-20 m-t-5 m-b-5" id="unit-price-{{ product.id }}">
-      <strong>Prix unitaire : </strong>{{ product.selectedProductPackaging.unitPrice }} €
+      <div><strong>Prix unitaire : </strong></div>
+      <div class="text-align-center">{{ product.selectedProductPackaging.unitPrice }} €</div>
     </div>
     <div>
       <div class="text-align-center vertical-align-center m-t-5 m-b-5" width="160px">
