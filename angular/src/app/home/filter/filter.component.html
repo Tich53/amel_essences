@@ -1,0 +1,157 @@
+<div id="large-screen-filter" class="card bg-light mb-3 max-h-100-o-y-a">
+  <div class="card-body">
+    <div class="card-header">
+      <h2 *ngIf="productNumber<=1">Filtres: {{ productNumber }} produit trouvé</h2>
+      <h2 *ngIf="productNumber>1">Filtres: {{ productNumber }} produits trouvés</h2>
+    </div>
+
+    <div class="filter-group">
+      <div class="form-check">
+        <h4 class="filter-title text-align-center">Numéro</h4>
+        <input class="form-control" type="text" id="flexCheckDefault" [(ngModel)]="filteredName" />
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <div class="form-check">
+        <h4 class="filter-title text-align-center">Si vous aimez</h4>
+        <input class="form-control" type="text" id="flexCheckDefault" [(ngModel)]="filteredPreference" />
+      </div>
+    </div>
+
+    <div class="flex-start-start">
+      <div class="filter-group">
+        <div class="form-check">
+          <h4 class="filter-title">Catégorie</h4>
+          <div *ngFor="let category of categories">
+            <input name="checkbox" class="form-check-input" type="checkbox" id="category-{{ category.id }}"
+              value="{{ category.id }}" (change)="onCategoryCheckbox($event, category.id)" />
+            <label class="form-check-label" for="category-{{ category.id }}">
+              {{ category.name }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="form-check">
+          <h4 class="filter-title">Genre</h4>
+          <div *ngFor="let gender of genders">
+            <input name="checkbox" class="form-check-input" type="checkbox" value="{{ gender.id }}"
+              id="gender-{{ gender.id }}" (change)="onGenderCheckbox($event, gender.id)" />
+            <label class="form-check-label" for="gender-{{ gender.id }}">
+              {{ gender.name }}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="form-check">
+          <h4 class="filter-title">Conditionnement</h4>
+          <div *ngFor="let packaging of packagings">
+            <input name="checkbox" class="form-check-input" type="checkbox" value="{{ packaging.id }}"
+              id="packaging-{{ packaging.id }}" (change)="onPackagingCheckbox($event, packaging.capacity)" />
+            <label class="form-check-label" for="packaging-{{ packaging.id }}">
+              {{ packaging.capacity }}
+              {{ packaging.capacityUnit }}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex-center-center">
+      <button class="btn btn-secondary m-t-20 m-r-5" (click)="onReset()">
+        Réinitialiser
+      </button>
+      <button class="btn btn-primary m-t-20 m-l-5" (click)="onSubmit()">
+        Filtrer
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<div id="small-screen-filter" class="flex-column-center-center-auto">
+  <button *ngIf="!showFilters" class="btn btn-secondary flex m-b-5" (click)="showHideFilters()">
+    <mat-icon class="m-r-5">filter_list</mat-icon>
+    <span>Filtres</span>
+  </button>
+  <button *ngIf="showFilters" class="btn btn-secondary flex m-b-5" (click)="showHideFilters()">
+    <mat-icon class="m-r-5">close</mat-icon>
+    <span>Fermer</span>
+  </button>
+  <div *ngIf="showFilters" class="card bg-light mb-3 max-h-100-o-y-a">
+    <div class="card-body">
+      <div class="card-header">
+        <h2 *ngIf="productNumber<=1">Filtres: {{ productNumber }} produit trouvé</h2>
+        <h2 *ngIf="productNumber>1">Filtres: {{ productNumber }} produits trouvés</h2>
+      </div>
+
+      <div class="filter-group">
+        <div class="form-check">
+          <h4 class="filter-title text-align-center">Numéro</h4>
+          <input class="form-control" type="text" id="flexCheckDefault" [(ngModel)]="filteredName" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <div class="form-check">
+          <h4 class="filter-title text-align-center">Si vous aimez</h4>
+          <input class="form-control" type="text" id="flexCheckDefault" [(ngModel)]="filteredPreference" />
+        </div>
+      </div>
+
+      <div class="flex-start-start">
+        <div class="filter-group">
+          <div class="form-check">
+            <h4 class="filter-title">Catégorie</h4>
+            <div *ngFor="let category of categories">
+              <input name="checkbox" class="form-check-input" type="checkbox" id="category-{{ category.id }}"
+                value="{{ category.id }}" (change)="onCategoryCheckbox($event, category.id)" />
+              <label class="form-check-label" for="category-{{ category.id }}">
+                {{ category.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="form-check">
+            <h4 class="filter-title">Genre</h4>
+            <div *ngFor="let gender of genders">
+              <input name="checkbox" class="form-check-input" type="checkbox" value="{{ gender.id }}"
+                id="gender-{{ gender.id }}" (change)="onGenderCheckbox($event, gender.id)" />
+              <label class="form-check-label" for="gender-{{ gender.id }}">
+                {{ gender.name }}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="form-check">
+            <h4 class="filter-title">Conditionnement</h4>
+            <div *ngFor="let packaging of packagings">
+              <input name="checkbox" class="form-check-input" type="checkbox" value="{{ packaging.id }}"
+                id="packaging-{{ packaging.id }}" (change)="onPackagingCheckbox($event, packaging.capacity)" />
+              <label class="form-check-label" for="packaging-{{ packaging.id }}">
+                {{ packaging.capacity }}
+                {{ packaging.capacityUnit }}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-center-center">
+        <button class="btn btn-secondary m-t-20 m-r-5" (click)="onReset()">
+          Réinitialiser
+        </button>
+        <button class="btn btn-primary m-t-20 m-l-5" (click)="onSubmit()">
+          Filtrer
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>
