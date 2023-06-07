@@ -31,6 +31,7 @@ import { MainOrderDialogComponent } from './_shared/main-order/main-order-dialog
 import { RecapComponent } from './home/recap/recap.component';
 import { SpinnerComponent } from './_shared/spinner-dialog/spinner/spinner.component';
 import { SpinnerDialogComponent } from './_shared/spinner-dialog/spinner-dialog.component';
+import { FooterComponent } from './_shared/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { SpinnerDialogComponent } from './_shared/spinner-dialog/spinner-dialog.
     RecapComponent,
     SpinnerComponent,
     SpinnerDialogComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
