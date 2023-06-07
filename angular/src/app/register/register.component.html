@@ -106,11 +106,11 @@
       * Les mots de passes sont différents, veuillez réessayer !
     </div>
     <div class="flex-end">
-      <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary m-t-20 m-r-5">
-        Valider
-      </button>
       <button type="button" [routerLink]="['/login']" class="btn btn-secondary m-t-20">
         Annuler
+      </button>
+      <button [disabled]="registerForm.invalid" type="submit" class="btn btn-primary m-t-20 m-l-5">
+        Valider
       </button>
     </div>
   </form>

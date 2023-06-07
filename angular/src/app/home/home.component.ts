@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   hasAddedCartProductPackaging?: boolean;
 
   menuItemSelection = {
+    profileActive: false,
     adminActive: false,
     catalogActive: false,
     orderActive: false,

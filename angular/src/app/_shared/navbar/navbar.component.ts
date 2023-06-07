@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   @Input() waitingListNumber = 0;
   @Input() currentUser?: User;
   @Output() menuItemSelectionEmitter = new EventEmitter<{
+    profileActive: boolean;
     adminActive: boolean;
     catalogActive: boolean;
     orderActive: boolean;
@@ -29,6 +30,7 @@ export class NavbarComponent implements OnInit {
 
   showMenu = false;
 
+  profileActive = false;
   adminActive = false;
   catalogActive = true;
   orderActive = false;
@@ -44,6 +46,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItemSelectionEmitter.emit({
+      profileActive: this.profileActive,
       adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
@@ -51,6 +54,18 @@ export class NavbarComponent implements OnInit {
       waitingListActive: this.waitingListActive,
       recapActive: this.recapActive,
     });
+  }
+
+  isAdmin(): boolean {
+    if (this.currentUser?.roles.includes(this.roleAdmin)) {
+      return true;
+    }
+    return false;
+  }
+
+  logout() {
+    this.storageService.clean();
+    this.router.navigate(['/login']);
   }
 
   openDialog(): void {
@@ -65,109 +80,52 @@ export class NavbarComponent implements OnInit {
     this.dialog.open(NavbarDialogComponent, dialogConfig);
   }
 
-  logout() {
-    this.storageService.clean();
-    this.router.navigate(['/login']);
+  onClickProfile(): void {
+    this.activeLink(true, false, false, false, false, false, false);
   }
 
-  onClickAdmin() {
-    this.adminActive = true;
-    this.catalogActive = false;
-    this.orderActive = false;
-    this.cartActive = false;
-    this.waitingListActive = false;
-    this.recapActive = false;
-    this.menuItemSelectionEmitter.emit({
-      adminActive: this.adminActive,
-      catalogActive: this.catalogActive,
-      orderActive: this.orderActive,
-      cartActive: this.cartActive,
-      waitingListActive: this.waitingListActive,
-      recapActive: this.recapActive,
-    });
-    this.showMenu = false;
+  onClickAdmin(): void {
+    this.activeLink(false, true, false, false, false, false, false);
   }
 
-  onClickCatalog() {
-    this.adminActive = false;
-    this.catalogActive = true;
-    this.orderActive = false;
-    this.cartActive = false;
-    this.waitingListActive = false;
-    this.recapActive = false;
-    this.menuItemSelectionEmitter.emit({
-      adminActive: this.adminActive,
-      catalogActive: this.catalogActive,
-      orderActive: this.orderActive,
-      cartActive: this.cartActive,
-      waitingListActive: this.waitingListActive,
-      recapActive: this.recapActive,
-    });
-    this.showMenu = false;
+  onClickCatalog(): void {
+    this.activeLink(false, false, true, false, false, false, false);
   }
 
-  onClickWaitingList() {
-    this.adminActive = false;
-    this.catalogActive = false;
-    this.orderActive = false;
-    this.cartActive = false;
-    this.waitingListActive = true;
-    this.recapActive = false;
-    this.menuItemSelectionEmitter.emit({
-      adminActive: this.adminActive,
-      catalogActive: this.catalogActive,
-      orderActive: this.orderActive,
-      cartActive: this.cartActive,
-      waitingListActive: this.waitingListActive,
-      recapActive: this.recapActive,
-    });
-    this.showMenu = false;
+  onClickWaitingList(): void {
+    this.activeLink(false, false, false, false, false, true, false);
   }
 
-  onClickMyOrders() {
-    this.adminActive = false;
-    this.catalogActive = false;
-    this.orderActive = true;
-    this.cartActive = false;
-    this.waitingListActive = false;
-    this.recapActive = false;
-    this.menuItemSelectionEmitter.emit({
-      adminActive: this.adminActive,
-      catalogActive: this.catalogActive,
-      orderActive: this.orderActive,
-      cartActive: this.cartActive,
-      waitingListActive: this.waitingListActive,
-      recapActive: this.recapActive,
-    });
-    this.showMenu = false;
+  onClickMyOrders(): void {
+    this.activeLink(false, false, false, true, false, false, false);
   }
 
   onClickMyCart(): void {
-    this.adminActive = false;
-    this.catalogActive = false;
-    this.orderActive = false;
-    this.cartActive = true;
-    this.waitingListActive = false;
-    this.recapActive = false;
-    this.menuItemSelectionEmitter.emit({
-      adminActive: this.adminActive,
-      catalogActive: this.catalogActive,
-      orderActive: this.orderActive,
-      cartActive: this.cartActive,
-      waitingListActive: this.waitingListActive,
-      recapActive: this.recapActive,
-    });
-    this.showMenu = false;
+    this.activeLink(false, false, false, false, true, false, false);
   }
 
   onClickRecap(): void {
-    this.adminActive = false;
-    this.catalogActive = false;
-    this.orderActive = false;
-    this.cartActive = false;
-    this.waitingListActive = false;
-    this.recapActive = true;
+    this.activeLink(false, false, false, false, false, false, true);
+  }
+
+  activeLink(
+    profile: boolean,
+    admin: boolean,
+    catalog: boolean,
+    order: boolean,
+    cart: boolean,
+    waitingList: boolean,
+    recap: boolean
+  ): void {
+    this.profileActive = profile;
+    this.adminActive = admin;
+    this.catalogActive = catalog;
+    this.orderActive = order;
+    this.cartActive = cart;
+    this.waitingListActive = waitingList;
+    this.recapActive = recap;
     this.menuItemSelectionEmitter.emit({
+      profileActive: this.profileActive,
       adminActive: this.adminActive,
       catalogActive: this.catalogActive,
       orderActive: this.orderActive,
@@ -176,12 +134,5 @@ export class NavbarComponent implements OnInit {
       recapActive: this.recapActive,
     });
     this.showMenu = false;
-  }
-
-  isAdmin(): boolean {
-    if (this.currentUser?.roles.includes(this.roleAdmin)) {
-      return true;
-    }
-    return false;
   }
 }

@@ -17,7 +17,7 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
-        <li class="">
+        <li (click)="onClickProfile()">
           <a class="pointer nav-link active" [ngStyle]="{
               display: 'flex',
               'justify-content': 'center',
@@ -118,53 +118,70 @@
 </header>
 
 <!-- header au lieu de navbar si écran inférieur à 1179px-->
-<header *ngIf="router.url.includes('/home')" class="flex-end white m-b-20">
-  <mat-icon *ngIf="!showMenu" class="m-r-20 menu-icon menu " (click)="showMenu=!showMenu">menu</mat-icon>
-  <mat-icon *ngIf="showMenu" class="m-r-20 menu-icon menu " (click)="showMenu=!showMenu"> close</mat-icon>
-  <div *ngIf="showMenu" class="flex-center-center-wrap w-100 m-t-20">
-    <ul class="nav-text m-r-20">
-      <li *ngIf="isAdmin()" class="nav-item m-b-5" (click)="onClickAdmin()">
-        <a class="pointer h-40 nav-link active" href="{{ easyAdminUrl }}" target="_blank">
-          <mat-icon class="m-r-5">admin_panel_settings</mat-icon>Administrer
-        </a>
-      </li>
-      <li *ngIf="isAdmin()" class="nav-item m-t-5 m-b-5" (click)="onClickWaitingList()">
-        <a class="pointer h-40 nav-link active">
-          <mat-icon class="m-r-5">pending</mat-icon>Liste d'attente
-        </a>
-      </li>
-      <li class="nav-item m-t-5 m-b-5" (click)="onClickCatalog()">
-        <a class="pointer h-40 nav-link active">
-          <mat-icon class="m-r-5">auto_stories</mat-icon>Catalogue
-        </a>
-      </li>
-      <li class="nav-item  m-t-5 m-b-5" (click)="onClickMyCart()">
-        <a class="pointer h-40 nav-link active">
-          <mat-icon class="m-r-5">shopping_cart</mat-icon>Mon panier
-        </a>
-      </li>
-      <li class="nav-item  m-t-5 m-b-5" (click)="onClickMyOrders()">
-        <a class="pointer h-40 nav-link active">
-          <mat-icon class="m-r-5">list_alt</mat-icon>Mes commandes
-        </a>
-      </li>
-      <li *ngIf="isAdmin()" class="nav-item  m-t-5 m-b-5" (click)="onClickRecap()">
-        <a class="pointer h-40 nav-link active">
-          <mat-icon class="m-r-5">receipt_long</mat-icon>Récapitulatifs
-        </a>
-      </li>
-      <li class="nav-item  m-t-5 m-b-5" (click)="openDialog()">
-        <a class="pointer h-40 nav-link active">
-          <mat-icon class="icon-button">info</mat-icon> Infos
-        </a>
-      </li>
-      <li class="nav-item  m-t-5 m-b-5" (click)="logout()">
-        <a class="pointer h-40 nav-link active">
-          <mat-icon class="icon-button">logout</mat-icon> Se déconnecter
+<header *ngIf="router.url.includes('/home')" class="flex-space-between-center  white m-b-20">
+
+  <div>
+    <ul class="navbar-nav me-auto font-weight-bold font-size-20 m-l-20 m-t-5 m-b-5">
+      <li (click)="onClickProfile()">
+        <a class="pointer nav-link active" [ngStyle]="{
+          display: 'flex',
+          'justify-content': 'center',
+          'align-items': 'center'
+        }">
+          <mat-icon>person</mat-icon>
+          Bonjour {{ currentUser?.name }}
         </a>
       </li>
     </ul>
+  </div>
 
+  <div>
+    <mat-icon *ngIf="!showMenu" class="m-r-20 menu-icon menu " (click)="showMenu=!showMenu">menu</mat-icon>
+    <mat-icon *ngIf="showMenu" class="m-r-20 menu-icon menu " (click)="showMenu=!showMenu"> close</mat-icon>
+    <div *ngIf="showMenu" class="flex-center-center-wrap w-100 m-t-20">
+      <ul class="nav-text m-r-20">
+        <li *ngIf="isAdmin()" class="nav-item m-b-5" (click)="onClickAdmin()">
+          <a class="pointer h-40 nav-link active" href="{{ easyAdminUrl }}" target="_blank">
+            <mat-icon class="m-r-5">admin_panel_settings</mat-icon>Administrer
+          </a>
+        </li>
+        <li *ngIf="isAdmin()" class="nav-item m-t-5 m-b-5" (click)="onClickWaitingList()">
+          <a class="pointer h-40 nav-link active">
+            <mat-icon class="m-r-5">pending</mat-icon>Liste d'attente
+          </a>
+        </li>
+        <li class="nav-item m-t-5 m-b-5" (click)="onClickCatalog()">
+          <a class="pointer h-40 nav-link active">
+            <mat-icon class="m-r-5">auto_stories</mat-icon>Catalogue
+          </a>
+        </li>
+        <li class="nav-item  m-t-5 m-b-5" (click)="onClickMyCart()">
+          <a class="pointer h-40 nav-link active">
+            <mat-icon class="m-r-5">shopping_cart</mat-icon>Mon panier
+          </a>
+        </li>
+        <li class="nav-item  m-t-5 m-b-5" (click)="onClickMyOrders()">
+          <a class="pointer h-40 nav-link active">
+            <mat-icon class="m-r-5">list_alt</mat-icon>Mes commandes
+          </a>
+        </li>
+        <li *ngIf="isAdmin()" class="nav-item  m-t-5 m-b-5" (click)="onClickRecap()">
+          <a class="pointer h-40 nav-link active">
+            <mat-icon class="m-r-5">receipt_long</mat-icon>Récapitulatifs
+          </a>
+        </li>
+        <li class="nav-item  m-t-5 m-b-5" (click)="openDialog()">
+          <a class="pointer h-40 nav-link active">
+            <mat-icon class="icon-button">info</mat-icon> Infos
+          </a>
+        </li>
+        <li class="nav-item  m-t-5 m-b-5" (click)="logout()">
+          <a class="pointer h-40 nav-link active">
+            <mat-icon class="icon-button">logout</mat-icon> Se déconnecter
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </header>

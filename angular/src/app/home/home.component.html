@@ -14,6 +14,8 @@
     </div>
   </div>
   <div class="m-l-20 m-t-20 m-r-20">
+    <app-profile *ngIf="menuItemSelection.profileActive" [currentUser]="currentUser">
+    </app-profile>
     <app-waiting-list *ngIf="menuItemSelection.waitingListActive" [waitingList]="waitingList"
       (hasUpdatedStatusEvent)="getUsers()">
     </app-waiting-list>
