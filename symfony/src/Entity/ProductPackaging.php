@@ -56,6 +56,11 @@ class ProductPackaging
     {
         $this->cartProductPackagings = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
+
+        $this->setUpdatedAt(new \DateTime('now'));
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
     }
 
     public function getId(): ?int

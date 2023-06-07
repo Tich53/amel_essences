@@ -68,10 +68,13 @@ class Order
   {
     $this->orderItems = new ArrayCollection();
 
-    $now = new DateTime();
+
+    $this->setUpdatedAt(new \DateTime('now'));
     if ($this->getCreatedAt() === null) {
-      $this->createdAt = $now;
+      $this->setCreatedAt(new \DateTime('now'));
     }
+
+    $now = new DateTime();
     if ($this->getReference() === null) {
       $randomNumber = rand(0, 1000);
       $this->reference = $now->format('Ymd-His') . '-' . $randomNumber;
