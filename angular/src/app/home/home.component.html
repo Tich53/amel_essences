@@ -2,34 +2,36 @@
   [pendingOrderNumber]="pendingOrderNumber" [waitingListNumber]="waitingListNumber"
   (menuItemSelectionEmitter)="menuItemSelection = $event">
 </app-navbar>
-<div class="flex-column-center-center-auto">
-  <div class="m-l-20 m-t-20 m-r-20">
-    <app-main-order class="w-100 text-align-center" [currentUser]="currentUser" [mainOrders]="mainOrders"
-      (refreshMainOrdersEvent)="onRefreshMainOrdersEvent()"></app-main-order>
+<div class="min-h-79vh">
+  <div class="flex-column-center-center-auto">
+    <div class="m-l-20 m-t-20 m-r-20">
+      <app-main-order class="w-100 text-align-center" [currentUser]="currentUser" [mainOrders]="mainOrders"
+        (refreshMainOrdersEvent)="onRefreshMainOrdersEvent()"></app-main-order>
 
+    </div>
+    <div class="m-l-20 m-t-20 m-r-20">
+      <app-filter id="small-screen-filter" class="w-100 text-align-center" [productNumber]="productNumber"></app-filter>
+    </div>
   </div>
   <div class="m-l-20 m-t-20 m-r-20">
-    <app-filter id="small-screen-filter" class="w-100 text-align-center" [productNumber]="productNumber"></app-filter>
+    <app-waiting-list *ngIf="menuItemSelection.waitingListActive" [waitingList]="waitingList"
+      (hasUpdatedStatusEvent)="getUsers()">
+    </app-waiting-list>
+    <div *ngIf="menuItemSelection.catalogActive" class="flex-center-start-82vh">
+      <app-filter id="large-screen-filter" class="w-20 m-r-5 max-h-100-o-y-a" [productNumber]="productNumber">
+      </app-filter>
+      <app-catalog class="w-100 m-l-5 max-h-100-o-y-a max-h-80vh " [currentUser]="currentUser" [products]="products"
+        [cartProductPackagings]="cartProductPackagings" (hasAddedCartProductEvent)="getCartProductPackagings()">
+      </app-catalog>
+    </div>
+    <app-cart *ngIf="menuItemSelection.cartActive" [currentUser]="currentUser"
+      [cartProductPackagings]="cartProductPackagings" (hasAddedOneEvent)="addOneCartProductPackaging($event)"
+      (hasDeletedOneEvent)="deleteOneCartProductPackaging($event)"
+      (hasDeletedEvent)="deleteCartProductPackaging($event)" (hasValidatedCartEvent)="getOrders()">
+    </app-cart>
+    <app-order *ngIf="menuItemSelection.orderActive" [orders]="orders" (hasDeletedOrderEvent)="deleteOrder($event)">
+    </app-order>
+    <app-recap *ngIf="menuItemSelection.recapActive" [mainOrders]="mainOrders">
+    </app-recap>
   </div>
-</div>
-<div class="m-l-20 m-t-20 m-r-20">
-  <app-waiting-list *ngIf="menuItemSelection.waitingListActive" [waitingList]="waitingList"
-    (hasUpdatedStatusEvent)="getUsers()">
-  </app-waiting-list>
-  <div *ngIf="menuItemSelection.catalogActive" class="flex-center-start-82vh">
-    <app-filter id="large-screen-filter" class="w-20 m-r-5 max-h-100-o-y-a" [productNumber]="productNumber">
-    </app-filter>
-    <app-catalog class="w-100 m-l-5 max-h-100-o-y-a max-h-80vh " [currentUser]="currentUser" [products]="products"
-      [cartProductPackagings]="cartProductPackagings" (hasAddedCartProductEvent)="getCartProductPackagings()">
-    </app-catalog>
-  </div>
-  <app-cart *ngIf="menuItemSelection.cartActive" [currentUser]="currentUser"
-    [cartProductPackagings]="cartProductPackagings" (hasAddedOneEvent)="addOneCartProductPackaging($event)"
-    (hasDeletedOneEvent)="deleteOneCartProductPackaging($event)" (hasDeletedEvent)="deleteCartProductPackaging($event)"
-    (hasValidatedCartEvent)="getOrders()">
-  </app-cart>
-  <app-order *ngIf="menuItemSelection.orderActive" [orders]="orders" (hasDeletedOrderEvent)="deleteOrder($event)">
-  </app-order>
-  <app-recap *ngIf="menuItemSelection.recapActive" [mainOrders]="mainOrders">
-  </app-recap>
 </div>

@@ -1,7 +1,5 @@
-<h1 *ngIf="!orders || orders.length===0" class="flex-center-center font-weight-bold">
-  Vous n'avez pas encore effectué de commande
-</h1>
-<ng-container *ngIf="orders && orders.length>0">
+<h1 *ngIf="!orders || orders.length===0" class="flex-center-center font-weight-bold min-h-81vh"></h1>
+<div *ngIf="orders && orders.length>0" class="min-h-81vh">
   <h1 class="text-align-start m-l-35 font-weight-bold">Vos commandes</h1>
   <div class="card bg-light mb-3 w-95 margin-auto">
     <div *ngFor="let order of orders" class="flex-center-center">
@@ -66,4 +64,4 @@
       </div>
     </div>
   </div>
-</ng-container>
+</div>
