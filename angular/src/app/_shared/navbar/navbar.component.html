@@ -136,8 +136,8 @@
   </div>
 
   <div>
-    <mat-icon *ngIf="!showMenu" class="m-r-20 menu-icon menu " (click)="showMenu=!showMenu">menu</mat-icon>
-    <mat-icon *ngIf="showMenu" class="m-r-20 menu-icon menu " (click)="showMenu=!showMenu"> close</mat-icon>
+    <mat-icon *ngIf="!showMenu" class="m-r-20 menu-icon menu pointer" (click)="showMenu=!showMenu">menu</mat-icon>
+    <mat-icon *ngIf="showMenu" class="m-r-20 menu-icon menu pointer" (click)="showMenu=!showMenu"> close</mat-icon>
     <div *ngIf="showMenu" class="flex-center-center-wrap w-100 m-t-20">
       <ul class="nav-text m-r-20">
         <li *ngIf="isAdmin()" class="nav-item m-b-5" (click)="onClickAdmin()">

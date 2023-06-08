@@ -171,7 +171,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     const cartProductPackagingAmount =
       cartProductPackagingQuantity *
       cartProductPackaging.productPackaging.unitPrice;
-    console.log(cartProductPackagingAmount);
     const patchQuantityPrice: PatchQuantityPrice = {
       productQuantity: cartProductPackagingQuantity,
       amount: cartProductPackagingAmount,

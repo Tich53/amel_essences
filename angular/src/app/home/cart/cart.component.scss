@@ -23,6 +23,7 @@
 
 .trash {
   cursor: pointer;
+  max-width: 30px;
 }
 
 .arrow {
@@ -37,5 +38,9 @@
 
 .min-height-81vh{
   min-height: 81vh;
+}
+
+.w-191{
+  width:191px;
 }
 
