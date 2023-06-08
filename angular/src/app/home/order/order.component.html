@@ -62,6 +62,9 @@
           </div>
         </div>
       </div>
+      <div *ngIf="isPending(order)" class="w-30px pointer" (click)="delete(order)">
+        <mat-icon>delete</mat-icon>
+      </div>
     </div>
   </div>
 </div>

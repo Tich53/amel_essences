@@ -64,11 +64,7 @@ export class ProfileComponent implements OnInit {
   citySubscription?: Subscription;
   phoneSubscription?: Subscription;
 
-  constructor(
-    private apiService: ApiService,
-    public dialog: MatDialog,
-    private router: Router
-  ) {}
+  constructor(private apiService: ApiService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     if (this.currentUser) {
