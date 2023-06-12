@@ -291,10 +291,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
         error: error,
         emailExists: emailExists,
       };
-      this.dialog.open(RegisterDialogComponent, dialogConfig);
       if (!error && !emailExists) {
         this.router.navigate(['/login']);
       }
+
+      this.dialog.open(RegisterDialogComponent, dialogConfig);
     }
   }
 }

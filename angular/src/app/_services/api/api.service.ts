@@ -17,9 +17,10 @@ import { PostOrderItem } from 'src/app/_interfaces/_posts/post-order-item';
 import { PatchOrder } from 'src/app/_interfaces/_patches/patch-order';
 import { Order } from 'src/app/_interfaces/order';
 import { HydraUser } from 'src/app/_interfaces/_hydras/hydra-user';
-import { PatchUser } from 'src/app/_interfaces/_patches/patch-user';
+import { PatchUserStatus } from 'src/app/_interfaces/_patches/patch-user-status';
 import { HydraMainOrder } from 'src/app/_interfaces/_hydras/hydra-main-order';
 import { PostMainOrder } from 'src/app/_interfaces/_posts/post-main-order';
+import { PatchProfile } from 'src/app/_interfaces/_patches/patch-profile';
 
 @Injectable({
   providedIn: 'root',
@@ -235,11 +236,24 @@ export class ApiService {
     );
   }
 
-  patchUserStatus(user: User, patchUser: PatchUser): Promise<PatchUser> {
+  patchUserStatus(
+    user: User,
+    PatchUserStatus: PatchUserStatus
+  ): Promise<PatchUserStatus> {
     return lastValueFrom(
-      this.httpClient.patch<PatchUser>(
+      this.httpClient.patch<PatchUserStatus>(
         `${this.userUrl}/${user.id}`,
-        patchUser,
+        PatchUserStatus,
+        this.httpOptionsPatchJson
+      )
+    );
+  }
+
+  updateProfile(user: User, patchProfile: PatchProfile): Promise<PatchProfile> {
+    return lastValueFrom(
+      this.httpClient.patch<PatchProfile>(
+        `${this.userUrl}/${user.id}`,
+        patchProfile,
         this.httpOptionsPatchJson
       )
     );

@@ -48,6 +48,14 @@ class OrderItem
     #[Groups(['orderItem:read', 'orderItem:write', 'order:read', 'mainOrder:read'])]
     private ?float $amount = null;
 
+    public function __construct()
+    {
+        $this->setUpdatedAt(new \DateTime('now'));
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
+    }
+
     public function getId(): ?int
     {
         return $this->id;

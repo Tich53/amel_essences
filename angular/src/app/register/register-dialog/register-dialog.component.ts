@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-register-dialog',
@@ -12,11 +11,13 @@ export class RegisterDialogComponent implements OnInit {
   emailExists: boolean;
   error: boolean;
 
-  // public dialogRef: MatDialogRef<RegisterDialogComponent>
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    data: { name: string; error: boolean; emailExists: boolean },
-    private router: Router
+    data: {
+      name: string;
+      error: boolean;
+      emailExists: boolean;
+    }
   ) {
     this.name = data.name.trim();
     this.error = data.error;
