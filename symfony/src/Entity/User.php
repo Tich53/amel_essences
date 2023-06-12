@@ -113,6 +113,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+
+        $this->setUpdatedAt(new \DateTime('now'));
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
     }
 
     public function getId(): ?int

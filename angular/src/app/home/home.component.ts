@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   hasAddedCartProductPackaging?: boolean;
 
   menuItemSelection = {
+    profileActive: false,
     adminActive: false,
     catalogActive: false,
     orderActive: false,
@@ -170,7 +171,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     const cartProductPackagingAmount =
       cartProductPackagingQuantity *
       cartProductPackaging.productPackaging.unitPrice;
-    console.log(cartProductPackagingAmount);
     const patchQuantityPrice: PatchQuantityPrice = {
       productQuantity: cartProductPackagingQuantity,
       amount: cartProductPackagingAmount,

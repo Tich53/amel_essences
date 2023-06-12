@@ -43,6 +43,11 @@ class Category
     public function __construct()
     {
         $this->products = new ArrayCollection();
+
+        $this->setUpdatedAt(new \DateTime('now'));
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
     }
 
     public function getId(): ?int

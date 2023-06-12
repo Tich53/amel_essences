@@ -49,6 +49,11 @@ class Packaging
     public function __construct()
     {
         $this->productPackagings = new ArrayCollection();
+
+        $this->setUpdatedAt(new \DateTime('now'));
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
     }
 
     public function getId(): ?int

@@ -56,6 +56,10 @@ class CartProductPackaging
 
     public function __construct()
     {
+        $this->setUpdatedAt(new \DateTime('now'));
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
     }
 
     public function getId(): ?int

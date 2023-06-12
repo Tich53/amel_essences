@@ -1,0 +1,72 @@
+<div class="flex-column-center-center-auto m-t-20 m-b-20">
+  <h1>Mettre à jour mon profil</h1>
+  <mat-divider></mat-divider>
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="w-50 min-h-84vh">
+    <div>
+      <label class="form-label" for="name">Prénom</label>
+      <input [ngClass]="
+          profileForm.get('name')?.invalid ? 'is-invalid' : 'is-valid'
+        " class="form-control" id="name" type="text" placeholder="Exemple: Cosme" formControlName="name" />
+      <div *ngIf="this.nameError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 60 caractères !
+      </div>
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="surname">Nom</label>
+      <input [ngClass]="
+          profileForm.get('surname')?.invalid ? 'is-invalid' : 'is-valid'
+        " class="form-control" id="surname" type="text" placeholder="Exemple: Tiques" formControlName="surname" />
+      <div *ngIf="this.surnameError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 60 caractères !
+      </div>
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="address">Adresse</label>
+      <input [ngClass]="
+          profileForm.get('address')?.invalid ? 'is-invalid' : 'is-valid'
+        " class="form-control" id="address" type="text" placeholder="Exemple: 1 rue des cosmétiques"
+        formControlName="address" />
+      <div *ngIf="this.addressError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 255 caractères !
+      </div>
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="post-code">Code postal</label>
+      <input [ngClass]="
+          profileForm.get('postCode')?.invalid ? 'is-invalid' : 'is-valid'
+        " class="form-control" id="post-code" type="text" pattern="[0-9]{5}" placeholder="Exemple: 53100"
+        formControlName="postCode" />
+      <div *ngIf="this.postCodeError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte uniquement 5 chiffres !
+      </div>
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="city">Ville</label>
+      <input [ngClass]="
+          profileForm.get('city')?.invalid ? 'is-invalid' : 'is-valid'
+        " class="form-control" id="city" type="text" placeholder="Exemple: Mayenne" formControlName="city" />
+      <div *ngIf="this.cityError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte au maximum 60 caractères !
+      </div>
+    </div>
+    <div class="m-t-5">
+      <label class="form-label" for="phone">Téléphone</label>
+      <input [ngClass]="
+          profileForm.get('phone')?.invalid ? 'is-invalid' : 'is-valid'
+        " class="form-control" id="phone" type="tel" pattern="[0-9]{10}" placeholder="Exemple: 0611223344"
+        formControlName="phone" />
+      <div *ngIf="this.phoneError" class="invalid-feedback d-block">
+        * Ce champ est obligatoire et accepte uniquement 10 chiffres !
+      </div>
+    </div>
+    <div class="flex-end">
+      <button type="button" [routerLink]="['/login']" class="btn btn-secondary m-t-20">
+        Annuler
+      </button>
+      <button [disabled]="profileForm.invalid" type="submit" class="btn btn-primary m-t-20 m-l-5">
+        Valider
+      </button>
+
+    </div>
+  </form>
+</div>

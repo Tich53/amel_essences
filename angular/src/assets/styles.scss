@@ -114,6 +114,13 @@
   align-items: center;
 }
 
+.flex-center-start-wrap{
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-wrap: wrap;
+}
+
 .flex-center-center-wrap {
   display: flex;
   justify-content: center;
@@ -149,12 +156,7 @@
   align-items: center;
 }
 
-.flex-center-center-80vh {
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .flex-column-center-center-100 {
   height: 100%;
@@ -290,4 +292,8 @@ h-100 {
   background-color: white;
   border-radius: 10%;
 
+}
+
+.white{
+  color: white;
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
@@ -31,6 +31,9 @@ import { MainOrderDialogComponent } from './_shared/main-order/main-order-dialog
 import { RecapComponent } from './home/recap/recap.component';
 import { SpinnerComponent } from './_shared/spinner-dialog/spinner/spinner.component';
 import { SpinnerDialogComponent } from './_shared/spinner-dialog/spinner-dialog.component';
+import { FooterComponent } from './_shared/footer/footer.component';
+import { ProfileComponent } from './home/profile/profile.component';
+import { ProfileDialogComponent } from './home/profile/profile-dialog/profile-dialog.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,9 @@ import { SpinnerDialogComponent } from './_shared/spinner-dialog/spinner-dialog.
     RecapComponent,
     SpinnerComponent,
     SpinnerDialogComponent,
+    FooterComponent,
+    ProfileComponent,
+    ProfileDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,8 +79,11 @@ import { SpinnerDialogComponent } from './_shared/spinner-dialog/spinner-dialog.
       useClass: HeadersInterceptor,
       multi: true,
     },
+    {
+      provide: MatDialogRef,
+      useValue: {},
+    },
   ],
   bootstrap: [AppComponent],
-  // entryComponents: [DialogComponent],
 })
 export class AppModule {}
