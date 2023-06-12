@@ -21,24 +21,24 @@ import { ApiService } from '../_services/api/api.service';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   registerForm = new FormGroup({
-    name: new FormControl<string>('Amélie', [
+    name: new FormControl<string>('', [
       Validators.required,
       Validators.maxLength(60),
     ]),
-    surname: new FormControl<string>('Legeay', [
+    surname: new FormControl<string>('', [
       Validators.required,
       Validators.maxLength(60),
     ]),
-    address: new FormControl<string>('rue de Chatillon', [
+    address: new FormControl<string>('', [
       Validators.required,
       Validators.maxLength(255),
     ]),
-    postCode: new FormControl<string>('53300', [
+    postCode: new FormControl<string>('', [
       Validators.required,
       Validators.minLength(5),
       Validators.maxLength(5),
     ]),
-    city: new FormControl<string>('Oisseau ', [
+    city: new FormControl<string>('', [
       Validators.required,
       Validators.maxLength(60),
     ]),
@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.maxLength(60),
     ]),
-    phone: new FormControl<string>('0243004653', [
+    phone: new FormControl<string>('', [
       Validators.required,
       Validators.minLength(10),
       Validators.maxLength(10),
@@ -55,11 +55,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       Validators.required,
       Validators.maxLength(180),
     ]),
-    password: new FormControl<string>('000000', [
+    password: new FormControl<string>('', [
       Validators.required,
       Validators.minLength(6),
     ]),
-    confirmedPassword: new FormControl<string>('000000', [
+    confirmedPassword: new FormControl<string>('', [
       Validators.required,
       Validators.minLength(6),
     ]),

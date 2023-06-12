@@ -5,6 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Product;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ProductCrudController extends AbstractCrudController
 {
@@ -18,17 +21,19 @@ class ProductCrudController extends AbstractCrudController
         return $crud
             /* ->renderSidebarMinimized() */
             ->setEntityPermission('ROLE_ADMIN');
-            // ->setPaginatorPageSize(20);
+        // ->setPaginatorPageSize(20);
     }
 
-    /*
+
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
-            TextField::new('title'),
-            TextEditorField::new('description'),
+            IdField::new('id')->onlyOnIndex(),
+            TextField::new('name'),
+            AssociationField::new('category'),
+            AssociationField::new('range_account'),
+            TextField::new('preference'),
+            AssociationField::new('gender'),
         ];
     }
-    */
 }

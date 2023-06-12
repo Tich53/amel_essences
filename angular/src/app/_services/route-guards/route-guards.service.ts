@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 import { StatusEnum } from 'src/app/_enums/status';
 import { ApiService } from '../api/api.service';
 import { StorageService } from '../authentication/storage.service';
@@ -7,7 +7,7 @@ import { StorageService } from '../authentication/storage.service';
 @Injectable({
   providedIn: 'root',
 })
-export class RouteGuardsService  {
+export class RouteGuardsService {
   status = StatusEnum;
 
   constructor(
@@ -17,10 +17,7 @@ export class RouteGuardsService  {
   ) {}
 
   async canActivate(): Promise<boolean> {
-    const currentUser = await this.apiService
-      .getCurrentUser()
-      .then()
-      .catch(() => undefined);
+    const currentUser = await this.apiService.getCurrentUser();
 
     if (
       !this.storageService.isLoggedIn() ||

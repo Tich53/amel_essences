@@ -48,6 +48,17 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($product);
         }
 
+        $product = new Product();
+        $product->setName('Eau de parfum 1');
+        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_WATER_PERFUME));
+        $product->setRangeAccount($this->getReference(RangeFixtures::RANGE[0]));
+        $product->setPreference("Terre d'hermès");
+        $product->setGender($this->getReference(GenderFixtures::GENDER_FEMALE));
+        $this->addReference('Eau de parfum 1', $product);
+        $manager->persist($product);
+
+
+
         $manager->flush();
     }
 

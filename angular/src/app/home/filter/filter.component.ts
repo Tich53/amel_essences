@@ -31,15 +31,15 @@ export class FilterComponent implements OnInit {
 
   showFilters = false;
 
-  constructor(
-    private apiService: ApiService,
-    private router: Router,
-    private dialog: MatDialog
-  ) {}
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
     this.apiService.getCategory().then((hydraCategory: HydraCategory) => {
-      this.categories = hydraCategory[this.hydraMember];
+      this.categories = hydraCategory[this.hydraMember].sort(
+        (a: Category, b: Category) => {
+          return a.name.localeCompare(b.name);
+        }
+      );
     });
     this.apiService.getGender().then((hydraGender: HydraGender) => {
       this.genders = hydraGender[this.hydraMember];
@@ -51,21 +51,19 @@ export class FilterComponent implements OnInit {
     });
   }
 
-  onCategoryCheckbox(event: any, categoryId: number): void {
-    console.log(event);
+  onCategoryCheckbox(event: any, category: Category): void {
     const isSelected = event.target.checked;
     if (isSelected) {
-      if (!this.filteredCategories.includes(categoryId)) {
-        this.filteredCategories?.push(categoryId);
+      if (!this.filteredCategories.includes(category.id)) {
+        this.filteredCategories?.push(category.id);
       }
     }
     if (!isSelected) {
-      const index = this.filteredCategories?.indexOf(categoryId);
+      const index = this.filteredCategories?.indexOf(category.id);
       if (index !== undefined) {
         this.filteredCategories?.splice(index, 1);
       }
     }
-    console.log(this.filteredCategories);
   }
 
   onGenderCheckbox(event: any, genderId: number): void {

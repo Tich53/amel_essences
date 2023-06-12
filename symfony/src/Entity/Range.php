@@ -94,4 +94,9 @@ class Range
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

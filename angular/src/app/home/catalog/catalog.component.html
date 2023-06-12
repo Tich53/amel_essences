@@ -1,3 +1,4 @@
+<h2 *ngIf="!products || products.length===0" class="text-danger">Aucun produit trouvé</h2>
 <div class="card bg-light mb-3">
   <div *ngFor="let product of products" class="flex-space-around-center  m-t-20 p-b-20 m-b-5 border-bottom">
     <div class="m-r-20 m-b-5">
