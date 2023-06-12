@@ -29,7 +29,7 @@
     <app-cart *ngIf="menuItemSelection.cartActive" [currentUser]="currentUser"
       [cartProductPackagings]="cartProductPackagings" (hasAddedOneEvent)="addOneCartProductPackaging($event)"
       (hasDeletedOneEvent)="deleteOneCartProductPackaging($event)"
-      (hasDeletedEvent)="deleteCartProductPackaging($event)" (hasValidatedCartEvent)="getOrders()">
+      (hasDeletedEvent)="deleteCartProductPackaging($event)" (hasValidatedCartEvent)="refreshOrders()">
     </app-cart>
     <app-order *ngIf="menuItemSelection.orderActive" [orders]="orders" (hasDeletedOrderEvent)="deleteOrder($event)">
     </app-order>

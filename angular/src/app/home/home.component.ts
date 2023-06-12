@@ -225,4 +225,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getMainOrders();
     this.getOrders();
   }
+
+  refreshOrders() {
+    this.getOrders();
+    this.getMainOrders();
+  }
 }

@@ -75,7 +75,73 @@ class ProductPackagingFixtures extends Fixture implements DependentFixtureInterf
         }
 
         $productPackaging = new ProductPackaging();
-        $productPackaging->setProduct($this->getReference('Eau de parfum 1'));
+        $productPackaging->setProduct($this->getReference('Eau_de_parfum'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Gel_douche'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Lotion_tonique'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Huile_Démaquillante'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Crème_de_jour'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Crème_de_nuit'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Crème_anti-âge'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Sérum_contour_des_yeux'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Gel_coiffant'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Shamppoing_&_masque_naturel'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Shampooing_&_masque_detox'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference("Shampooing_&_masque_protect'color"));
         $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
         $productPackaging->setUnitPrice(rand(20, 50));
         $manager->persist($productPackaging);
