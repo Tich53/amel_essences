@@ -130,6 +130,15 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($product);
 
         $product = new Product();
+        $product->setName('Cire fixante ultimate');
+        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_HAIRDRESSING));
+        $product->setRangeAccount($this->getReference(RangeFixtures::RANGE[0]));
+        $product->setPreference("");
+        $product->setGender($this->getReference(GenderFixtures::GENDER_MIXED));
+        $this->addReference('Cire_fixante_ultimate', $product);
+        $manager->persist($product);
+
+        $product = new Product();
         $product->setName('Shamppoing & masque naturel');
         $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_SHAMPOO_AND_MASK));
         $product->setRangeAccount($this->getReference(RangeFixtures::RANGE[0]));
@@ -154,6 +163,33 @@ class ProductFixtures extends Fixture implements DependentFixtureInterface
         $product->setPreference("");
         $product->setGender($this->getReference(GenderFixtures::GENDER_MIXED));
         $this->addReference("Shampooing_&_masque_protect'color", $product);
+        $manager->persist($product);
+
+        $product = new Product();
+        $product->setName("Crème de rasage");
+        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_BEARD));
+        $product->setRangeAccount($this->getReference(RangeFixtures::RANGE[0]));
+        $product->setPreference("");
+        $product->setGender($this->getReference(GenderFixtures::GENDER_MALE));
+        $this->addReference("Crème_de_rasage", $product);
+        $manager->persist($product);
+
+        $product = new Product();
+        $product->setName("Gel traceur barbe");
+        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_BEARD));
+        $product->setRangeAccount($this->getReference(RangeFixtures::RANGE[0]));
+        $product->setPreference("");
+        $product->setGender($this->getReference(GenderFixtures::GENDER_MALE));
+        $this->addReference("Gel_traceur_barbe", $product);
+        $manager->persist($product);
+
+        $product = new Product();
+        $product->setName("Baume après rasage");
+        $product->setCategory($this->getReference(CategoryFixtures::CATEGORY_BEARD));
+        $product->setRangeAccount($this->getReference(RangeFixtures::RANGE[0]));
+        $product->setPreference("");
+        $product->setGender($this->getReference(GenderFixtures::GENDER_MALE));
+        $this->addReference("Baume_après_rasage", $product);
         $manager->persist($product);
 
 

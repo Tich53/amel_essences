@@ -129,6 +129,12 @@ class ProductPackagingFixtures extends Fixture implements DependentFixtureInterf
         $manager->persist($productPackaging);
 
         $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference('Cire_fixante_ultimate'));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
         $productPackaging->setProduct($this->getReference('Shamppoing_&_masque_naturel'));
         $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
         $productPackaging->setUnitPrice(rand(20, 50));
@@ -142,6 +148,24 @@ class ProductPackagingFixtures extends Fixture implements DependentFixtureInterf
 
         $productPackaging = new ProductPackaging();
         $productPackaging->setProduct($this->getReference("Shampooing_&_masque_protect'color"));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference("Crème_de_rasage"));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference("Gel_traceur_barbe"));
+        $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
+        $productPackaging->setUnitPrice(rand(20, 50));
+        $manager->persist($productPackaging);
+
+        $productPackaging = new ProductPackaging();
+        $productPackaging->setProduct($this->getReference("Baume_après_rasage"));
         $productPackaging->setPackaging($this->getReference(self::PACKAGING[rand(0, 3)]));
         $productPackaging->setUnitPrice(rand(20, 50));
         $manager->persist($productPackaging);
